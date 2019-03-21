@@ -44,7 +44,7 @@ namespace serial
             bool close_port();
             bool port_is_open();
 
-            void set_name_port();
+            void set_name_port( std::string port_name );
 
             virtual unsigned int read_data( std::vector<unsigned char>* buffer 
                     , unsigned int *size ) = 0;
@@ -53,15 +53,15 @@ namespace serial
                     , unsigned int *size ) = 0;
 
             // OP stand for option_port
-            template <typename OP > set_options_port( OP data );
+            template < typename OP > set_options_port( OP data );
 
         protected:
             SerialPort( std::string port_name = "" );
             ~SerialPort();  
-            std::string port_name;
+            std::string port_name; // this variable collect name of port will be use
             boost::asio::io_service io_service;
             boost::asio::serial_port io_port;
-            _boost_errc error_code;
+            _boost_errc error_code; // this variable use to mangage about value of error code
 
     }
 
