@@ -27,7 +27,6 @@
 #ifndef _ZEABUS_SERIAL_SERIAL_PORT_H
 #define _ZEABUS_SERIAL_SERIAL_PORT_H
 
-namespace _boost_serial_port = boost::asio::serial_port_base;
 namespace _boost_errc = boost::system::errc;
 
 namespace zeabus
@@ -53,7 +52,7 @@ namespace serial
                     , unsigned int *size ) = 0;
 
             // OP stand for option_port
-            template < typename OP > set_options_port( OP data );
+            template < typename OP >bool set_options_port( OP data );
 
         protected:
             SerialPort( std::string port_name = "" );
@@ -61,9 +60,10 @@ namespace serial
             std::string port_name; // this variable collect name of port will be use
             boost::asio::io_service io_service;
             boost::asio::serial_port io_port;
-            _boost_errc error_code; // this variable use to mangage about value of error code
+            // this variable use to mangage about value of error code
+            boost::system::error_code error_code; 
 
-    }
+    };
 
 }
 

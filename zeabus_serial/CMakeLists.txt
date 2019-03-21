@@ -13,6 +13,12 @@ endif()
 find_package(ament_cmake REQUIRED )
 find_package(Boost REQUIRED )
 
+include_directories( include )
+
+add_library( serial SHARED
+    src/serial_port.cpp )
+ament_target_dependencies( serial Boost )
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights

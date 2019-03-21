@@ -28,7 +28,7 @@ namespace serial
         bool result;
         try
         {
-            this->io_port.open( this->name );
+            this->io_port.open( this->port_name );
             result = true;
         }
         catch( const std::exception& error_message )
@@ -42,15 +42,14 @@ namespace serial
     {
         bool result;
         this->io_port.close( this->error_code );
-        if( this->error_code == _boost_errc:::success )
+        if( this->error_code == _boost_errc::success )
         {
             result = true;
         }
         else
         {
             result = false;
-            printf( "Failure close port %s by error code is %d\n" , this->port_name.c_str() 
-                    , this->error_code );
+            printf( "Failure close port %s\n" , this->port_name.c_str() );
         }
         return result;
     }
@@ -65,14 +64,13 @@ namespace serial
         this->port_name = port_name;
     }
 
-    template < typename OP >bool SerialPort::set_name_port( OP data )
+    template < typename OP >bool SerialPort::set_options_port( OP data )
     {
         bool result;
         this->io_port.set_option( data , this->error_code );
-        if( this->error_code !== _boost_errc::success )
+        if( this->error_code != _boost_errc::success )
         {
-            printf( "Failure set option %s by error code is %d\n" , this->port_name.c_str() 
-                    , this->error_code );
+            printf( "Failure set option %s\n" , this->port_name.c_str() );
             result = false;
         }
         else
