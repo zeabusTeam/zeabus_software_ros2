@@ -24,8 +24,8 @@
 //      if you are member of zeabus team can read in coda.io section Boost library
 //      last way you can read by search on google and suggest https://www.boost.org
 
-#ifndef _ZEABUS_SERIAL_SERIAL_PORT_H
-#define _ZEABUS_SERIAL_SERIAL_PORT_H
+#ifndef _ZEABUS_SERIAL_SERIAL_PORT_HPP__
+#define _ZEABUS_SERIAL_SERIAL_PORT_HPP__
 
 namespace _boost_errc = boost::system::errc;
 

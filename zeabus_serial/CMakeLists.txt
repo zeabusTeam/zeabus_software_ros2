@@ -15,9 +15,13 @@ find_package(Boost REQUIRED )
 
 include_directories( include )
 
-add_library( serial SHARED
+add_library( base_serial_port STATIC
     src/serial_port.cpp )
-ament_target_dependencies( serial Boost )
+ament_target_dependencies( base_serial_port Boost )
+
+add_library( derived_serial_port SHARED 
+    src/synchronous_port.cpp )
+ament_target_dependencies( derived_serial_port Boost base_serial_port )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
