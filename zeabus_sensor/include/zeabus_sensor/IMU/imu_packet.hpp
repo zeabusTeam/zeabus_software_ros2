@@ -43,12 +43,12 @@ namespace IMU
             void push_data( type_single data_single );
 
             template< typename type_single , typename... type_pack >
-            void push_data( type_single data_single , type_pack data_pack );
+            void push_data( type_single data_single , type_pack... data_pack );
 
         protected:
             std::vector< unsigned char > data; // use to collect buffer
  
-            unsigned long int data_4_byte( int offset , bool result ); 
+            unsigned long int data_4_byte( int offset ); 
             // use this when you want to add 4 byte or 4 member to one variable
 
             unsigned char MSB;

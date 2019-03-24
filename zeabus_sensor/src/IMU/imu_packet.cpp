@@ -16,7 +16,7 @@ namespace IMU
         this->reserve( size );
     }
 
-     Packet::print_check_memory()
+    void Packet::print_check_memory()
     {
         std::cout << "Now packet have number of element : " << (this->data).size() 
                 << "\n\tcapacity : " << (this->data).capacity() << "\n";
@@ -30,10 +30,10 @@ namespace IMU
     }
 
     template< typename type_single , typename... type_pack >
-    void Packet::push_data( type_single data_single , type_pack data_pack )
+    void Packet::push_data( type_single data_single , type_pack... data_pack )
     {
-        push_data( data_single );
-        push_data( data_pack... );
+        this->push_data( data_single );
+        this->push_data( data_pack... );
     }
 
     bool Packet::check_sum( bool self_check )
@@ -42,7 +42,7 @@ namespace IMU
         bool result = false;
         if( self_check )
         {
-            unsigned short int result = this->find_check_sum( size );
+            this->find_check_sum( size );
         }
         if( (this->data)[ size - 2 ] == (this->MSB) && (this->data)[ size - 1 ] == (this->LSB) )
         {
@@ -57,13 +57,13 @@ namespace IMU
         this->push_data( this->MSB , this->LSB ); 
     }
 
-    void Packet::find_check_sum( int last_data )
+    void Packet::find_check_sum( unsigned int last_data )
     {
         this->MSB = 0;
         this->LSB = 0;
-        for( int  run_number = 0 ; run < last_data ; run++ )
+        for( unsigned int run_number = 0 ; run_number < last_data ; run_number++ )
         {
-            (this->MSB) += (this->data)[run];
+            (this->MSB) += (this->data)[run_number];
             (this->LSB) += (this->MSB);
         }
     }
@@ -75,7 +75,7 @@ namespace IMU
 
     void Packet::fit_capacity()
     {
-        (this->data).shrint_to_fit();
+        (this->data).shrink_to_fit();
     }
 
     void Packet::resize( unsigned int size )
@@ -88,7 +88,7 @@ namespace IMU
         (this->data).reserve( size );
     }
 
-    unsigned long int data_4_byte( int offset , bool result )
+    unsigned long int Packet::data_4_byte( int offset )
     {
         return ( (unsigned long int) (this->data)[offset] ) << 24 
                 | ( (unsigned long int ) (this->data)[offset + 1 ] << 16 )
