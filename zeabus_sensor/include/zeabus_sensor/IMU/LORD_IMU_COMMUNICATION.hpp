@@ -7,6 +7,9 @@
 // This file we collect about protocol data to connect with LORD microstrain IMU 3dm-gx5-45
 // we reference from 3dm-gx4-45_data_communicatio_protocaol_manual.pdf
 
+#ifndef _ZEABUS_SENSOR_IMU_LORD_IMU_COMMUNICATION_HPP__
+#define _ZEABUS_SENSOR_IMU_LORD_IMU_COMMUNICATION_HPP__
+
 namespace zeabus
 {
 
@@ -75,3 +78,5 @@ namespace LORD_MICROSTRAIN
 }
 
 }
+
+#endif
