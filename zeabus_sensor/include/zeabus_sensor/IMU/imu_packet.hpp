@@ -24,9 +24,11 @@ namespace IMU
 
             void print_check_memory(); // this function for check about size of vector
 
-            bool check_sum();
+            bool check_sum( bool self_check = true );
 
             void add_check_sum();
+
+            void find_check_sum( unsigned int last_data ); 
 
             void fit_capacity();
 
@@ -48,6 +50,9 @@ namespace IMU
  
             unsigned long int data_4_byte( int offset , bool result ); 
             // use this when you want to add 4 byte or 4 member to one variable
+
+            unsigned char MSB;
+            unsigned char LSB;
 
     };
 
