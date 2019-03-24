@@ -17,7 +17,7 @@ find_package(rclcpp REQUIRED)
 include_directories( include )
 
 add_library( imu_handle SHARED
-    src/IMU/imu_packet.cpp )
+    src/IMU/packet.cpp )
 ament_target_dependencies( imu_handle zeabus_serial )
 
 if(BUILD_TESTING)

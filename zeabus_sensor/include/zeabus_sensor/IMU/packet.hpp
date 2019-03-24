@@ -1,4 +1,4 @@
-// FILE         : imu_packet.hpp
+// FILE         : packet.hpp
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH , 22
 
@@ -8,8 +8,8 @@
 // we include this because we want to use printf
 #include    <iostream> // standard library of c++ language
 
-#ifndef _ZEABUS_SENSOR_IMU_IMU_PACKET_HPP__
-#define _ZEABUS_SENSOR_IMU_IMU_PACKET_HPP__
+#ifndef _ZEABUS_SENSOR_IMU_PACKET_HPP__
+#define _ZEABUS_SENSOR_IMU_PACKET_HPP__
 
 namespace zeabus
 {

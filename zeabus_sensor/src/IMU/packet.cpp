@@ -1,12 +1,11 @@
-// FILE         : imu_packet.cpp
+// FILE         : packet.cpp
 // AUTHOR       : Supasan Kommonlit
 // CREATE DATE  : 2019, MARCH 24
 
-#include    <zeabus_sensor/IMU/imu_packet.hpp>
+#include    <zeabus_sensor/IMU/packet.hpp>
 
 namespace zeabus
 {
-
 namespace sensor
 {
 namespace IMU
