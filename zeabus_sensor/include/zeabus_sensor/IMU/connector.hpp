@@ -4,6 +4,8 @@
 
 #include    <zeabus_sensor/IMU/packet.hpp>
 
+#include    <zeabus_sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
+
 #include    <zeabus_serial/synchronous_port.hpp>
 
 #include    <iostream>
@@ -21,7 +23,7 @@ namespace sensor
 namespace IMU
 {
 
-    class Connector : public Packet
+    class Connector : public Packet , public zeabus::serial::SynchronousPort
     {
         public:
             Connector( std::string port_name = "" , unsigned int size = 100 );
@@ -36,14 +38,14 @@ namespace IMU
             bool enable_IMU_data_stream();
             bool resume();
 
-            void print_data( std::string message = "" ); 
+            bool read_stream();
 
         protected:
-            zeabus::serial::SynchronousPort port;
-
             unsigned char rate;
 
             void init_header();
+
+            bool read_reply( unsigned char descriptor_byte , int max_round = 1 );
 
     };
 
