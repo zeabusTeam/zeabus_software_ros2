@@ -95,6 +95,24 @@ namespace IMU
                 | ( (unsigned long int ) (this->data)[offset + 3 ] );
     }
  
+    void Packet::print_data( std::string message )
+    {
+        if( message == "")
+        {
+            printf("Data on buufer : " );
+        }
+        else
+        {
+            printf("%s : " , message.c_str() );
+        }
+        for( std::vector<unsigned char>::iterator point = (this->data).begin() ; 
+                point != (this->data).end() ; point++ )
+        {
+            printf("%2x " , *(point) );
+        }
+        printf("\n");
+    }
+
 }
 
 }

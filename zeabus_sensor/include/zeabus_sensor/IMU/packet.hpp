@@ -48,6 +48,8 @@ namespace IMU
             template< typename type_single , typename... type_pack >
             void push_data( type_single data_single , type_pack... data_pack );
 
+            void print_data( std::string message = "" );
+
         protected:
             std::vector< unsigned char > data; // use to collect buffer
  
