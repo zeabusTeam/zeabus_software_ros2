@@ -47,6 +47,13 @@ namespace IMU
         {
             result  = true;
         }
+        else
+        {
+            ; // Have statement when you define macro _CHECK_RESPONSE_
+#ifdef _CHECK_RESPONSE_
+            printf("Wrong check sum\n");
+#endif
+        }
         return result;
     }
 

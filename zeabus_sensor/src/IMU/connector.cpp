@@ -4,6 +4,8 @@
 
 #include    <zeabus_sensor/IMU/connector.hpp>
 
+// All code have reference from data-sheet of 3dm-gx5-45_data-commmunication_protocol.pdf
+
 namespace zeabus
 {
 
@@ -39,7 +41,7 @@ namespace IMU
         if( num_check != (this->data).size() )
         {
 #ifdef _ERROR_TYPE_
-            printf("Print error type amont valur to writing and can wiite %ld\n" , numcheck );
+            printf("Print error type amont valur to writing and can wiite %ld\n" , num_check );
 #endif
         }
         else
@@ -79,7 +81,7 @@ namespace IMU
         if( num_check != (this->data).size() )
         {
 #ifdef _ERROR_TYPE_
-            printf("Print error type amont value to writing and can write %ld\n" , numcheck );
+            printf("Print error type amont value to writing and can write %ld\n" , num_check );
 #endif
         }
         else
@@ -87,7 +89,7 @@ namespace IMU
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR ) )
             {
 #ifdef _CHECK_RESPONSE_
-            this->print_data( "data for reply" );
+                this->print_data( "data for reply" );
 #endif
                 if( this->check_sum() )
                 {
@@ -100,6 +102,45 @@ namespace IMU
     }
 
 }
+
+    bool Connector::resume() // unlock idle mode to data stream mode page 40 
+    {
+        bool result = false;
+        unsigned int num_check;
+        this->init_header();
+        this->push_data( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 , 0x02
+                , LORD_MICROSTRAIN::COMMAND::BASE::RESUME );
+        this->add_check_sum();
+#ifdef _PRINT_DATA_CONNECTION_
+        this->print_data( "data for resume");
+#endif
+
+#ifdef _CHECK_MEMORY_
+        printf("Resume command detail of buffer is ");
+        this->print_check_memory();
+#endif
+        num_check = this->write_data( &(this->data) , (this->data).size() );
+        if( num_check != (this->data).size() )
+        {
+#ifdef _ERROR_TYPE_
+            printf("Print error type amont value to writing and can write %ld\n" , num_check );
+#endif
+        }
+        else
+        {
+            if( this->read_reply( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR ) )
+            {
+#ifdef _CHECK_RESPONSE_
+                this->print_data( "data for reply");
+#endif
+                if( this->check_sum() )
+                {
+                    result = ( *( (this->data).end() - 2 ) == 0x00 );
+                }
+            }
+        }
+        return result;
+    }
 
 }
 
