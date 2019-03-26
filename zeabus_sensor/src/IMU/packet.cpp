@@ -56,6 +56,9 @@ namespace IMU
         this->push_data( this->MSB , this->LSB ); 
     }
 
+    // This will use solution for find check sum in IMU Lord Microstrain protocal
+    // until first data/member to last data/member (in parameter) 
+    // collect checksum to MSB LSB variable
     void Packet::find_check_sum( unsigned int last_data )
     {
         this->MSB = 0;
@@ -67,26 +70,31 @@ namespace IMU
         }
     }
 
+    // This will resize packet to zero member
     void Packet::clear_member()
     {
         (this->data).resize( 0 );
     }
 
+    // This will reallocate capacity to fit with size of member
     void Packet::fit_capacity()
     {
         (this->data).shrink_to_fit();
     }
 
+    // This will resize of packet to value of size 
     void Packet::resize( unsigned int size )
     {
         (this->data).resize( size );
     }
 
+    // We will reserve allocate capacity for this packet
     void Packet::reserve( unsigned int size )
     {
         (this->data).reserve( size );
     }
 
+    // We will make 4 bytes to 1 data ( 32 bits )
     unsigned long int Packet::data_4_byte( int offset )
     {
         return ( (unsigned long int) (this->data)[offset] ) << 24 
@@ -94,7 +102,8 @@ namespace IMU
                 | ( (unsigned long int ) (this->data)[offset + 2 ] << 8 )
                 | ( (unsigned long int ) (this->data)[offset + 3 ] );
     }
- 
+
+    // We will print all data in packet follow your message 
     void Packet::print_data( std::string message )
     {
         if( message == "")
