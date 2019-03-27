@@ -14,12 +14,12 @@ find_package(ament_cmake REQUIRED)
 find_package(zeabus_serial REQUIRED)
 find_package(rclcpp REQUIRED)
 
-include_directories( include )
+include_directories( include 
+    /home/sevinar/zeabus_workspace/src/zeabus_software/zeabus_serial/include )
 
 add_library( imu_handle SHARED
     src/IMU/packet.cpp 
     src/IMU/connector.cpp )
-ament_target_dependencies( imu_handle zeabus_serial )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

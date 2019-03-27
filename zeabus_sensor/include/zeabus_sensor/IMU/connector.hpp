@@ -37,7 +37,6 @@ namespace IMU
             bool set_IMU_message_format( unsigned char first_type , unsigned char second_type
                     , unsigned char thrid_type );
             bool enable_IMU_data_stream();
-            bool resume();
 
             bool read_stream();
 
@@ -48,7 +47,7 @@ namespace IMU
 
             void init_header();
 
-            bool read_reply( unsigned char descriptor_byte , int max_round = 1 );
+            bool read_reply( unsigned char descriptor_byte , unsigned int max_round = 1 );
 
         private:
             std::vector<unsigned char> reader_buffer;

@@ -46,10 +46,10 @@ namespace serial
             void set_name_port( std::string port_name );
 
             virtual unsigned int read_data( std::vector<unsigned char>* buffer 
-                    , unsigned int *size ) = 0;
+                    , unsigned int size ) = 0;
 
             virtual unsigned int write_data( std::vector<unsigned char>* buffer
-                    , unsigned int *size ) = 0;
+                    , unsigned int size ) = 0;
 
             // OP stand for option_port
             template < typename OP >bool set_options_port( OP data );

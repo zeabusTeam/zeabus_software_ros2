@@ -17,11 +17,9 @@ include_directories( include )
 
 add_library( base_serial_port STATIC
     src/serial_port.cpp )
-ament_target_dependencies( base_serial_port Boost )
 
 add_library( derived_serial_port SHARED 
     src/synchronous_port.cpp )
-ament_target_dependencies( derived_serial_port Boost base_serial_port )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -33,5 +31,20 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+install( TARGETS
+    base_serial_port
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install( TARGETS
+    derived_serial_port
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+target_include_directories( derived_serial_port PUBLIC )
 
 ament_package()

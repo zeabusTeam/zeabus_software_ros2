@@ -16,7 +16,7 @@ namespace IMU
 {
 
     Connector::Connector( std::string port_name , unsigned int size ) : 
-            SynchronousPort( portname ) , Packet( size )
+            SynchronousPort( port_name ) , Packet( size )
     {
         (this->reader_buffer).reserve( (unsigned int) 100 );
     }
@@ -103,48 +103,6 @@ namespace IMU
         return result;
     }
 
-}
-
-    bool Connector::resume() // unlock idle mode to data stream mode page 40 
-    {
-        bool result = false;
-        unsigned int num_check;
-        this->init_header();
-        this->push_data( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 , 0x02
-                , LORD_MICROSTRAIN::COMMAND::BASE::RESUME );
-        this->add_check_sum();
-#ifdef _PRINT_DATA_CONNECTION_
-        this->print_data( "data for resume");
-#endif
-
-#ifdef _CHECK_MEMORY_
-        printf("Resume command detail of buffer is ");
-        this->print_check_memory();
-#endif
-        num_check = this->write_data( &(this->data) , (this->data).size() );
-        if( num_check != (this->data).size() )
-        {
-#ifdef _ERROR_TYPE_
-            printf("Print error type amont value to writing and can write %ld\n" , num_check );
-#endif
-            ; // if don't define _ERROR_TYPE_ will make is blank statement
-        }
-        else
-        {
-            if( this->read_reply( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR ) )
-            {
-#ifdef _CHECK_RESPONSE_
-                this->print_data( "data for reply resume");
-#endif
-                if( this->check_sum() )
-                {
-                    result = ( *( (this->data).end() - 2 ) == 0x00 );
-                }
-            }
-        }
-        return result;
-    }
-
     void Connector::set_IMU_rate( int rate )
     {
         this->front_rate = (unsigned char ) ( ( (rate) & 0xff00 ) >> 8 );
@@ -201,8 +159,8 @@ namespace IMU
         unsigned int num_check;
         this->init_header();
         this->push_data( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR , 0x0a 
-            , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS , 0x01 , 0x01 , 0x01 
-            , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS , 0x01 , 0x03 , 0x00 );
+                , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS, 0x01 , 0x01 , 0x01 
+                , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS , 0x01 , 0x03 , 0x00 );
         this->add_check_sum();
 #ifdef _PRINT_DATA_CONNECTION_
         this->print_data("Command set enable IMU AND Estimate filter");
@@ -281,7 +239,7 @@ namespace IMU
         this->push_data( 0x75 , 0x65 );
     }
 
-    bool read_reply( unsigned char descriptor_byte ,unsigned int max_round )
+    bool Connector::read_reply( unsigned char descriptor_byte ,unsigned int max_round )
     {
         bool result = true;
         for( unsigned int round = 0 ; ( round < max_round ) && result ; round++ )
@@ -290,7 +248,7 @@ namespace IMU
             for( unsigned int individual = 0 ;  individual < 5 ; individual++ )
             {
                 (void)this->read_data( &(this->reader_buffer) , 1 );
-                if( (this->read_data)[0] == 'u' )
+                if( (this->reader_buffer)[0] == 'u' )
                 {
                     individual = 4;
                 } 
@@ -306,7 +264,7 @@ namespace IMU
             if( result )
             {
                 (void)this->read_data( &(this->reader_buffer) , 1 );
-                if( (this->read_data)[0] != 'e' )
+                if( (this->reader_buffer)[0] != 'e' )
                 {
                     continue;
                 }
@@ -315,14 +273,14 @@ namespace IMU
                     this->init_header();  
                 }
                 (this->reader_buffer).resize( 2 );
-                (void)this->read_data( &(this->reader_buffer) , 2 );
+                (void)(this->read_data( &(this->reader_buffer) , 2 ));
                 this->push_vector( &(this->reader_buffer) );
                 (this->reader_buffer).resize( (this->data)[3] );
-                (void)this->read_data( &(this->reader_buffer) , (this->reader_buffer).size() );
+                (void)(this->read_data( &(this->reader_buffer) , (this->reader_buffer).size() ));
                 this->push_vector( &(this->reader_buffer) );
                 (this->reader_buffer).resize( 2 );
-                (void)this->read_data( &(this->reader_buffer) , 2 );
-                this->push_vector( *(this->reader_buffer) );
+                (void)(this->read_data( &(this->reader_buffer) , 2 ));
+                this->push_vector( &(this->reader_buffer) );
                 if( (this->data)[2] == descriptor_byte )
                 {
                     result = true;
@@ -345,6 +303,8 @@ namespace IMU
         }
         return result; 
     } 
+
+}
 
 }
 

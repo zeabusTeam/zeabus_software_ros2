@@ -47,7 +47,7 @@ namespace LORD_MICROSTRAIN
 			static const unsigned char IMU_MESSAGE_FORMAT = 0x08;
 			static const unsigned char GNSS_MESSAGE_FORMAT = 0x09;
 			static const unsigned char ESTIMATION_FILTER_MESSAGE_FORMAT = 0x0A;
-			static const unsigned char CONTINUOUS_DATA_STREAM = 0x11;
+			static const unsigned char CONTINUOUS = 0x11;
         }
     }
 
