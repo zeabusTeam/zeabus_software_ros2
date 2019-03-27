@@ -13,6 +13,11 @@
 
 #include    <vector>
 
+// Macro detail will print data for your purpose
+//      _PRINT_DATA_CONNECTION_ for print packet command
+//      _CHECK_MEMORY_ for print detail memory about packet <vector in c++ language>
+//      _ERROR_TYPE_ for data information if return false why we return that
+
 #ifndef _ZEABUS_SENSOR_IMU_CONNECTOR_HPP__
 #define _ZEABUS_SENSOR_IMU_CONNECTOR_HPP__
 
