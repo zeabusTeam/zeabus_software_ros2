@@ -55,7 +55,7 @@ namespace IMU
                 if( this->check_sum() )
                 {
                     // This is one case to can make result is true
-                    result = ( *( (this->data).end() - 2 ) == 0x00 );
+                    result = ( *( (this->data).end() - 3 ) == 0x00 );
                 }
             }
         }
@@ -228,8 +228,8 @@ namespace IMU
 #endif
                 if( this->check_sum() )
                 {
-                    result = ( *( (this->data).end() - 2 ) == 0x00 ) 
-                            && ( *( (this->data).end() - 7 ) == 0x00 );
+                    result = ( *( (this->data).end() - 3 ) == 0x00 ) 
+                            && ( *( (this->data).end() - 8 ) == 0x00 );
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace IMU
                 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::RESUME );
         this->add_check_sum();
 #ifdef _PRINT_DATA_CONNECTION_
-        this->printf_data("Command for resume device");
+        this->print_data("Command for resume device");
 #endif
 #ifdef _CHECK_MEMORY_
         printf("resume device command detail of buffer is");
@@ -268,7 +268,7 @@ namespace IMU
 #endif
                 if( this->check_sum() )
                 {
-                    result = ( *( (this->data).end() - 2 ) == 0x00 );
+                    result = ( *( (this->data).end() - 3 ) == 0x00 );
                 }
             }
         }
@@ -286,14 +286,64 @@ namespace IMU
         bool result = true;
         for( unsigned int round = 0 ; ( round < max_round ) && result ; round++ )
         {
-            unsigned int individual_round;
-            for( individual_round = 0 ;  individual_round < 5 ; individual_round ++ )
+            this->reader_buffer.resize( 1 );
+            for( unsigned int individual = 0 ;  individual < 5 ; individual++ )
             {
-                
+                (void)this->read_data( &(this->reader_buffer) , 1 );
+                if( (this->read_data)[0] == 'u' )
+                {
+                    individual = 4;
+                } 
+                else if( individual == 4 )
+                {
+                    result = false;
+                }
+                else
+                {
+                    ; // for MISRA C++ 
+                }
             }
-            
+            if( result )
+            {
+                (void)this->read_data( &(this->reader_buffer) , 1 );
+                if( (this->read_data)[0] != 'e' )
+                {
+                    continue;
+                }
+                if( result )
+                {
+                    this->init_header();  
+                }
+                (this->reader_buffer).resize( 2 );
+                (void)this->read_data( &(this->reader_buffer) , 2 );
+                this->push_vector( &(this->reader_buffer) );
+                (this->reader_buffer).resize( (this->data)[3] );
+                (void)this->read_data( &(this->reader_buffer) , (this->reader_buffer).size() );
+                this->push_vector( &(this->reader_buffer) );
+                (this->reader_buffer).resize( 2 );
+                (void)this->read_data( &(this->reader_buffer) , 2 );
+                this->push_vector( *(this->reader_buffer) );
+                if( (this->data)[2] == descriptor_byte )
+                {
+                    result = true;
+                } 
+                round = max_round; 
+            }
         }
         return result;
+    }
+
+    bool Connector::read_stream()
+    {
+        bool result = this->read_reply( 0x80 );
+#ifdef _CHECK_RESPONSE_
+        this->print_data( "streamming data");
+#endif
+        if( result )
+        {
+            result = this->check_sum();
+        }
+        return result; 
     } 
 
 }
