@@ -9,11 +9,11 @@
 #include    <zeabus_sensor/IMU/connector.hpp>
 
 #include    <iostream>
-#include    <sstdio.h>
+#include    <stdio.h>
 
 int main( int argv , char** argc )
 {
-    zeabus::sensor::IMU::connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
+    zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
 
     bool status_file = true ; // use collect response of function
     bool skip_process = false; // use to don't do that process and don't alert

@@ -15,11 +15,10 @@ find_package(Boost REQUIRED )
 
 include_directories( include )
 
-add_library( base_serial_port STATIC
-    src/serial_port.cpp )
-
-add_library( derived_serial_port SHARED 
+add_library( zeabus_serial STATIC
+    src/serial_port.cpp 
     src/synchronous_port.cpp )
+ament_target_dependencies( zeabus_serial Boost)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -33,18 +32,10 @@ if(BUILD_TESTING)
 endif()
 
 install( TARGETS
-    base_serial_port
+    zeabus_serial
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
 )
-
-install( TARGETS
-    derived_serial_port
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-)
-target_include_directories( derived_serial_port PUBLIC )
 
 ament_package()
