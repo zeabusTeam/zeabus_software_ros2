@@ -129,6 +129,15 @@ namespace IMU
         printf("\n");
     }
 
+    void Packet::push_data( std::vector<unsigned char>* data_vector )
+    {
+        for( std::vector<unsigned>::iterator point = (this->data).begin() ; 
+                point != (this->data).end() ; point++ )
+        {
+            this->push_data( *(point) );
+        }
+    }
+
 }
 
 }
