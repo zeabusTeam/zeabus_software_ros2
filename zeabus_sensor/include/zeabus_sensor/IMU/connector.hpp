@@ -11,6 +11,8 @@
 #include    <iostream>
 #include    <stdio.h>
 
+#include    <vector>
+
 #ifndef _ZEABUS_SENSOR_IMU_CONNECTOR_HPP__
 #define _ZEABUS_SENSOR_IMU_CONNECTOR_HPP__
 
@@ -48,6 +50,8 @@ namespace IMU
 
             bool read_reply( unsigned char descriptor_byte , int max_round = 1 );
 
+        private:
+            std::vector<unsigned char> reader_buffer;
     };
 
 }

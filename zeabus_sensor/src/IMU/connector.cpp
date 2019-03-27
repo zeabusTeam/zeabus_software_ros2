@@ -18,6 +18,7 @@ namespace IMU
     Connector::Connector( std::string port_name , unsigned int size ) : 
             SynchronousPort( portname ) , Packet( size )
     {
+        (this->reader_buffer).reserve( (unsigned int) 100 );
     }
 
     bool Connector::set_idle()
@@ -270,6 +271,27 @@ namespace IMU
                     result = ( *( (this->data).end() - 2 ) == 0x00 );
                 }
             }
+        }
+        return result;
+    }
+
+    void Connector::init_header()
+    {
+        this->clear_member();
+        this->push_data( 0x75 , 0x65 );
+    }
+
+    bool read_reply( unsigned char descriptor_byte ,unsigned int max_round )
+    {
+        bool result = true;
+        for( unsigned int round = 0 ; ( round < max_round ) && result ; round++ )
+        {
+            unsigned int individual_round;
+            for( individual_round = 0 ;  individual_round < 5 ; individual_round ++ )
+            {
+                
+            }
+            
         }
         return result;
     } 
