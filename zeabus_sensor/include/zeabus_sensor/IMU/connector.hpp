@@ -34,14 +34,15 @@ namespace IMU
             void set_IMU_rate( int rate );
             bool set_IMU_message_format( unsigned char first_type , unsigned char second_type
                     , unsigned char thrid_type );
-            bool save_IMU_message_format();
             bool enable_IMU_data_stream();
             bool resume();
 
             bool read_stream();
 
         protected:
-            unsigned char rate;
+            // we split to 2 variable because our individual member is unsigned char
+            unsigned char front_rate;
+            unsigned char back_rate;
 
             void init_header();
 
