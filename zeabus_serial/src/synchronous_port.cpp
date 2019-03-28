@@ -2,7 +2,7 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH, 22
 
-#include    <zeabus_serial/synchronous_port.hpp>
+#include    <zeabus/serial/synchronous_port.hpp>
 
 namespace zeabus
 {
