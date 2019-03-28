@@ -12,24 +12,28 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(zeabus_serial REQUIRED) # this we make we must to compile zeabus_serial first
-find_package(Boost REQUIRED COMPONENTS)
 find_package(rclcpp REQUIRED)
 
-set( zeabus_serial /home/sevinar/zeabus_workspace/src/zeabus_software/zeabus_serial )
+find_library( SynchroPortLib PATHS ${zeabus_serial_LIBRARIES})
+set( zeabus_serial_headers ${zeabus_serial_INCLUDE_DIRS})
+set( zeabus_serial_libraries ${zeabus_serial_LIBRARIES})
+set( zeabus_serial_library_synchro_port $<zeabus_serial_LIBRARIES:SynchroPortLib>)
 
-include_directories( include 
-    ${zeabus_serial}/include 
-    ${Boost_INCLUDE_DIRS} )
+configure_file(
+    "${PROJECT_SOURCE_DIR}/zeabus_sensor_path.hpp.in"
+    "${PROJECT_BINARY_DIR}/zeabus_sensor_path.hpp"
+)
 
-add_executable( imu_node 
-    ${zeabus_serial}/src/serial_port.cpp
-    ${zeabus_serial}/src/synchronous_port.cpp
-    src/IMU/packet.cpp 
-    src/IMU/connector.cpp 
-    src/IMU/node.cpp 
-    ) 
-target_link_libraries( imu_node ${Boost_LIBRARIES})
-ament_target_dependencies( imu_node ${Boost_LIBRARIES})
+include_directories( include
+    ${zeabus_serial_headers} 
+)
+
+add_library( IMULib SHARED
+    src/IMU/packet.cpp
+    src/IMU/connector.cpp
+)
+target_link_libraries( IMULib ${zeabus_serial_LIBRARIES} )
+ament_target_dependencies( IMULib zeabus_serial )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

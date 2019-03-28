@@ -2,11 +2,11 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH, 25
 
-#include    <zeabus_sensor/IMU/packet.hpp>
+#include    <zeabus/sensor/IMU/packet.hpp>
 
-#include    <zeabus_sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
+#include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
 
-#include    <zeabus_serial/synchronous_port.hpp>
+#include    <zeabus/serial/synchronous_port.hpp>
 
 #include    <iostream>
 #include    <stdio.h>

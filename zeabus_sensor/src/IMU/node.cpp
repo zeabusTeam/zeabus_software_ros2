@@ -6,7 +6,7 @@
 #define _CHECK_MEMORY_
 #define _PRINT_DATA_CONNECTION_
 
-#include    <zeabus_sensor/IMU/connector.hpp>
+#include    <zeabus/sensor/IMU/connector.hpp>
 
 #include    <iostream>
 #include    <stdio.h>

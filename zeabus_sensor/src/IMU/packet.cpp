@@ -2,7 +2,7 @@
 // AUTHOR       : Supasan Kommonlit
 // CREATE DATE  : 2019, MARCH 24
 
-#include    <zeabus_sensor/IMU/packet.hpp>
+#include    <zeabus/sensor/IMU/packet.hpp>
 
 namespace zeabus
 {

@@ -29,7 +29,7 @@ ament_export_include_directories( include )
 ament_export_libraries( SynchronousPortLib )
 
 install(
-    DIRECTORY include
+    DIRECTORY "${PROJECT_SOURCE_DIR}/include/zeabus"
     DESTINATION include
 )
 
