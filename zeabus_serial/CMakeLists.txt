@@ -28,9 +28,11 @@ ament_export_dependencies(
 ament_export_include_directories( include )
 ament_export_libraries( SynchronousPortLib )
 
+set( synchronous_port_header "${PROJECT_SOURCE_DIR}/src/synchronous_port.hpp")
+
 install(
-    DIRECTORY "${PROJECT_SOURCE_DIR}/include/zeabus"
-    DESTINATION include
+    FILES ${synchronous_port_header}
+    DESTINATION include/zeabus/sensor
 )
 
 install(

@@ -1,3 +1,2 @@
 #define _zeabus_serial_headers_ "@zeabus_serial_headers@"
 #define _zeabus_serial_libraries_ "@zeabus_serial_libraries@"
-#define _zeabus_serial_library_synchro_port_ "@zeabus_serial_library_synchro_port@"

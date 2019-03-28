@@ -17,7 +17,6 @@ find_package(rclcpp REQUIRED)
 find_library( SynchroPortLib PATHS ${zeabus_serial_LIBRARIES})
 set( zeabus_serial_headers ${zeabus_serial_INCLUDE_DIRS})
 set( zeabus_serial_libraries ${zeabus_serial_LIBRARIES})
-set( zeabus_serial_library_synchro_port $<zeabus_serial_LIBRARIES:SynchroPortLib>)
 
 configure_file(
     "${PROJECT_SOURCE_DIR}/zeabus_sensor_path.hpp.in"
@@ -34,6 +33,9 @@ add_library( IMULib SHARED
 )
 target_link_libraries( IMULib ${zeabus_serial_LIBRARIES} )
 ament_target_dependencies( IMULib zeabus_serial )
+
+add_executable( imu_node src/IMU/node.cpp )
+target_link_libraries( imu_node ${zeabus_serial_LIBRARIES} IMULib)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
