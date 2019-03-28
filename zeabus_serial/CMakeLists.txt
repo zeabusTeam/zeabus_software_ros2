@@ -21,26 +21,14 @@ add_library( SynchronousPortLib SHARED
 )
 target_link_libraries( SynchronousPortLib ${Boost_LIBRARIES})
 
-ament_export_dependencies(
-    Boost
-)
+install( TARGETS SynchronousPortLib DESTINATION bin ) 
+install( TARGETS SynchronousPortLib LIBRARY DESTINATION lib )
+install( FILES ${PROJECT_SOURCE_DIR}/src/synchronous_port.hpp 
+        DESTINATION include/zeabus/serial )
 
-ament_export_include_directories( include )
+ament_export_dependencies( Boost )
+ament_export_include_directories( "${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/src")
 ament_export_libraries( SynchronousPortLib )
-
-set( synchronous_port_header "${PROJECT_SOURCE_DIR}/src/synchronous_port.hpp")
-
-install(
-    FILES ${synchronous_port_header}
-    DESTINATION include/zeabus/sensor
-)
-
-install(
-    TARGETS SynchronousPortLib
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

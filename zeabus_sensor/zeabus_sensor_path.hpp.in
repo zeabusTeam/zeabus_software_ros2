@@ -1,2 +1,3 @@
+#define _zeabus_serial_dir_ "@zeabus_serial_dir@"
 #define _zeabus_serial_headers_ "@zeabus_serial_headers@"
 #define _zeabus_serial_libraries_ "@zeabus_serial_libraries@"
