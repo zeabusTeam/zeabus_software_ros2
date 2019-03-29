@@ -2,24 +2,26 @@ cmake_minimum_required( VERSION 3.5 )
 project( zeabus )
 
 find_package( ament_cmake REQUIRED )
-find_package( Boost REQUIRED COMPONENTS system)
+find_package( Boost REQUIRED  )
 
-set( include_lib
-    "${PROJECT_SOURCE_DIR}/serial/header"
-    "${PROJECT_SOURCE_DIR}/sensor/IMU/header"
-    "${PROJECT_SOURCE_DIR}/serial/src"
-    "${PROJECT_SOURCE_DIR}/sensor/IMU/src"
-    
+include_directories( 
+    "${PROJECT_SOURCE_DIR}/src/" 
+    "${Boost_INCLUDE_DIR}"
 )
 
-include_directories( ${include_lib} )
+ament_export_include_directories( "${PROJECT_SOURCE_DIR}/include" )
 
-add_subdirectory( serial )
-set( EXTRA_LIBS ${EXTRA_LIBS} zeabus_serial_lib)
+add_subdirectory( src )
 
-add_subdirectory( sensor )
-set( EXTRA_LIBS ${EXTRA_LIBS} zeabus_sensor_IMU_lib)
+set( EXTRA_LIBS SynchronousPort IMUConnector )
 
-ament_export_include_directories( ${include_lib} "${PROJECT_SOURCE_DIR}")
+ament_export_libraries( ${EXTRA_LIBS} )
+
+install( DIRECTORY "${PROJECT_SOURCE_DIR}/include/" DESTINATION include )
+
+install( TARGETS ${EXTRA_LIBS}
+    ARCHIVE DESTINATION bin
+    LIBRARY DESTINATION lib
+)
 
 ament_package()

@@ -2,7 +2,7 @@
 // AUTHOR       :   Supasan Komonlit
 // CREATE DATE  :   2019, MARCH 22
 
-#include    "serial_port.hpp"
+#include    <zeabus/serial/serial_port.hpp>
 
 // This file will derived to zeabus::serial::SerialPort that make me can include just one file.
 // That mean this file we create class for connect to hardware by serial port connection.

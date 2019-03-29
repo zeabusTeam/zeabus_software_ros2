@@ -2,7 +2,7 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH 25
 
-#include    "connector.hpp"
+#include    <zeabus/sensor/IMU/connector.hpp>
 
 // All code have reference from data-sheet of 3dm-gx5-45_data-commmunication_protocol.pdf
 
