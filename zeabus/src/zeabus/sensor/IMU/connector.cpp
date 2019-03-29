@@ -26,7 +26,7 @@ namespace IMU
         bool result = false;
         unsigned int num_check;
         this->init_header(); // Init header file for buffer
-        this->push_data( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 
+        variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 
                 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::IDLE );
         this->add_check_sum();
 #ifdef _PRINT_DATA_CONNECTION_
@@ -67,8 +67,8 @@ namespace IMU
         bool result = false;
         unsigned int num_check;
         this->init_header();
-        this->push_data( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 , 0x02 
-                , LORD_MICROSTRAIN::COMMAND::BASE::PING );
+        variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR 
+                , 0x02 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::PING );
         this->add_check_sum();
 #ifdef _PRINT_DATA_CONNECTION_
         this->print_data( "data for ping");
@@ -116,9 +116,9 @@ namespace IMU
         unsigned int num_check;
         // Part prepare data for writing
         this->init_header();
-        this->push_data( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR , 0x0d , 0x0d
-                , LORD_MICROSTRAIN::COMMAND::SENSOR::IMU_MESSAGE_FORMAT , 0x01 , 0x03 
-                , first_type , this->front_rate , this->back_rate 
+        variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR , 0x0d
+                , 0x0d , LORD_MICROSTRAIN::COMMAND::SENSOR::IMU_MESSAGE_FORMAT , 0x01 
+                , 0x03 , first_type , this->front_rate , this->back_rate 
                 , second_type , this->front_rate , this->back_rate 
                 , third_type , this->front_rate , this->back_rate );
         this->add_check_sum();
@@ -158,7 +158,7 @@ namespace IMU
         bool result = false;
         unsigned int num_check;
         this->init_header();
-        this->push_data( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR , 0x0a 
+        variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR , 0x0a
                 , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS, 0x01 , 0x01 , 0x01 
                 , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS , 0x01 , 0x03 , 0x00 );
         this->add_check_sum();
@@ -199,8 +199,8 @@ namespace IMU
         bool result = false;
         unsigned int num_check;
         this->init_header();
-        this->push_data( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 
-                , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::RESUME );
+        variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR 
+                , 0x02 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::RESUME );
         this->add_check_sum();
 #ifdef _PRINT_DATA_CONNECTION_
         this->print_data("Command for resume device");
@@ -236,7 +236,7 @@ namespace IMU
     void Connector::init_header()
     {
         this->clear_member();
-        this->push_data( 0x75 , 0x65 );
+        variadic::push_data( &(this->data) , 0x75 , 0x65 );
     }
 
     bool Connector::read_reply( unsigned char descriptor_byte ,unsigned int max_round )
