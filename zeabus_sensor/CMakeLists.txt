@@ -24,10 +24,12 @@ configure_file(
     "${PROJECT_BINARY_DIR}/zeabus_sensor_path.hpp"
 )
 
-include_directories( ${zeabus_INCLUDE_DIRS} )
+include_directories( ${zeabus_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 
 add_executable( imu_node src/imu_node.cpp )
-target_link_libraries( imu_node ${zeabus_LIBRARIES} ${Boost_LIBRARIES})
+ament_target_dependencies( imu_node ${zeabus_LIBRARIES} )
+target_link_libraries( imu_node ${zeabus_LIBRARIES} ${Boost_LIBRARIES} )
+
 install( FILES ${PROJECT_BINARY_DIR}/imu_node DESTINATION bin )
 
 if(BUILD_TESTING)

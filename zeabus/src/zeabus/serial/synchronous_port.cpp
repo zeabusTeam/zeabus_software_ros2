@@ -35,7 +35,7 @@ namespace serial
             }
             else
             {
-                printf("error in read data code is %ld\n" , this->error_code );
+                printf("error in read data code is %d\n" , (this->error_code).value() );
                 size_data = 0;
             }
         }while( true );
@@ -49,7 +49,7 @@ namespace serial
                 , boost::asio::buffer( buffer , size ) , this->error_code );
         if( this->error_code != _boost_errc::success )
         {
-            printf( "error in write data code is %ld\n" , this->error_code );
+            printf( "error in write data code is %d\n" , (this->error_code).value() );
         }
         return size_data;
     }

@@ -31,8 +31,9 @@ ament_export_libraries( ${EXTRA_LIBS} )
 install( DIRECTORY "${PROJECT_SOURCE_DIR}/include/" DESTINATION include )
 
 install( TARGETS ${EXTRA_LIBS}
-    ARCHIVE DESTINATION bin
+    ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
 )
 
 ament_package()
