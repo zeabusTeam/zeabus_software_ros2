@@ -2,14 +2,24 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH, 25
 
-#include    <zeabus/sensor/IMU/connector.cpp>
+#include    <zeabus/sensor/IMU/packet.hpp>
+
+#include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
+
+#include    <zeabus/serial/synchronous_port.hpp>
+
+#include    <iostream>
+#include    <stdio.h>
+
+#include    <vector>
 
 // Macro detail will print data for your purpose
 //      _PRINT_DATA_CONNECTION_ for print packet command
 //      _CHECK_MEMORY_ for print detail memory about packet <vector in c++ language>
 //      _ERROR_TYPE_ for data information if return false why we return that
 
-#ifdef __BUILD_HEADER_ZEABUS__
+#ifndef _ZEABUS_SENSOR_IMU_CONNECTOR_HPP__
+#define _ZEABUS_SENSOR_IMU_CONNECTOR_HPP__
 
 namespace zeabus
 {

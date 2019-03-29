@@ -8,9 +8,8 @@
 // we include this because we want to use printf
 #include    <iostream> // standard library of c++ language
 
-#include    <zeabus/sensor/IMU/packet.cpp>
-
-#ifndef __BUILD_HEADER_ZEABUS__
+#ifndef _ZEABUS_SENSOR_IMU_PACKET_HPP__
+#define _ZEABUS_SENSOR_IMU_PACKET_HPP__
 
 namespace zeabus
 {

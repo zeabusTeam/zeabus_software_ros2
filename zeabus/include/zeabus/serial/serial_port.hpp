@@ -1,6 +1,6 @@
-//  FILE            : serial_port.hpp
-//  AUTHOR          : Supasan Komonlit
-//  CREATE ON       : 2019, MARCH 29
+// FILE         :   serial_port.hpp
+// AUTHOR       :   Supasan Komonlit
+// CREATE DATE  :   2019, MARCH 21
 
 // SENSOR OPTION DOCUMENTS
 //      baud rate       : rate for send symbol of message. learn in DATA COMMUNICATION
@@ -15,9 +15,17 @@
 //      if you are member of zeabus team can read in coda.io section Boost library
 //      last way you can read by search on google and suggest https://www.boost.org
 
-#include    <zeabus/serial/serial_port.cpp>
+#include    <boost/asio.hpp>
 
-#ifdef __BUILD_HEADER_ZEBUS__
+#include    <boost/core/noncopyable.hpp> 
+
+#include    <vector> //  use to make buffer for get data
+
+#include    <stdio.h> // standard library of c language
+#include    <iostream> // standard library of c++ language
+
+#ifndef _ZEABUS_SERIAL_SERIAL_PORT_HPP__
+#define _ZEABUS_SERIAL_SERIAL_PORT_HPP__
 
 namespace _boost_errc = boost::system::errc;
 
