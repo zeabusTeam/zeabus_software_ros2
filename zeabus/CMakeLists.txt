@@ -17,7 +17,7 @@ configure_file(
     "${PROJECT_BINARY_DIR}/zeabus_path.hpp"
 )
 
-ament_export_include_directories( "${PROJECT_SOURCE_DIR}/include" )
+ament_export_include_directories( "${PROJECT_SOURCE_DIR}/src" )
 
 add_subdirectory( src )
 
