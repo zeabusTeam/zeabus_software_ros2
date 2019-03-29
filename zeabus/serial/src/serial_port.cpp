@@ -2,7 +2,10 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH, 22
 
-#include    <zeabus/serial/serial_port.hpp>
+#include    "serial_port.hpp"
+
+#ifndef _ZEABUS_SERIAL_SERIAL_PORT_CPP__
+#define _ZEABUS_SERIAL_SERIAL_PORT_CPP__
 
 namespace zeabus
 {
@@ -83,3 +86,5 @@ namespace serial
 }
 
 }
+
+#endif

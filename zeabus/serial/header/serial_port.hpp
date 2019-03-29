@@ -2,15 +2,6 @@
 // AUTHOR       :   Supasan Komonlit
 // CREATE DATE  :   2019, MARCH 21
 
-#include    <boost/asio.hpp>
-
-#include    <boost/core/noncopyable.hpp> 
-
-#include    <vector> //  use to make buffer for get data
-
-#include    <stdio.h> // standard library of c language
-#include    <iostream> // standard library of c++ language
-
 // SENSOR OPTION DOCUMENTS
 //      baud rate       : rate for send symbol of message. learn in DATA COMMUNICATION
 //      flow control    : The ability to stop and restart flow without any loss of bytes
@@ -23,6 +14,15 @@
 //      You can contact to Supasan (GAP) by supasan.k@ku.th
 //      if you are member of zeabus team can read in coda.io section Boost library
 //      last way you can read by search on google and suggest https://www.boost.org
+
+#include    <boost/asio.hpp>
+
+#include    <boost/core/noncopyable.hpp> 
+
+#include    <vector> //  use to make buffer for get data
+
+#include    <stdio.h> // standard library of c language
+#include    <iostream> // standard library of c++ language
 
 #ifndef _ZEABUS_SERIAL_SERIAL_PORT_HPP__
 #define _ZEABUS_SERIAL_SERIAL_PORT_HPP__
@@ -68,4 +68,5 @@ namespace serial
 }
 
 }
+
 #endif

@@ -2,7 +2,10 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, MARCH, 22
 
-#include    <zeabus/serial/synchronous_port.hpp>
+#include    "synchronous_port.hpp"
+
+#ifndef _ZEABUS_SERIAL_SYNCHRONOUS_PORT_CPP__
+#define _ZEABUS_SERIAL_SYNCHRONOUS_PORT_CPP__
 
 namespace zeabus
 {
@@ -57,3 +60,5 @@ namespace serial
 }
 
 }
+
+#endif
