@@ -1,3 +1,3 @@
-#define _zeabus_serial_dir_ "@zeabus_serial_dir@"
-#define _zeabus_serial_headers_ "@zeabus_serial_headers@"
-#define _zeabus_serial_libraries_ "@zeabus_serial_libraries@"
+#define zeabus_dir "@zeabus_dir@"
+#define zeabus_include_dir "@zeabus_include_dir@"
+#define zeabus_libraries "@zeabus_libraries@"

@@ -15,9 +15,9 @@ find_package(zeabus REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Boost REQUIRED system)
 
-set( zeabus_serial_dir ${zeabus_DIR})
-set( zeabus_serial_headers ${zeabus_INCLUDE_DIRS})
-set( zeabus_serial_libraries ${zeabus_LIBRARIES})
+set( zeabus_dir ${zeabus_DIR})
+set( zeabus_include_dir ${zeabus_INCLUDE_DIRS})
+set( zeabus_libraries ${zeabus_LIBRARIES})
 
 configure_file(
     "${PROJECT_SOURCE_DIR}/zeabus_sensor_path.hpp.in"
@@ -26,7 +26,7 @@ configure_file(
 
 include_directories( ${zeabus_INCLUDE_DIRS} )
 
-add_executable( imu_node src/IMU/node.cpp )
+add_executable( imu_node src/imu_node.cpp )
 target_link_libraries( imu_node ${zeabus_LIBRARIES} ${Boost_LIBRARIES})
 install( FILES ${PROJECT_BINARY_DIR}/imu_node DESTINATION bin )
 
@@ -34,7 +34,5 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
-
-install( TARGETS)
 
 ament_package()
