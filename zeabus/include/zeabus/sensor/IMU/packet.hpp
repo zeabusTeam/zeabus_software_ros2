@@ -8,6 +8,8 @@
 // we include this because we want to use printf
 #include    <iostream> // standard library of c++ language
 
+#include    <zeabus/variadic/utilize_vector.hpp>
+
 #ifndef _ZEABUS_SENSOR_IMU_PACKET_HPP__
 #define _ZEABUS_SENSOR_IMU_PACKET_HPP__
 
@@ -40,13 +42,6 @@ namespace IMU
             void resize( unsigned int size );
 
             void reserve( unsigned int size );
-
-            // For push data we use pattern of variadic function
-            template< typename type_single >
-            void push_data( type_single data_single );
-
-            template< typename type_single , typename... type_pack >
-            void push_data( type_single data_single , type_pack... data_pack );
 
             void push_vector( std::vector<unsigned char>* data_vector ); 
 

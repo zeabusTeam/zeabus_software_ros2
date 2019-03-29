@@ -2,7 +2,7 @@
 // AUTHOR       : Supasan Kommonlit
 // CREATE DATE  : 2019, MARCH 24
 
-#include    "zeabus/sensor/IMU/packet.hpp"
+#include    <zeabus/sensor/IMU/packet.hpp>
 
 namespace zeabus
 {
@@ -19,20 +19,6 @@ namespace IMU
     {
         std::cout << "Now packet have number of element : " << (this->data).size() 
                 << "\n\tcapacity : " << (this->data).capacity() << "\n";
-    }
-
-    // Pattern is variadic fuction
-    template< typename type_single >
-    void Packet::push_data( type_single data_single )
-    {
-        (this->data).push_back( (unsigned char)data_single );
-    }
-
-    template< typename type_single , typename... type_pack >
-    void Packet::push_data( type_single data_single , type_pack... data_pack )
-    {
-        this->push_data( data_single );
-        this->push_data( data_pack... );
     }
 
     bool Packet::check_sum( bool self_check )
@@ -60,7 +46,7 @@ namespace IMU
     void Packet::add_check_sum( )
     {
         this->find_check_sum( (this->data).size() );
-        this->push_data( this->MSB , this->LSB ); 
+        variadic::push_data( &(this->data) , this->MSB , this->LSB ); 
     }
 
     // This will use solution for find check sum in IMU Lord Microstrain protocal
@@ -134,7 +120,7 @@ namespace IMU
         for( std::vector<unsigned char>::iterator point = data_vector->begin() ; 
                 point != data_vector->end() ; point++ )
         {
-            this->push_data( *(point) );
+            (this->data).push_back( *(point) );
         }
     }
 
