@@ -15,6 +15,8 @@
 #include    <iostream>
 #include    <stdio.h>
 
+namespace Asio = boost::asio;
+
 int main( int argv , char** argc )
 {
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
@@ -39,7 +41,19 @@ int main( int argv , char** argc )
         printf("Finish open_port process\n");
     }
 #endif
-    
+
+	(void)imu.set_option_port( Asio::serial_port_base::flow_control( 
+							Asio::serial_port_base::flow_control::none ) );
+	(void)imu.set_option_port( Asio::serial_port_base::parity( 
+							Asio::serial_port_base::parity::none ) );
+	(void)imu.set_option_port( Asio::serial_port_base::stop_bits( 
+							Asio::serial_port_base::stop_bits::one ) );
+	(void)imu.set_option_port( Asio::serial_port_base::character_size( (unsigned char) 8 ) );
+
+#ifdef _DECLARE_PROCESS_
+    printf("Finish setup port of imu\n");
+#endif
+
     round = 0; // set init value counter is 0 for start process
     while( ! skip_process )
     {
