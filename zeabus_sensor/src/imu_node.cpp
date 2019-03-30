@@ -61,7 +61,7 @@ int main( int argv , char** argc )
         status_file = imu.set_idle();
         if( ! status_file )
         {
-            printf("round %d : Faile command set idle\n" , round );
+            printf("round %d : Failure command set idle\n" , round );
         }
         else
         {
@@ -73,6 +73,7 @@ int main( int argv , char** argc )
             skip_process = true;
         }
     }
+
     round = 0; // set init value counter is 0 for start process
     while( ! skip_process )
     {

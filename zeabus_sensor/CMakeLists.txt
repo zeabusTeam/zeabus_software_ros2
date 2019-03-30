@@ -13,7 +13,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(zeabus REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(Boost REQUIRED system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 set( zeabus_dir ${zeabus_DIR})
 set( zeabus_include_dir ${zeabus_INCLUDE_DIRS})

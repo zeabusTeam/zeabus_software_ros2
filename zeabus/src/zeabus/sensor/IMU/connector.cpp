@@ -4,6 +4,10 @@
 
 #include    <zeabus/sensor/IMU/connector.hpp>
 
+#define _PRINT_DATA_CONNECTION_
+#define _CHECK_MEMORY_
+#define _ERROR_TYPE_
+
 // All code have reference from data-sheet of 3dm-gx5-45_data-commmunication_protocol.pdf
 
 namespace zeabus
@@ -42,7 +46,7 @@ namespace IMU
         if( num_check != (this->data).size() )
         {
 #ifdef _ERROR_TYPE_
-            printf("Print error type amont valur to writing and can wiite %ld\n" , num_check );
+            printf("Print error type amont valur to writing and can wiite %d\n" , num_check );
 #endif
         }
         else
@@ -82,7 +86,7 @@ namespace IMU
         if( num_check != (this->data).size() )
         {
 #ifdef _ERROR_TYPE_
-            printf("Print error type amont value to writing and can write %ld\n" , num_check );
+            printf("Print error type amont value to writing and can write %d\n" , num_check );
 #endif
             ; // In case can't write data equal size of packet
         }

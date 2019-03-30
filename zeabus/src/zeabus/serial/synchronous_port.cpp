@@ -4,7 +4,7 @@
 
 #include    <zeabus/serial/synchronous_port.hpp>
 
-#define _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
+//#define _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
 
 namespace zeabus
 {
@@ -21,16 +21,16 @@ namespace serial
         {
             (*buffer).resize( size ); // must ensure your buffer have size can collect data
         }
-#ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-        printf("SynchrobousPort::read_data want read data number %d\n" , size );
-#endif
         unsigned int size_data;
         do
         {   
+#ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
+            printf("SynchrobousPort::read_data want read data number %d\n" , size );
+#endif
             size_data = boost::asio::read( this->io_port , boost::asio::buffer( *buffer , size )
                     , this->error_code );
 #ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-        printf("SynchrobousPort::wirte_data can read data number %d\n" , size );
+            printf("SynchrobousPort::read_data can read data number %d\n" , size );
 #endif
             if( this->error_code == _boost_errc::resource_unavailable_try_again 
                     || this->error_code == _boost_errc::interrupted )
@@ -57,7 +57,7 @@ namespace serial
         printf("SynchrobousPort::wirte_data want write data number %d\n" , size );
 #endif
         unsigned int size_data = boost::asio::write( this->io_port 
-                , boost::asio::buffer( buffer , size ) , this->error_code );
+                , boost::asio::buffer( *buffer , size ) , this->error_code );
 #ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
         printf("SynchrobousPort::wirte_data can write data number %d\n" , size );
 #endif

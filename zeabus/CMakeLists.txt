@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.5 )
 project( zeabus )
 
 find_package( ament_cmake REQUIRED )
-find_package( Boost REQUIRED  )
+find_package( Boost REQUIRED COMPONENTS )
 
 set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src" )
 set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include") 
