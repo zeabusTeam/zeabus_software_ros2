@@ -6,7 +6,9 @@
 
 #define _PRINT_DATA_CONNECTION_
 #define _CHECK_MEMORY_
+#define _CHECK_RESPONSE_
 #define _ERROR_TYPE_
+//#define _SEQUENCE_READ_REPLY_
 
 // All code have reference from data-sheet of 3dm-gx5-45_data-commmunication_protocol.pdf
 
@@ -146,7 +148,7 @@ namespace IMU
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR ) )
             {
 #ifdef _CHECK_RESPONSE_
-                this->print_data("data for reply set IMU message")
+                this->print_data("data for reply set IMU message");
 #endif
                 if( this->check_sum() )
                 {
@@ -186,7 +188,7 @@ namespace IMU
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR ) )
             {
 #ifdef _CHECK_RESPONSE_
-                this->print_data( "data for reply enable data")
+                this->print_data( "data for reply enable data");
 #endif
                 if( this->check_sum() )
                 {
@@ -226,7 +228,7 @@ namespace IMU
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR ) )
             {
 #ifdef _CHECK_RESPONSE_
-                this->print_data( "data for reply resume")
+                this->print_data( "data for reply resume");
 #endif
                 if( this->check_sum() )
                 {

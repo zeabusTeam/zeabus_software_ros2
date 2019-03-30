@@ -4,6 +4,8 @@
 
 #include    <zeabus/sensor/IMU/packet.hpp>
 
+#define _CHECK_RESPONSE_
+
 namespace zeabus
 {
 namespace sensor
@@ -21,17 +23,24 @@ namespace IMU
                 << "\n\tcapacity : " << (this->data).capacity() << "\n";
     }
 
-    bool Packet::check_sum( bool self_check )
+    bool Packet::check_sum( bool all_data )
     {
         unsigned int size = (this->data).size();
         bool result = false;
-        if( self_check )
+        if( all_data )
         {
             this->find_check_sum( size );
+        }
+        else
+        {
+            this->find_check_sum( size - 2 );
         }
         if( (this->data)[ size - 2 ] == (this->MSB) && (this->data)[ size - 1 ] == (this->LSB) )
         {
             result  = true;
+#ifdef _CHECK_RESPONSE_
+            printf("Correct check sum\n");
+#endif
         }
         else
         {
@@ -52,15 +61,18 @@ namespace IMU
     // This will use solution for find check sum in IMU Lord Microstrain protocal
     // until first data/member to last data/member (in parameter) 
     // collect checksum to MSB LSB variable
-    void Packet::find_check_sum( unsigned int last_data )
+    void Packet::find_check_sum( unsigned int size_data )
     {
         this->MSB = 0;
         this->LSB = 0;
-        for( unsigned int run_number = 0 ; run_number < last_data ; run_number++ )
+        for( unsigned int run_number = 0 ; run_number < size_data ; run_number++ )
         {
             (this->MSB) += (this->data)[run_number];
             (this->LSB) += (this->MSB);
         }
+#ifdef _CHECK_RESPONSE_
+        printf("Output from find check sum MSB - LSB %2x - %2x\n" , this->MSB , this->LSB );
+#endif
     }
 
     // This will resize packet to zero member

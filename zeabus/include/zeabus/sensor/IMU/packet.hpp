@@ -29,11 +29,11 @@ namespace IMU
 
             void print_check_memory(); // this function for check about size of vector
 
-            bool check_sum( bool self_check = true );
+            bool check_sum( bool all_data = true );
 
             void add_check_sum();
 
-            void find_check_sum( unsigned int last_data ); 
+            void find_check_sum( unsigned int size_data ); 
 
             void fit_capacity();
 
