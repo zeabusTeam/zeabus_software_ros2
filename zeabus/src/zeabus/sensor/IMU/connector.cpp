@@ -102,7 +102,7 @@ namespace IMU
                 if( this->check_sum() )
                 {
                     // This is one case to return true we check descriptor checksum and ACK
-                    result = ( *( ( this->data).end() - 2 ) == 0x00 ); 
+                    result = ( *( ( this->data).end() - 3 ) == 0x00 ); 
                 }
             }
         }

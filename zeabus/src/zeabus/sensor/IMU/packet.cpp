@@ -23,15 +23,11 @@ namespace IMU
                 << "\n\tcapacity : " << (this->data).capacity() << "\n";
     }
 
-    bool Packet::check_sum( bool all_data )
+    bool Packet::check_sum( bool self_check )
     {
         unsigned int size = (this->data).size();
         bool result = false;
-        if( all_data )
-        {
-            this->find_check_sum( size );
-        }
-        else
+        if( self_check )
         {
             this->find_check_sum( size - 2 );
         }
