@@ -51,8 +51,11 @@ namespace serial
             virtual unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size ) = 0;
 
-            // OP stand for option_port
-            template < typename OP >bool set_options_port( OP data );
+            bool set_option_port( boost::asio::serial_port_base::baudrate data );
+            bool set_option_port( boost::asio::serial_port_base::flow_control data );
+            bool set_option_port( boost::asio::serial_port_base::parity data );
+            bool set_option_port( boost::asio::serial_port_base::stop_bits data );
+            bool set_option_port( boost::asio::serial_port_base::character_size data );
 
         protected:
             SerialPort( std::string port_name = "" );

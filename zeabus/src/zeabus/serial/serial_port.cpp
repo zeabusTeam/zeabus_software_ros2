@@ -64,7 +64,71 @@ namespace serial
         this->port_name = port_name;
     }
 
-    template < typename OP >bool SerialPort::set_options_port( OP data )
+    bool SerialPort::set_option_port( boost::asio::serial_port_base::baud_rate data )
+    {
+        bool result;
+        this->io_port.set_option( data , this->error_code );
+        if( this->error_code != _boost_errc::success )
+        {
+            printf( "Failure set option %s\n" , this->port_name.c_str() );
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    bool SerialPort::set_option_port( boost::asio::serial_port_base::flow_control data )
+    {
+        bool result;
+        this->io_port.set_option( data , this->error_code );
+        if( this->error_code != _boost_errc::success )
+        {
+            printf( "Failure set option %s\n" , this->port_name.c_str() );
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    bool SerialPort::set_option_port( boost::asio::serial_port_base::parity data )
+    {
+        bool result;
+        this->io_port.set_option( data , this->error_code );
+        if( this->error_code != _boost_errc::success )
+        {
+            printf( "Failure set option %s\n" , this->port_name.c_str() );
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    bool SerialPort::set_option_port( boost::asio::serial_port_base::stop_bits data )
+    {
+        bool result;
+        this->io_port.set_option( data , this->error_code );
+        if( this->error_code != _boost_errc::success )
+        {
+            printf( "Failure set option %s\n" , this->port_name.c_str() );
+            result = false;
+        }
+        else
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    bool SerialPort::set_option_port( boost::asio::serial_port_base::character_size data )
     {
         bool result;
         this->io_port.set_option( data , this->error_code );
