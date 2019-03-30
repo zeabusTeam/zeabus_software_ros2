@@ -6,6 +6,8 @@
 #define _CHECK_MEMORY_
 #define _PRINT_DATA_CONNECTION_
 
+#define _DECLARE_PROCESS_
+
 #include    <zeabus/sensor/IMU/connector.hpp>
 
 #include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
@@ -16,6 +18,10 @@
 int main( int argv , char** argc )
 {
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
+
+#ifdef _DECLARE_PROCESS_
+    printf("Finish declare imu object\n");
+#endif
 
     bool status_file = true ; // use collect response of function
     bool skip_process = false; // use to don't do that process and don't alert
@@ -28,6 +34,11 @@ int main( int argv , char** argc )
         printf("Failure to open port imu\n");
         skip_process = true;
     }
+#ifdef _DECLARE_PROCESS_
+    else{
+        printf("Finish open_port process\n");
+    }
+#endif
     
     round = 0; // set init value counter is 0 for start process
     while( ! skip_process )

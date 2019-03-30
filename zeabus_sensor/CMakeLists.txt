@@ -32,6 +32,11 @@ target_link_libraries( imu_node ${zeabus_LIBRARIES} ${Boost_LIBRARIES} )
 
 install( FILES ${PROJECT_BINARY_DIR}/imu_node DESTINATION bin )
 
+install( TARGETS 
+    imu_node 
+    DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
