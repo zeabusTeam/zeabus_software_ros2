@@ -38,7 +38,9 @@ namespace IMU
             bool set_idle(); // this command will stop stream and set imu ready for setting
             bool ping(); // ping command
             bool resume();
-            void set_IMU_rate( int rate );
+            // please send in mode or Rate Decimation
+            // calculate by Rate Decimation = IMU Base Rate / Desired Data Rate
+            void set_IMU_rate( int rate ); 
             bool set_IMU_message_format( unsigned char first_type , unsigned char second_type
                     , unsigned char thrid_type );
             bool enable_IMU_data_stream();
