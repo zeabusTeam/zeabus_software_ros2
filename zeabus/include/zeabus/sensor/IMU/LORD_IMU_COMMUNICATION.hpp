@@ -53,7 +53,7 @@ namespace LORD_MICROSTRAIN
 
     namespace DATA
     {
-        namespace IMU_DATA_SEt
+        namespace IMU_DATA_SET
         {
 			static const int DESCRIPTOR = 0x80;
 			static const int SCALED_ACCELEROMETER_VECTOR = 0x04;
@@ -62,7 +62,7 @@ namespace LORD_MICROSTRAIN
 			static const int SCALED_AMBIENT_PRESSURE = 0x17;
 			static const int DELTA_THETA_VECTOR = 0x7;
 			static const int DELTA_VELOCITY_VECTOR = 0x08;
-			static const int CF_ORIENTATION_MATRXI = 0x09;
+			static const int CF_ORIENTATION_MATRIX = 0x09;
 			static const int CF_QUATERNION = 0x0A;
 			static const int CF_EULER_ANGLES = 0x0C;
 			static const int CF_STABILIZED_MAG_VECTOR_NORTH = 0x10;
