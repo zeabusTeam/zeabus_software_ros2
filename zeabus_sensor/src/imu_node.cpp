@@ -17,6 +17,7 @@
 #include    "sensor_msgs/msg/imu.hpp"
 
 #include    <iostream>
+#include    <chrono>
 #include    <stdio.h>
 
 namespace Asio = boost::asio;
@@ -73,7 +74,7 @@ int main( int argv , char** argc )
             printf("round %d : Success command set idle\n\n" , round );
             break; // jump success this process
         }
-        if( round == limit_round )
+        if( round == (limit_round * 2) )
         {
             skip_process = true;
         }
@@ -126,7 +127,7 @@ int main( int argv , char** argc )
     // we not save because we have new set up always want to use
 
     round = 0;
-    while( ! skip_process )
+    while( false )
     {
         round++;
         status_file = imu.enable_IMU_data_stream();
@@ -146,7 +147,7 @@ int main( int argv , char** argc )
     }
 
     round = 0;
-    while( skip_process )
+    while( false )
     {
         round++;
         status_file = imu.resume();
@@ -172,7 +173,7 @@ int main( int argv , char** argc )
         auto node = rclcpp::Node::make_shared("imu_data");
         auto publisher = node->create_publisher< sensor_msgs::msg::Imu >("/sensor/imu");
         auto message = std::make_shared< sensor_msgs::msg::Imu >();
-        rclcpp::Rate rate( 50 );
+//        rclcpp::WallRate rate( std::chrono::milliseconds( 500 ) );
     }
 
 #ifdef _DECLARE_PROCESS_
@@ -209,12 +210,13 @@ int main( int argv , char** argc )
             printf("round %d : Success command set idle\n\n" , round );
             break; // jump success this process
         }
-        if( round == limit_round )
+        if( round == ( limit_round * 2 ) )
         {
             skip_process = true;
         }
     }
 
+    printf("Now close port of imu\n");
     imu.close_port();
 
     return 0;
