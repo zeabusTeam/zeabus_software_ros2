@@ -146,7 +146,7 @@ int main( int argv , char** argc )
     }
 
     round = 0;
-    while( ! skip_process )
+    while( skip_process )
     {
         round++;
         status_file = imu.resume();

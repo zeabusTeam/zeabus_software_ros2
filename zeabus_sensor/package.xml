@@ -6,6 +6,7 @@
     <description>Connection to hardware or sensor</description>
     <maintainer email="supasan.k@ku.th">Supasan Komonlit</maintainer>
     <license>TODO: License declaration</license>
+    <author>Supasan Komonlit</author>
 
     <buildtool_depend>ament_cmake</buildtool_depend>
 
@@ -17,9 +18,6 @@
 
     <build_depend>sensor_msgs</build_depend>
     <exec_depend>sensor_msgs</exec_depend>
-
-    <test_depend>ament_lint_auto</test_depend>
-    <test_depend>ament_lint_common</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
