@@ -29,7 +29,7 @@ int main( int argc , char** argv )
 
 #ifdef _DECLARE_PROCESS_
     printf("Finish declare imu object\n");
-#endif
+#endif // _DECLARE_PROCESS_
 
     bool status_file = true ; // use collect response of function
     bool skip_process = false; // use to don't do that process and don't alert
@@ -169,13 +169,6 @@ int main( int argc , char** argv )
 #ifdef _DECLARE_PROCESS_
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
-    if( ! skip_process ){
-        rclcpp::init( argc , argv );
-        auto node = rclcpp::Node::make_shared("imu_data");
-        auto publisher = node->create_publisher< sensor_msgs::msg::Imu >("/sensor/imu");
-        auto message = std::make_shared< sensor_msgs::msg::Imu >();
-//        rclcpp::WallRate rate( std::chrono::milliseconds( 500 ) );
-    }
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
@@ -198,7 +191,7 @@ int main( int argc , char** argv )
     rclcpp::shutdown();
 
     round = 0; // set init value counter is 0 for start process
-    while( ! skip_process )
+    while( rclcpp::ok() && ! skip_process )
     {
         round++;
         status_file = imu.set_idle(); // try to set imu to idle state
