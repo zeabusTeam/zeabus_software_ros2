@@ -157,6 +157,7 @@ int main( int argv , char** argc )
         else
         {
             printf("round %d : Success command resume data stream\n" , round );
+            break;
         }
         if( round == limit_round )
         {
@@ -167,16 +168,18 @@ int main( int argv , char** argc )
 #ifdef _DECLARE_PROCESS_
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
-    auto node = rclcpp::Node::make_shared("imu_data");
-    auto publisher = node->create_publisher< sensor_msgs::msg::Imu >("/sensor/imu");
-    auto message = std::make_shared< sensor_msgs::msg::Imu >();
-    rclcpp::WallRate loop_rate( 50 );
+    if( ! skip_process ){
+        auto node = rclcpp::Node::make_shared("imu_data");
+        auto publisher = node->create_publisher< sensor_msgs::msg::Imu >("/sensor/imu");
+        auto message = std::make_shared< sensor_msgs::msg::Imu >();
+        rclcpp::Rate rate( 50 );
+    }
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
 #endif // _DECLARE_PROCESS_
     
-    while( rclcpp::ok() && (! skip_process) )
+    while( ! skip_process )
     {
         status_file = imu.read_stream();
         if( status_file )
@@ -189,7 +192,6 @@ int main( int argv , char** argc )
         {
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
-        loop_rate.sleep();
     }
     rclcpp::shutdown();
 
