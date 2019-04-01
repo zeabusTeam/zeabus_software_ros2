@@ -14,6 +14,7 @@ find_package(ament_cmake REQUIRED)
 find_package(zeabus REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system)
+find_package(sensor_msgs REQUIRED)
 
 set( zeabus_dir ${zeabus_DIR})
 set( zeabus_include_dir ${zeabus_INCLUDE_DIRS})
@@ -27,7 +28,7 @@ configure_file(
 include_directories( ${zeabus_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 
 add_executable( imu_node src/imu_node.cpp)
-ament_target_dependencies( imu_node ${zeabus_LIBRARIES} )
+ament_target_dependencies( imu_node ${zeabus_LIBRARIES} rclcpp sensor_msgs)
 target_link_libraries( imu_node ${zeabus_LIBRARIES} ${Boost_LIBRARIES} )
 
 install( FILES ${PROJECT_BINARY_DIR}/imu_node DESTINATION bin )
