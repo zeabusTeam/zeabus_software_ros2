@@ -24,7 +24,7 @@ namespace bytes
     unsigned long int data32;
     unsigned long long int data64;
     
-    bool vector_to_floats( std::vector<unsigned char>* set_data 
+    bool vector_to_float( std::vector<unsigned char>* set_data 
             , float* result , unsigned int offset = 0 );
 
     bool vector_to_double( std::vector<unsigned char>* set_data
