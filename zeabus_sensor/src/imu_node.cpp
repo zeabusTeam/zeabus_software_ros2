@@ -23,7 +23,7 @@
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
 
-int main( int argv , char** argc )
+int main( int argc , char** argv )
 {
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
 
@@ -170,6 +170,7 @@ int main( int argv , char** argc )
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
     if( ! skip_process ){
+        rclcpp::init( argc , argv );
         auto node = rclcpp::Node::make_shared("imu_data");
         auto publisher = node->create_publisher< sensor_msgs::msg::Imu >("/sensor/imu");
         auto message = std::make_shared< sensor_msgs::msg::Imu >();
