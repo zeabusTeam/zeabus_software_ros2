@@ -24,7 +24,8 @@ add_subdirectory( src )
 
 set( EXTRA_LIBS 
     SynchronousPort 
-    IMUConnector 
+    IMUConnector
+    Convert 
 )
 
 ament_export_libraries( ${EXTRA_LIBS} )
