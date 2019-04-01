@@ -3,6 +3,7 @@ project( zeabus )
 
 find_package( ament_cmake REQUIRED )
 find_package( Boost REQUIRED COMPONENTS )
+find_package( geometry_msgs REQUIRED )
 
 set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src" )
 set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include") 
