@@ -14,7 +14,7 @@ namespace bytes
 {
 
     bool vector_to_float( std::vector< unsigned char>* set_data 
-            , float* result , unsigned int offset = 0 )
+            , float* answer , unsigned int offset )
     {
         bool result = false;
         if( offset + 3 < set_data->size() )
@@ -23,14 +23,14 @@ namespace bytes
                     |( ( (unsigned long int) ((*set_data)[offset + 1] ) ) << 16 )
                     |( ( (unsigned long int) ((*set_data)[offset + 2] ) ) << 8 )
                     |( ( (unsigned long int) ((*set_data)[offset + 3] ) ) << 0 );
-            memcpy( result , &data32 , 4 );
+            memcpy( answer , &data32 , 4 );
             result = true;
         }
         return result;
     }
 
     bool vector_to_double( std::vector< unsigned char>* set_data
-            , double* result , unsigned int offset = 0 )
+            , double* answer , unsigned int offset )
     {
         bool result = false;
         if( offset + 7 < set_data->size() )
@@ -43,7 +43,7 @@ namespace bytes
                     |( ( (unsigned long long int) ((*set_data)[offset + 1] ) ) << 16 )
                     |( ( (unsigned long long int) ((*set_data)[offset + 2] ) ) << 8 )
                     |( ( (unsigned long long int) ((*set_data)[offset + 3] ) ) << 0 );
-            memcpy( result , &data64 );
+            memcpy( answer , &data64 , 8 );
             result = true;
         }
         return result;

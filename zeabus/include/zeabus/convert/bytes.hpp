@@ -6,6 +6,8 @@
 
 #include    <cstring> // import for function memcpy
 
+#include    <vector>
+
 // This file create for convert data bytes to variable type int / float or double up to you 
 // But ensure you have to study about size of type varaible and your data that are correct
 // for size of type varaible we reference from http://www.cplusplus.com/doc/tutorial/variables/
@@ -25,10 +27,10 @@ namespace bytes
     unsigned long long int data64;
     
     bool vector_to_float( std::vector<unsigned char>* set_data 
-            , float* result , unsigned int offset = 0 );
+            , float* answer , unsigned int offset = 0 );
 
     bool vector_to_double( std::vector<unsigned char>* set_data
-            , double* result , unsigned int offset = 0 );
+            , double* answer , unsigned int offset = 0 );
 
 } // namespace convert
 
