@@ -4,7 +4,7 @@
 
 #include    <zeabus/sensor/IMU/packet.hpp>
 
-#define _CHECK_RESPONSE_
+// #define _CHECK_RESPONSE_
 
 namespace zeabus
 {

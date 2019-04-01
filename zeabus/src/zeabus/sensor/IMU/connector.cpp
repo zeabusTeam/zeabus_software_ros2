@@ -4,9 +4,9 @@
 
 #include    <zeabus/sensor/IMU/connector.hpp>
 
-#define _PRINT_DATA_CONNECTION_
-#define _CHECK_MEMORY_
-#define _CHECK_RESPONSE_
+//#define _PRINT_DATA_CONNECTION_
+//#define _CHECK_MEMORY_
+//#define _CHECK_RESPONSE_
 #define _ERROR_TYPE_
 //#define _SEQUENCE_READ_REPLY_
 
@@ -152,7 +152,7 @@ namespace IMU
 #endif
                 if( this->check_sum() )
                 {
-                    result = ( *( (this->data).end() - 2 ) == 0x00 );
+                    result = ( *( (this->data).end() - 3 ) == 0x00 );
                 }
             }
         }
@@ -192,8 +192,7 @@ namespace IMU
 #endif
                 if( this->check_sum() )
                 {
-                    result = ( *( (this->data).end() - 3 ) == 0x00 ) 
-                            && ( *( (this->data).end() - 8 ) == 0x00 );
+                    result = ( *( (this->data).end() - 3 ) == 0x00 );  
                 }
             }
         }
