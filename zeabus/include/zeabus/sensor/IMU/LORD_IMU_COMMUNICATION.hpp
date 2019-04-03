@@ -25,29 +25,29 @@ namespace LORD_MICROSTRAIN
     {
         namespace BASE
         {
-            static const int DESCRIPTOR = 0x01;
-            static const int PING = 0x01;
-            static const int IDLE = 0x02;
-            static const int GET_INFORMATIOn = 0x03;
-            static const int GET_DESCRIPTOR = 0x04;
-			static const int RESUME = 0x06;
-			static const int EXTENDED_DEVICE_DESCRIPTOR = 0x07;
-			static const int GPS_TIME_UPDATE = 0x72;
-			static const int DEVICE_RESET = 0x7E;	
+            static const unsigned char DESCRIPTOR = 0x01;
+            static const unsigned char PING = 0x01;
+            static const unsigned char IDLE = 0x02;
+            static const unsigned char GET_INFORMATIOn = 0x03;
+            static const unsigned char GET_DESCRIPTOR = 0x04;
+			static const unsigned char RESUME = 0x06;
+			static const unsigned char EXTENDED_DEVICE_DESCRIPTOR = 0x07;
+			static const unsigned char GPS_TIME_UPDATE = 0x72;
+			static const unsigned char DEVICE_RESET = 0x7E;	
         }
 
         namespace SENSOR
         {
-			static const int DESCRIPTOR = 0x0C;
-			static const int POLL_IMU_DATA = 0x01;
-			static const int POLL_GNSS_DATA = 0x02;
-			static const int POLL_ESTIMATION_FILTER_DATA = 0x03;
-			static const int GET_IMU_DATA_BASE_RATE = 0x06;
-			static const int GET_GNSS_DATA_BASE_RATE = 0x07;
-			static const int IMU_MESSAGE_FORMAT = 0x08;
-			static const int GNSS_MESSAGE_FORMAT = 0x09;
-			static const int ESTIMATION_FILTER_MESSAGE_FORMAT = 0x0A;
-			static const int CONTINUOUS = 0x11;
+			static const unsigned char DESCRIPTOR = 0x0C;
+			static const unsigned char POLL_IMU_DATA = 0x01;
+			static const unsigned char POLL_GNSS_DATA = 0x02;
+			static const unsigned char POLL_ESTIMATION_FILTER_DATA = 0x03;
+			static const unsigned char GET_IMU_DATA_BASE_RATE = 0x06;
+			static const unsigned char GET_GNSS_DATA_BASE_RATE = 0x07;
+			static const unsigned char IMU_MESSAGE_FORMAT = 0x08;
+			static const unsigned char GNSS_MESSAGE_FORMAT = 0x09;
+			static const unsigned char ESTIMATION_FILTER_MESSAGE_FORMAT = 0x0A;
+			static const unsigned char CONTINUOUS = 0x11;
         }
     }
 
@@ -55,19 +55,19 @@ namespace LORD_MICROSTRAIN
     {
         namespace IMU_DATA_SET
         {
-			static const int DESCRIPTOR = 0x80;
-			static const int SCALED_ACCELEROMETER_VECTOR = 0x04;
-			static const int SCALED_GYRO_VECTOR = 0x05;
-			static const int SCALED_MAGNETOMETER_VECTOR = 0x06;
-			static const int SCALED_AMBIENT_PRESSURE = 0x17;
-			static const int DELTA_THETA_VECTOR = 0x7;
-			static const int DELTA_VELOCITY_VECTOR = 0x08;
-			static const int CF_ORIENTATION_MATRIX = 0x09;
-			static const int CF_QUATERNION = 0x0A;
-			static const int CF_EULER_ANGLES = 0x0C;
-			static const int CF_STABILIZED_MAG_VECTOR_NORTH = 0x10;
-			static const int CF_STABILIZED_ACCEL_VECTOR_UP = 0x11;
-			static const int GPS_CORRELATION_TIMESTAMP = 0x12;
+			static const unsigned char DESCRIPTOR = 0x80;
+			static const unsigned char SCALED_ACCELEROMETER_VECTOR = 0x04;
+			static const unsigned char SCALED_GYRO_VECTOR = 0x05;
+			static const unsigned char SCALED_MAGNETOMETER_VECTOR = 0x06;
+			static const unsigned char SCALED_AMBIENT_PRESSURE = 0x17;
+			static const unsigned char DELTA_THETA_VECTOR = 0x7;
+			static const unsigned char DELTA_VELOCITY_VECTOR = 0x08;
+			static const unsigned char CF_ORIENTATION_MATRIX = 0x09;
+			static const unsigned char CF_QUATERNION = 0x0A;
+			static const unsigned char CF_EULER_ANGLES = 0x0C;
+			static const unsigned char CF_STABILIZED_MAG_VECTOR_NORTH = 0x10;
+			static const unsigned char CF_STABILIZED_ACCEL_VECTOR_UP = 0x11;
+			static const unsigned char GPS_CORRELATION_TIMESTAMP = 0x12;
         }
     }
 

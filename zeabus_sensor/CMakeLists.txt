@@ -29,7 +29,10 @@ include_directories( ${zeabus_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 
 add_executable( imu_node src/imu_node.cpp)
 ament_target_dependencies( imu_node ${zeabus_LIBRARIES} rclcpp sensor_msgs)
-target_link_libraries( imu_node ${zeabus_LIBRARIES} ${Boost_LIBRARIES} )
+target_link_libraries( imu_node  
+    ${zeabus_LIBRARIES} 
+    ${Boost_LIBRARIES} 
+)
 
 install( TARGETS 
     imu_node 

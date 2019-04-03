@@ -47,8 +47,14 @@ namespace IMU
 
             void print_data( std::string message = "" );
 
-        protected:
+            unsigned int size_member();
+
+            unsigned char access_data( unsigned int position );
+            // for access_data in data <protected mode>
+            
             std::vector< unsigned char > data; // use to collect buffer
+
+        protected:
  
             unsigned long int data_4_byte( int offset ); 
             // use this when you want to add 4 byte or 4 member to one variable

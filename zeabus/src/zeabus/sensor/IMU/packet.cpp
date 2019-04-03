@@ -132,6 +132,16 @@ namespace IMU
         }
     }
 
+    unsigned int Packet::size_member()
+    {
+        return (this->data).size();
+    }
+
+    unsigned char Packet::access_data( unsigned int position )
+    {
+        return (this->data)[ position ];
+    }
+
 }
 
 }
