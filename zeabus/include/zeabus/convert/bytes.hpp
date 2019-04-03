@@ -23,9 +23,7 @@ namespace convert
 
 namespace bytes
 {
-    unsigned long int data32;
-    unsigned long long int data64;
-    
+
     bool vector_to_float( std::vector<unsigned char>* set_data 
             , float* answer , unsigned int offset = 0 );
 

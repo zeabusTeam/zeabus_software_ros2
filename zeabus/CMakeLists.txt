@@ -23,17 +23,27 @@ ament_export_include_directories( "${zeabus_include_path}" )
 
 add_subdirectory( src )
 
-set( EXTRA_LIBS 
+set( SHARED_LIBS 
     SynchronousPort 
     IMUConnector
-    Convert 
 )
 
-ament_export_libraries( ${EXTRA_LIBS} )
+set( STATIC_LIBS
+    Convert    
+)
+
+ament_export_libraries( ${STATIC_LIBS} )
+ament_export_libraries( ${SHARED_LIBS} )
 
 install( DIRECTORY "${PROJECT_SOURCE_DIR}/include/" DESTINATION include )
 
-install( TARGETS ${EXTRA_LIBS}
+install( TARGETS ${STATIC_LIBS}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install( TARGETS ${SHARED_LIBS}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
