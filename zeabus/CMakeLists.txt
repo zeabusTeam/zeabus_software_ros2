@@ -1,22 +1,17 @@
 cmake_minimum_required( VERSION 3.5 )
 project( zeabus )
 
-find_package( ament_cmake REQUIRED )
-find_package( Boost REQUIRED COMPONENTS )
+find_package( ament_cmake REQUIRED ) # For use tool buil source code or package
+find_package( Boost REQUIRED COMPONENTS ) # For use Boost library
 find_package( geometry_msgs REQUIRED )
+find_package( sensor_msgs REQUIRED )
 
-set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src" )
-set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include") 
+find_package( rosidl_default_generators REQUIRED ) # For build message? service and action
 
 include_directories( 
     "${zeabus_include_path}" 
     "${Boost_INCLUDE_DIR}"
     "${PROJECT_BINARY_DIR}"
-)
-
-configure_file(
-    "${PROJECT_SOURCE_DIR}/zeabus_path.hpp.in"
-    "${PROJECT_BINARY_DIR}/zeabus_path.hpp"
 )
 
 ament_export_include_directories( "${zeabus_include_path}" )
@@ -31,6 +26,8 @@ set( SHARED_LIBS
 set( STATIC_LIBS
     Convert    
 )
+
+rosidl_generate_interfaces( ${PROJECT})
 
 ament_export_libraries( ${STATIC_LIBS} )
 ament_export_libraries( ${SHARED_LIBS} )
