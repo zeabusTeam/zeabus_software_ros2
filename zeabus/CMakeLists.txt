@@ -5,8 +5,12 @@ find_package( ament_cmake REQUIRED ) # For use tool buil source code or package
 find_package( Boost REQUIRED COMPONENTS ) # For use Boost library
 find_package( geometry_msgs REQUIRED )
 find_package( sensor_msgs REQUIRED )
+find_package( std_msgs REQUIRED )
 
 find_package( rosidl_default_generators REQUIRED ) # For build message? service and action
+
+set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src")
+set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include")
 
 include_directories( 
     "${zeabus_include_path}" 
@@ -27,7 +31,12 @@ set( STATIC_LIBS
     Convert    
 )
 
-rosidl_generate_interfaces( ${PROJECT})
+rosidl_generate_interfaces( ${PROJECT_NAME}
+    "srv/GetSensorImu.srv"
+    DEPENDENCIES std_msgs sensor_msgs geometry_msgs
+)
+
+ament_export_dependencies( rosidl_default_runtime ) # add went want to build service file
 
 ament_export_libraries( ${STATIC_LIBS} )
 ament_export_libraries( ${SHARED_LIBS} )
