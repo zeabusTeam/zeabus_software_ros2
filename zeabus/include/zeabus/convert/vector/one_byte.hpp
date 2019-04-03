@@ -1,10 +1,8 @@
-// FILE         : message.hpp
+// FILE         : one_byte.hpp
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, APRIL 1
 
 #include    <zeabus/convert/bytes.hpp>
-
-#include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
 
 #include    "geometry_msgs/msg/vector3.hpp"
 #include    "geometry_msgs/msg/quaternion.hpp"
@@ -20,30 +18,31 @@
 //      geometry_msgs/Vector3 linear_acceleration
 // This library have make for data packet from LORD MICROSTRAIN 3dm-gx5-45 only
 
-#ifndef _ZEABUS_SENSOR_IMU_MESSAGE_HPP__
-#define _ZEABUS_SENSOR_IMU_MESSAGE_HPP__
+#ifndef _ZEABUS_CONVERT_VECTOR_ONE_BYTE_HPP
+#define _ZEABUS_CONVERT_VECTOR_ONE_BYTE_HPP
 
 namespace zeabus
 {
 
-namespace sensor
+namespace convert
 {
 
-namespace IMU
+namespace vector
+{
+
+namespace one_byte
 {
 // for use this function we ensure you will use with packet form of LORD MICROSTRAIN
 // That make we don't care about error of size
-    void angular_velocity( std::vector< unsigned char >* data 
+    void vector3( std::vector< unsigned char >* data 
             , geometry_msgs::msg::Vector3* message , unsigned int offset );
 
-    void linear_acceleration( std::vector< unsigned char >* data 
-            , geometry_msgs::msg::Vector3* message , unsigned int offset );
-
-    void orientation( std::vector< unsigned char >* data 
+    void quaternion( std::vector< unsigned char >* data 
             , geometry_msgs::msg::Quaternion* message , unsigned int offset );
 
 // How to know about offset? please send postion start that data or +1 position of Descriptor
     
+} // namespace one_byte
 
 } // namespace IMU
 
