@@ -13,7 +13,7 @@
 
 #include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
 
-#include    <zeabus/convert/bytes.hpp>
+#include    <zeabus/sensor/IMU/message.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
@@ -21,6 +21,7 @@
 #include    <iostream>
 #include    <chrono>
 #include    <stdio.h>
+#include    <vector>
 
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
@@ -172,10 +173,13 @@ int main( int argc , char** argv )
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
 
+    sensor_msgs::msg::Imu message;
+
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
 #endif // _DECLARE_PROCESS_
-    
+
+    unsigned int limit_number;    
     while( ! skip_process )
     {
         status_file = imu.read_stream();
@@ -184,12 +188,52 @@ int main( int argc , char** argv )
 #ifdef _PRINT_DATA_STREAM_
             imu.print_data( "IMU message " );
 #endif // _PRINT_DATA_STREAM_
+            printf( "<--- IMU ---> GOOD DATA\n\n");
+            // start at position 5 indent 0 1 2 3  
+            // because 0 - 4 is header and description of data packet
+            // pattern of packet for 0 1 2 3 4 are u e DESC_Packet Payload_length Field_length
+            limit_number = imu.size_member() - 2 ;
+            for( unsigned int run = 5 ; ( run < limit_number ) && ( ! skip_process ) ; )
+            {
+                switch imu.access_data( position )
+                {
+                case IMUProtocal::DATA::IMU_DATA_SET::SCALED_ACCELEROMETER_VECTOR :
+                    zeabus::sensor::IMU::linear_acceleration( &(imu.data) 
+                            , &(message.linear_acceleration) , run + 1);
+                    run += 14 ; // skip to point start data < 1 byte >
+                                // skip to point legth data 3 floats < 12 bytes >
+                                // skip for next field length < 1 byte>
+                                // this will make run will point to next descriptor
+                    break;
+                case IMUProtocal::DATA::IMU_DATA_SET::SCALED_GYRO_VECTOR :
+                    zeabus::sensor::IMU::angular_velocity( &(imu.data)
+                            , &(message.angular_velocity) , run + 1);
+                    run += 14 ; // skip to point start data < 1 byte >
+                                // skip to point legth data 3 floats < 12 bytes >
+                                // skip for next field length < 1 byte>
+                                // this will make run will point to next descriptor
+                    break;
+                case IMUProtocal::DATA::IMU_DATA_SET::CF_QUATERNION :
+                    zeabus::sensor::IMU::orientation( &(imu.data) 
+                            , &(message.orientation) , run + 1)
+                    run += 18 ; // skip to point start data < 1 byte >
+                                // skip to point legth data 4 floats < 12 bytes >
+                                // skip for next field length < 1 byte>
+                                // this will make run will point to next descriptor
+                    break;
+                default :
+                    printf("Switch case error for convert bits data to ros message\n");
+                    skip_process = true;
+                    break;
+                }
+            }
         }
         else
         {
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
     }
+
     rclcpp::shutdown();
 
     round = 0; // set init value counter is 0 for start process
