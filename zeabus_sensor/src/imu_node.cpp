@@ -195,7 +195,7 @@ int main( int argc , char** argv )
             limit_number = imu.size_member() - 2 ;
             for( unsigned int run = 5 ; ( run < limit_number ) && ( ! skip_process ) ; )
             {
-                switch imu.access_data( position )
+                switch (imu.access_data( run ) )
                 {
                 case IMUProtocal::DATA::IMU_DATA_SET::SCALED_ACCELEROMETER_VECTOR :
                     zeabus::sensor::IMU::linear_acceleration( &(imu.data) 
@@ -215,7 +215,7 @@ int main( int argc , char** argv )
                     break;
                 case IMUProtocal::DATA::IMU_DATA_SET::CF_QUATERNION :
                     zeabus::sensor::IMU::orientation( &(imu.data) 
-                            , &(message.orientation) , run + 1)
+                            , &(message.orientation) , run + 1);
                     run += 18 ; // skip to point start data < 1 byte >
                                 // skip to point legth data 4 floats < 12 bytes >
                                 // skip for next field length < 1 byte>
