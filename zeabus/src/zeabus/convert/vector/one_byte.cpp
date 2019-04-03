@@ -2,7 +2,7 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE DATE  : 2019, APRIL 1
 
-#include    <zeabus/convert/vector.hpp>
+#include    <zeabus/convert/vector/one_byte.hpp>
 
 namespace zeabus
 {
