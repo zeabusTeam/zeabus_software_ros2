@@ -47,6 +47,8 @@ namespace IMU
 
             void print_data( std::string message = "" );
 
+            unsigned int size_member();
+
         protected:
             std::vector< unsigned char > data; // use to collect buffer
  

@@ -132,6 +132,11 @@ namespace IMU
         }
     }
 
+    unsigned int Packet::size_member()
+    {
+        return (this->data).size();
+    }
+
 }
 
 }
