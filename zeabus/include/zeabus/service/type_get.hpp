@@ -8,6 +8,9 @@
 
 #include    <iostream>
 
+// MACRO DETAIL FOR DEBUG
+//      _SERVICE_CALL_
+
 // warning this template using for service type get formal of srv
 //      bool data
 //      ---
@@ -41,19 +44,24 @@ namespace service
                     , const std::shared_ptr< request_type > request 
                     , const std::shared_ptr< response_type > response )
             {
+#ifdef _SERVICE_CALL_
+                std::cout << "Call service " << this->service_name << std::endl;
+#endif // _SERVICE_CALL_
                 response->data = *(this->data_pointer);
             } // function handle service
 
             // you will register pointer of data you want to response service
             auto create_service( data_type* data_pointer , std::string topic_name )
             {
+                this->service_name = topic_name;
                 this->data_pointer = data_pointer;
-                return this->node->create_service< response_type >( topic_name , )
+                return this->node->create_service< response_type >( topic_name , zeabus::ser)
             } // function create_service 
 
         protected:
             rclcpp::Node::SharedPtr node;
             data_type* data_pointer;
+            std::string service_name;
                 
             
     }; // class type_get

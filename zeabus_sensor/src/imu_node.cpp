@@ -15,6 +15,10 @@
 
 #include    <zeabus/convert/vector/one_byte.hpp>
 
+#include    <zeabus/service/type_get.hpp>
+
+#include    <zeabus/srv/get_sensor_imu.hpp>
+
 #include    "rclcpp/rclcpp.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
 
@@ -172,15 +176,19 @@ int main( int argc , char** argv )
 #ifdef _DECLARE_PROCESS_
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
-
     sensor_msgs::msg::Imu message;
+
+    rclcpp::init( argc , argv ); // use one time only
+    rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
+    zeabus::serivce::type_get< sensor_msgs::msg::Imu > send_data( imu_node );
+    auto service_send_data = send_data->create_service( &message , "/sensor/imu");
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
 #endif // _DECLARE_PROCESS_
 
     unsigned int limit_number;    
-    while( ! skip_process )
+    while( ( rclcpp::ok() && ( ! skip_process ) ) )
     {
         status_file = imu.read_stream();
         if( status_file )
@@ -226,13 +234,14 @@ int main( int argc , char** argv )
                     skip_process = true;
                     break;
                 }
-            }
-        }
+            } // loop for of get data
+        } // condition have packet of data stream
         else
         {
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
-    }
+        rclcpp::spin_some( imu_node );
+    } // loop while for doing in rossystem
 
     rclcpp::shutdown();
 
