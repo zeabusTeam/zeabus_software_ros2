@@ -20,7 +20,7 @@
 //      geometry_msgs/Vector3 linear_acceleration
 // This library have make for data packet from LORD MICROSTRAIN 3dm-gx5-45 only
 
-#ifdef _ZEABUS_SENSOR_IMU_MESSAGE_HPP__
+#ifndef _ZEABUS_SENSOR_IMU_MESSAGE_HPP__
 #define _ZEABUS_SENSOR_IMU_MESSAGE_HPP__
 
 namespace zeabus
@@ -33,14 +33,14 @@ namespace IMU
 {
 // for use this function we ensure you will use with packet form of LORD MICROSTRAIN
 // That make we don't care about error of size
-    void angular_velocity( std::vector< unsigned char > data , geometry_msgs::Vector3* message
-            , unsigned int offset );
+    void angular_velocity( std::vector< unsigned char >* data 
+            , geometry_msgs::msg::Vector3* message , unsigned int offset );
 
-    void linear_acceleration( std::vector< unsigned char > data 
-            , geometry_msgs::Vector3* message , unsigned int offset );
+    void linear_acceleration( std::vector< unsigned char >* data 
+            , geometry_msgs::msg::Vector3* message , unsigned int offset );
 
-    void orientation( std::vector< unsigned char > data , geometry_msgs::Quaternion message 
-            , unsigned int offset );
+    void orientation( std::vector< unsigned char >* data 
+            , geometry_msgs::msg::Quaternion message , unsigned int offset );
 
 // How to know about offset? please send postion start that data or +1 position of Descriptor
     

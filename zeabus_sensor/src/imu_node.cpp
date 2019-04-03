@@ -13,6 +13,8 @@
 
 #include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
 
+#include    <zeabus/convert/bytes.hpp>
+
 #include    "rclcpp/rclcpp.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
 

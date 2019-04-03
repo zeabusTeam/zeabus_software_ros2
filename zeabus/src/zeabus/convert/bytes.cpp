@@ -35,7 +35,7 @@ namespace bytes
         bool result = false;
         if( offset + 7 < set_data->size() )
         {
-            data32 = ( ( (unsigned long long int) ((*set_data)[offset] ) ) <<  56 )
+            data64 = ( ( (unsigned long long int) ((*set_data)[offset] ) ) <<  56 )
                     |( ( (unsigned long long int) ((*set_data)[offset + 1] ) ) << 48 )
                     |( ( (unsigned long long int) ((*set_data)[offset + 2] ) ) << 40 )
                     |( ( (unsigned long long int) ((*set_data)[offset + 1] ) ) << 32 )
