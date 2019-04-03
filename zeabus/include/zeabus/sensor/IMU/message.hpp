@@ -40,7 +40,7 @@ namespace IMU
             , geometry_msgs::msg::Vector3* message , unsigned int offset );
 
     void orientation( std::vector< unsigned char >* data 
-            , geometry_msgs::msg::Quaternion message , unsigned int offset );
+            , geometry_msgs::msg::Quaternion* message , unsigned int offset );
 
 // How to know about offset? please send postion start that data or +1 position of Descriptor
     
