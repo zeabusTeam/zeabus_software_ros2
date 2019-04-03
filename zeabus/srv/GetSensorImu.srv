@@ -1,4 +1,4 @@
 bool data
 ---
-std_msgs::msg::Header header
-sensor_msgs::msg::Imu data
+std_msgs/Header header
+sensor_msgs/Imu data
