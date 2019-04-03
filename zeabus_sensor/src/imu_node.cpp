@@ -13,7 +13,7 @@
 
 #include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
 
-#include    <zeabus/sensor/IMU/message.hpp>
+#include    <zeabus/convert/vector/one_byte.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
@@ -198,7 +198,7 @@ int main( int argc , char** argv )
                 switch (imu.access_data( run ) )
                 {
                 case IMUProtocal::DATA::IMU_DATA_SET::SCALED_ACCELEROMETER_VECTOR :
-                    zeabus::sensor::IMU::linear_acceleration( &(imu.data) 
+                    zeabus::convert::vector::one_byte::vector3( &(imu.data) 
                             , &(message.linear_acceleration) , run + 1);
                     run += 14 ; // skip to point start data < 1 byte >
                                 // skip to point legth data 3 floats < 12 bytes >
@@ -206,7 +206,7 @@ int main( int argc , char** argv )
                                 // this will make run will point to next descriptor
                     break;
                 case IMUProtocal::DATA::IMU_DATA_SET::SCALED_GYRO_VECTOR :
-                    zeabus::sensor::IMU::angular_velocity( &(imu.data)
+                    zeabus::convert::vector::one_byte::vector3( &(imu.data) 
                             , &(message.angular_velocity) , run + 1);
                     run += 14 ; // skip to point start data < 1 byte >
                                 // skip to point legth data 3 floats < 12 bytes >
@@ -214,7 +214,7 @@ int main( int argc , char** argv )
                                 // this will make run will point to next descriptor
                     break;
                 case IMUProtocal::DATA::IMU_DATA_SET::CF_QUATERNION :
-                    zeabus::sensor::IMU::orientation( &(imu.data) 
+                    zeabus::convert::vector::one_byte::quaternion( &(imu.data) 
                             , &(message.orientation) , run + 1);
                     run += 18 ; // skip to point start data < 1 byte >
                                 // skip to point legth data 4 floats < 12 bytes >
