@@ -180,8 +180,9 @@ int main( int argc , char** argv )
 
     rclcpp::init( argc , argv ); // use one time only
     rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
-    zeabus::serivce::type_get< sensor_msgs::msg::Imu > send_data( imu_node );
-    auto service_send_data = send_data->create_service( &message , "/sensor/imu");
+    zeabus::service::type_get< zeabus::srv::GetSensorImu , sensor_msgs::msg::Imu > 
+            send_data( imu_node );
+    auto service_send_data = send_data.create_service( &message , "/sensor/imu");
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );

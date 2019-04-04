@@ -27,7 +27,7 @@ namespace zeabus
 namespace service
 {
 
-    template< class data_type >
+    template< typename service_type , class data_type>
     class type_get
     {
         public:
@@ -38,11 +38,10 @@ namespace service
             } // function init class
 
             // I don't know how to set only part of namespace that make me decide to use template
-            template< typename request_type , typename response_type >
             void handle_service(
                     const std::shared_ptr< rmw_request_id_t > request_header 
-                    , const std::shared_ptr< request_type > request 
-                    , const std::shared_ptr< response_type > response )
+                    , const std::shared_ptr< service_type::Request > request 
+                    , const std::shared_ptr< service_type::Response > response )
             {
 #ifdef _SERVICE_CALL_
                 std::cout << "Call service " << this->service_name << std::endl;
@@ -55,7 +54,10 @@ namespace service
             {
                 this->service_name = topic_name;
                 this->data_pointer = data_pointer;
-                return this->node->create_service< response_type >( topic_name , zeabus::ser)
+                return this->node->create_service< service_type >( topic_name 
+                        , this->handle_service );
+                    // , zeabus::service::type_get< service_type , data_type >::handle_service 
+                    // , this );
             } // function create_service 
 
         protected:
