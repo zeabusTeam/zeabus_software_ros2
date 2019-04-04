@@ -11,12 +11,12 @@ namespace service
 namespace type_get_01
 {
 
-    SensorImu::SensorImu( rclcpp::Node::sharedPtr node ) : Base( node )
+    SensorImu::SensorImu( rclcpp::Node::SharedPtr node ) : Base( node )
     {
-        this->function_pointer = &(this->callback);
+        this->function_pointer = &zeabus::service::type_get_01::SensorImu::callback ;
     } // init function of class SensorImu 
 
-    SensorImu::callback( const std::shared_ptr< rmw_request_id > request_header 
+    void SensorImu::callback( const std::shared_ptr< rmw_request_id_t > request_header 
             , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request 
             , const std::shared_ptr< zeabus::srv::GetSensorImu::Response > response )
     {

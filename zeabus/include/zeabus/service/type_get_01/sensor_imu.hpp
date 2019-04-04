@@ -6,7 +6,7 @@
  
 #include    "zeabus/srv/get_sensor_imu.hpp" // get service structure in ros system
 
-#include    "sensor_msgs/msg/Imu.hpp"
+#include    "sensor_msgs/msg/imu.hpp"
 
 #include    "rclcpp/rclcpp.hpp"
 
@@ -24,11 +24,13 @@ namespace service
 namespace type_get_01
 {
 
-    class SensorImu : public Base< zeabus::srv::GetSensorImu , zeabus::srv::GetSensorImu::Reques
-            , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu >
+    class SensorImu : public 
+            Base< zeabus::srv::GetSensorImu , zeabus::srv::GetSensorImu::Request
+                    , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu 
+                    , zeabus::service::type_get_01::SensorImu>
     {
         public:
-            SensorIMU( rclcpp::Node::sharedPtr node ) ;
+            SensorImu( rclcpp::Node::SharedPtr node ) ;
 
             void callback( const std::shared_ptr< rmw_request_id_t > request_header 
                     , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request 

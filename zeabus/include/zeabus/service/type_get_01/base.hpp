@@ -30,7 +30,8 @@ namespace service
 namespace type_get_01
 {
 
-    template< class service_type , class request_type , class response_type , class data_type >
+    template< class service_type , class request_type , class response_type , class data_type 
+            , class function_type >
     class Base
     {
         public:
@@ -48,13 +49,13 @@ namespace type_get_01
 
         protected:
             rclcpp::Node::SharedPtr node;
-            data_type* data_pointer
+            data_type* data_pointer;
             // function_pointer to point callback  
-            void (*function_pointer)( const std::shared_ptr< rmw_request_id_t > 
+            void (function_type::*function_pointer)( const std::shared_ptr< rmw_request_id_t > 
                     , const std::shared_ptr< request_type > 
                     , const std::shared_ptr< response_type > ); 
 
-    } // class Base
+    }; // class Base
 
 
 } // namespace type_get_01

@@ -6,6 +6,7 @@ find_package( Boost REQUIRED COMPONENTS ) # For use Boost library
 find_package( geometry_msgs REQUIRED )
 find_package( sensor_msgs REQUIRED )
 find_package( std_msgs REQUIRED )
+find_package( rclcpp REQUIRED )
 
 find_package( rosidl_default_generators REQUIRED ) # For build message? service and action
 
@@ -16,6 +17,7 @@ include_directories(
     "${zeabus_include_path}" 
     "${Boost_INCLUDE_DIR}"
     "${PROJECT_BINARY_DIR}"
+    "${PROJECT_BINARY_DIR}/rosidl_generator_cpp/"
 )
 
 ament_export_include_directories( "${zeabus_include_path}" )
