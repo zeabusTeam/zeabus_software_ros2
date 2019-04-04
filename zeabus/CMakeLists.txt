@@ -20,6 +20,13 @@ include_directories(
 
 ament_export_include_directories( "${zeabus_include_path}" )
 
+rosidl_generate_interfaces( ${PROJECT_NAME}
+    "srv/GetSensorImu.srv"
+    DEPENDENCIES std_msgs sensor_msgs geometry_msgs
+)
+
+ament_export_dependencies( rosidl_default_runtime ) # add went want to build service file
+
 add_subdirectory( src )
 
 set( SHARED_LIBS 
@@ -31,12 +38,6 @@ set( STATIC_LIBS
     Convert    
 )
 
-rosidl_generate_interfaces( ${PROJECT_NAME}
-    "srv/GetSensorImu.srv"
-    DEPENDENCIES std_msgs sensor_msgs geometry_msgs
-)
-
-ament_export_dependencies( rosidl_default_runtime ) # add went want to build service file
 
 ament_export_libraries( ${STATIC_LIBS} )
 ament_export_libraries( ${SHARED_LIBS} )
