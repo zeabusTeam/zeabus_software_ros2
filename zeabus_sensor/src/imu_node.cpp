@@ -15,9 +15,7 @@
 
 #include    <zeabus/convert/vector/one_byte.hpp>
 
-#include    <zeabus/service/type_get.hpp>
-
-#include    <zeabus/srv/get_sensor_imu.hpp>
+#include    <zeabus/service/type_get_01/sensor_imu.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
@@ -134,7 +132,7 @@ int main( int argc , char** argv )
     // we not save because we have new set up always want to use
 
     round = 0;
-    while( false )
+    while( ! skip_process )
     {
         round++;
         status_file = imu.enable_IMU_data_stream();
@@ -154,7 +152,7 @@ int main( int argc , char** argv )
     }
 
     round = 0;
-    while( false )
+    while( ! skip_process )
     {
         round++;
         status_file = imu.resume();
@@ -180,9 +178,8 @@ int main( int argc , char** argv )
 
     rclcpp::init( argc , argv ); // use one time only
     rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
-    zeabus::service::type_get< zeabus::srv::GetSensorImu , sensor_msgs::msg::Imu > 
-            send_data( imu_node );
-    auto service_send_data = send_data.create_service( &message , "/sensor/imu");
+    zeabus::service::type_get_01::SensorImu sender( &imu_node );
+    auto server_sender = sender.create_service( &message , "/sensor/imu");
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
@@ -191,6 +188,9 @@ int main( int argc , char** argv )
     unsigned int limit_number;    
     while( ( rclcpp::ok() && ( ! skip_process ) ) )
     {
+#ifdef _PRINT_DATA_STREAM_
+        printf("Read data form IMU\n");
+#endif // _PRINT_DATA_STREAM_
         status_file = imu.read_stream();
         if( status_file )
         {
@@ -241,6 +241,9 @@ int main( int argc , char** argv )
         {
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
+#ifdef _PRINT_DATA_STREAM_
+        printf("Before spin\n" );
+#endif // _PRINT_DATA_STREAM_
         rclcpp::spin_some( imu_node );
     } // loop while for doing in rossystem
 

@@ -4,6 +4,8 @@
 
 #include    <memory> // use std::shared_ptr followe example code
 
+#include    <functional>
+
 #include    "rclcpp/rclcpp.hpp"
 
 #include    <iostream>
@@ -35,7 +37,7 @@ namespace type_get_01
     class Base
     {
         public:
-            Base( rclcpp::Node::SharedPtr node )
+            Base( rclcpp::Node::SharedPtr* node )
             {
                 this->node = node;
             } // function init class Base
@@ -43,17 +45,22 @@ namespace type_get_01
             auto create_service( data_type* data_pointer , std::string topic_name )
             {
                 this->data_pointer = data_pointer; // collect pointer to access data
-                return this->node->create_service< service_type >( topic_name 
+                return (*(this->node))->create_service< service_type >( topic_name 
                         , this->function_pointer );
             } // function create_service
 
         protected:
-            rclcpp::Node::SharedPtr node;
+            rclcpp::Node::SharedPtr* node;
             data_type* data_pointer;
-            // function_pointer to point callback  
-            void (function_type::*function_pointer)( const std::shared_ptr< rmw_request_id_t > 
+            std::function< void ( 
+                    const std::shared_ptr< rmw_request_id_t > 
                     , const std::shared_ptr< request_type > 
-                    , const std::shared_ptr< response_type > ); 
+                    , const std::shared_ptr< response_type > ) > function_pointer;
+            // function_pointer to point callback  Failure try to use std::function
+//            void (function_type::*function_pointer)( 
+//                    const std::shared_ptr< rmw_request_id_t > request_header
+//                    , const std::shared_ptr< request_type > request
+//                    , const std::shared_ptr< response_type > response ); 
 
     }; // class Base
 

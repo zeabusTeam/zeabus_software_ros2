@@ -13,6 +13,13 @@ find_package( rosidl_default_generators REQUIRED ) # For build message? service 
 set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src")
 set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include")
 
+rosidl_generate_interfaces( ${PROJECT_NAME}
+    "srv/GetSensorImu.srv"
+    DEPENDENCIES std_msgs sensor_msgs geometry_msgs
+)
+
+ament_export_dependencies( rosidl_default_runtime ) # add went want to build service file
+
 include_directories( 
     "${zeabus_include_path}" 
     "${Boost_INCLUDE_DIR}"
@@ -22,13 +29,6 @@ include_directories(
 
 ament_export_include_directories( "${zeabus_include_path}" )
 
-rosidl_generate_interfaces( ${PROJECT_NAME}
-    "srv/GetSensorImu.srv"
-    DEPENDENCIES std_msgs sensor_msgs geometry_msgs
-)
-
-ament_export_dependencies( rosidl_default_runtime ) # add went want to build service file
-
 add_subdirectory( src )
 
 set( SHARED_LIBS 
@@ -37,7 +37,8 @@ set( SHARED_LIBS
 )
 
 set( STATIC_LIBS
-    Convert    
+    Convert   
+    GetType01 
 )
 
 
