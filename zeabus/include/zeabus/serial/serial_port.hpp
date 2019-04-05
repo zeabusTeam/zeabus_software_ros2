@@ -21,7 +21,6 @@
 
 #include    <vector> //  use to make buffer for get data
 
-#include    <stdio.h> // standard library of c language
 #include    <iostream> // standard library of c++ language
 
 #ifndef _ZEABUS_SERIAL_SERIAL_PORT_HPP__
@@ -39,37 +38,40 @@ namespace serial
       
         public:
 
-            bool open_port();
-            bool close_port();
-            bool port_is_open();
+            bool open_port(); // return true if success to open port , other case is false
+            bool close_port(); // return true if success to close port , other case is false
+            bool port_is_open(); // return true if status of port is open , other case is false
 
-            void set_name_port( std::string port_name );
+            void set_name_port( std::string port_name ); // for public function set port name
 
+            // for read and write data will different in detail by herit class
             virtual unsigned int read_data( std::vector<unsigned char>* buffer 
                     , unsigned int size ) = 0;
 
             virtual unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size ) = 0;
 
+            // because we want to compile this to library and reduce time of compile main code
+            // that reason make we can use template to build below function
             bool set_option_port( boost::asio::serial_port_base::baud_rate data );
             bool set_option_port( boost::asio::serial_port_base::flow_control data );
             bool set_option_port( boost::asio::serial_port_base::parity data );
             bool set_option_port( boost::asio::serial_port_base::stop_bits data );
             bool set_option_port( boost::asio::serial_port_base::character_size data );
 
-        protected:
-            SerialPort( std::string port_name = "" );
+        protected: // this mode call only by inherit class
+            SerialPort( std::string port_name = "" ); 
             ~SerialPort();  
             std::string port_name; // this variable collect name of port will be use
-            boost::asio::io_service io_service;
+            boost::asio::io_service io_service; // each port have to port service
             boost::asio::serial_port io_port;
             // this variable use to mangage about value of error code
             boost::system::error_code error_code; 
 
-    };
+    }; // class SerialPort
 
-}
+} // namespace serial
 
-}
+} // namespace zeabus
 
 #endif

@@ -28,9 +28,10 @@ namespace serial
             virtual unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size );
 
-    }; 
-}
+    }; // class SynchronousPort
 
-}
+} // namespace serial
+
+} // namespace zeabus
 
 #endif 
