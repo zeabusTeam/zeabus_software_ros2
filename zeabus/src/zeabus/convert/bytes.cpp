@@ -25,6 +25,7 @@ namespace bytes
                     |( ( (unsigned long int) ((*set_data)[offset + 3] ) ) << 0 );
             memcpy( answer , &data32 , 4 );
             result = true;
+            // if success will return true
         }
         return result;
     }

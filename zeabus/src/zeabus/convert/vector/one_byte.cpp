@@ -4,6 +4,8 @@
 
 #include    <zeabus/convert/vector/one_byte.hpp>
 
+// This file we confident user to ensure have size ok to convert
+
 namespace zeabus
 {
 namespace convert
@@ -23,9 +25,9 @@ namespace one_byte
         (void)zeabus::convert::bytes::vector_to_float( data , &(result) , offset ); 
         message->x = result;  // this copy value don't copy bits to bits
         (void)zeabus::convert::bytes::vector_to_float( data , &(result) , offset + 4); 
-        message->y = result; 
+        message->y = result;  // this copy value don't copy bits to bits 
         (void)zeabus::convert::bytes::vector_to_float( data , &(result) , offset + 8); 
-        message->z = result; 
+        message->z = result;  // this copy value don't copy bits to bits 
     }
 
     void quaternion( std::vector<unsigned char>* data , geometry_msgs::msg::Quaternion* message 
@@ -37,9 +39,9 @@ namespace one_byte
         (void)zeabus::convert::bytes::vector_to_float( data , &(result) , offset + 4); 
         message->x = result;  // this copy value don't copy bits to bits
         (void)zeabus::convert::bytes::vector_to_float( data , &(result) , offset + 8); 
-        message->y = result; 
+        message->y = result;  // this copy value don't copy bits to bits
         (void)zeabus::convert::bytes::vector_to_float( data , &(result) , offset + 12); 
-        message->z = result;  
+        message->z = result;  // this copy value don't copy bits to bits 
     }
 
 } // namespace one_byte
