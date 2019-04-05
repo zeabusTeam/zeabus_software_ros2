@@ -4,12 +4,6 @@
 
 #include    <zeabus/sensor/IMU/connector.hpp>
 
-//#define _PRINT_DATA_CONNECTION_
-//#define _CHECK_MEMORY_
-//#define _CHECK_RESPONSE_
-#define _ERROR_TYPE_
-//#define _SEQUENCE_READ_REPLY_
-
 // All code have reference from data-sheet of 3dm-gx5-45_data-commmunication_protocol.pdf
 
 namespace zeabus
@@ -35,29 +29,15 @@ namespace IMU
         variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR , 0x02 
                 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::IDLE );
         this->add_check_sum();
-#ifdef _PRINT_DATA_CONNECTION_
-        this->print_data( "data for set idle");
-#endif
-
-#ifdef _CHECK_MEMORY_
-        printf("Set idle command detail of buffer is " );
-        this->print_check_memory();
-#endif
-
         num_check = this->write_data( &(this->data) , (this->data).size() );
         if( num_check != (this->data).size() )
         {
-#ifdef _ERROR_TYPE_
-            printf("Print error type amont valur to writing and can wiite %d\n" , num_check );
-#endif
+            ; // In case can't write 
         }
         else
         {
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR ) )
             {
-#ifdef _CHECK_RESPONSE_
-            this->print_data( "data for reply" );
-#endif
                 if( this->check_sum() )
                 {
                     // This is one case to can make result is true
@@ -76,29 +56,15 @@ namespace IMU
         variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR 
                 , 0x02 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::PING );
         this->add_check_sum();
-#ifdef _PRINT_DATA_CONNECTION_
-        this->print_data( "data for ping");
-#endif
-
-#ifdef _CHECK_MEMORY_
-        printf("Ping command detail of buffer is ");
-        this->print_check_memory();
-#endif
         num_check = this->write_data( &(this->data) , (this->data).size() );
         if( num_check != (this->data).size() )
         {
-#ifdef _ERROR_TYPE_
-            printf("Print error type amont value to writing and can write %d\n" , num_check );
-#endif
             ; // In case can't write data equal size of packet
         }
         else
         {
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR ) )
             {
-#ifdef _CHECK_RESPONSE_
-                this->print_data( "data for reply ping" );
-#endif
                 if( this->check_sum() )
                 {
                     // This is one case to return true we check descriptor checksum and ACK
@@ -128,28 +94,15 @@ namespace IMU
                 , second_type , this->front_rate , this->back_rate 
                 , third_type , this->front_rate , this->back_rate );
         this->add_check_sum();
-#ifdef _PRINT_DATA_CONNECTION_
-        this->print_data("Command set IMU message type");
-#endif
-#ifdef _CHECK_MEMORY_
-        printf("Set IMU message command detail of buffer is ");
-        this->print_check_memory();
-#endif
         num_check = this->write_data( &(this->data) , (this->data).size() );
         if( num_check != (this->data).size() )
         {
-#ifdef _ERROR_TYPE_
-            printf("Set IMU message format error number of data\n")
-#endif  
             ; // in case can write data equal lenght of packet
         }
         else
         {
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR ) )
             {
-#ifdef _CHECK_RESPONSE_
-                this->print_data("data for reply set IMU message");
-#endif
                 if( this->check_sum() )
                 {
                     result = ( *( (this->data).end() - 3 ) == 0x00 );
@@ -168,28 +121,15 @@ namespace IMU
                 , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS, 0x01 , 0x01 , 0x01 
                 , 0x05 , LORD_MICROSTRAIN::COMMAND::SENSOR::CONTINUOUS , 0x01 , 0x03 , 0x00 );
         this->add_check_sum();
-#ifdef _PRINT_DATA_CONNECTION_
-        this->print_data("Command set enable IMU AND Estimate filter");
-#endif
-#ifdef  _CHECK_MEMORY_
-        printf("enable stream command detail of buffer is ");
-        this->print_check_memory();
-#endif
         num_check = this->write_data( &(this->data) , (this->data).size());
         if( num_check != (this->data).size() )
         {
-#ifdef _ERROR_TYPE_
-            printf("Enable message error number of data\n")
-#endif
             ; // will return false for can write == want write
         }
         else
         {
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR ) )
             {
-#ifdef _CHECK_RESPONSE_
-                this->print_data( "data for reply enable data");
-#endif
                 if( this->check_sum() )
                 {
                     result = ( *( (this->data).end() - 3 ) == 0x00 );  
@@ -207,28 +147,15 @@ namespace IMU
         variadic::push_data( &(this->data) , LORD_MICROSTRAIN::COMMAND::BASE::DESCRIPTOR 
                 , 0x02 , 0x02 , LORD_MICROSTRAIN::COMMAND::BASE::RESUME );
         this->add_check_sum();
-#ifdef _PRINT_DATA_CONNECTION_
-        this->print_data("Command for resume device");
-#endif
-#ifdef _CHECK_MEMORY_
-        printf("resume device command detail of buffer is");
-        this->print_check_memory();
-#endif
         num_check = this->write_data( &(this->data) , (this->data).size() );
         if( num_check != ( this->data).size() )
         {
-#ifdef  _ERROR_TYPE_
-            printf("resume error from data can write\n")
-#endif
             ; // will return false for can write != want write
         }
         else
         {
             if( this->read_reply( LORD_MICROSTRAIN::COMMAND::SENSOR::DESCRIPTOR ) )
             {
-#ifdef _CHECK_RESPONSE_
-                this->print_data( "data for reply resume");
-#endif
                 if( this->check_sum() )
                 {
                     result = ( *( (this->data).end() - 3 ) == 0x00 );
@@ -299,9 +226,6 @@ namespace IMU
     bool Connector::read_stream()
     {
         bool result = this->read_reply( 0x80 );
-#ifdef _CHECK_RESPONSE_
-        this->print_data( "streamming data");
-#endif
         if( result )
         {
             result = this->check_sum();
