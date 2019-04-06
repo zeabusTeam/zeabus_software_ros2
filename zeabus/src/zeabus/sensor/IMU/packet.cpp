@@ -4,8 +4,6 @@
 
 #include    <zeabus/sensor/IMU/packet.hpp>
 
-// #define _CHECK_RESPONSE_
-
 namespace zeabus
 {
 namespace sensor
@@ -34,16 +32,10 @@ namespace IMU
         if( (this->data)[ size - 2 ] == (this->MSB) && (this->data)[ size - 1 ] == (this->LSB) )
         {
             result  = true;
-#ifdef _CHECK_RESPONSE_
-            printf("Correct check sum\n");
-#endif
         }
         else
         {
             ; // Have statement when you define macro _CHECK_RESPONSE_
-#ifdef _CHECK_RESPONSE_
-            printf("Wrong check sum\n");
-#endif
         }
         return result;
     }
@@ -66,9 +58,6 @@ namespace IMU
             (this->MSB) += (this->data)[run_number];
             (this->LSB) += (this->MSB);
         }
-#ifdef _CHECK_RESPONSE_
-        printf("Output from find check sum MSB - LSB %2x - %2x\n" , this->MSB , this->LSB );
-#endif
     }
 
     // This will resize packet to zero member
@@ -109,18 +98,19 @@ namespace IMU
     {
         if( message == "")
         {
-            printf("Data on buufer : " );
+            std::cout << "Data on buffer : ";
         }
         else
         {
-            printf("%s : " , message.c_str() );
+            std::cout << message << " : ";
         }
+        std::cout  << std::hex; // we will print number by hexademal
         for( std::vector<unsigned char>::iterator point = (this->data).begin() ; 
                 point != (this->data).end() ; point++ )
         {
-            printf("%2x " , *(point) );
+            std::cout << *point << " ";
         }
-        printf("\n");
+        std::cout << std::dec << std::endl;
     }
 
     void Packet::push_vector( std::vector<unsigned char>* data_vector )

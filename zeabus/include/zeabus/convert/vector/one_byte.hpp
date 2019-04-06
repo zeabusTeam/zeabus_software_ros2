@@ -17,6 +17,7 @@
 //      geometry_msgs/Vector3 angular_velocity
 //      geometry_msgs/Vector3 linear_acceleration
 // This library have make for data packet from LORD MICROSTRAIN 3dm-gx5-45 only
+// one byte that mean 1 member have size is 8 bits
 
 #ifndef _ZEABUS_CONVERT_VECTOR_ONE_BYTE_HPP
 #define _ZEABUS_CONVERT_VECTOR_ONE_BYTE_HPP

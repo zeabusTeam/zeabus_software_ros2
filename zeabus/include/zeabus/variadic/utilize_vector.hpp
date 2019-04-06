@@ -28,7 +28,8 @@ namespace variadic
         push_data( buffer , data );
         push_data( buffer , pack... );
     }
-}
-}
+} // namespace variadic
 
-#endif
+} // namespace zeabus
+
+#endif // _ZEABUS_VARIADIC_UTILIZE_VECTOR_HPP__

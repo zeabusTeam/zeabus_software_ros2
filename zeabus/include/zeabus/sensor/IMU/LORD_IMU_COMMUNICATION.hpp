@@ -34,7 +34,7 @@ namespace LORD_MICROSTRAIN
 			static const unsigned char EXTENDED_DEVICE_DESCRIPTOR = 0x07;
 			static const unsigned char GPS_TIME_UPDATE = 0x72;
 			static const unsigned char DEVICE_RESET = 0x7E;	
-        }
+        } // namespace BASE
 
         namespace SENSOR
         {
@@ -48,7 +48,7 @@ namespace LORD_MICROSTRAIN
 			static const unsigned char GNSS_MESSAGE_FORMAT = 0x09;
 			static const unsigned char ESTIMATION_FILTER_MESSAGE_FORMAT = 0x0A;
 			static const unsigned char CONTINUOUS = 0x11;
-        }
+        } // namespace SENSOR
     }
 
     namespace DATA
@@ -68,15 +68,15 @@ namespace LORD_MICROSTRAIN
 			static const unsigned char CF_STABILIZED_MAG_VECTOR_NORTH = 0x10;
 			static const unsigned char CF_STABILIZED_ACCEL_VECTOR_UP = 0x11;
 			static const unsigned char GPS_CORRELATION_TIMESTAMP = 0x12;
-        }
-    }
+        } // namespace IMU_DATA_SET
+    } // namespace DATA
 
-}
+} // namespace LORD_MICROSTRAIN
 
-}
+} // namespace IMU
 
-}
+} // namespace sensor
 
-}
+} // namespace zeabus
 
-#endif
+#endif // _ZEABUS_SENSOR_IMU_LORD_IMU_COMMUNICATION_HPP__

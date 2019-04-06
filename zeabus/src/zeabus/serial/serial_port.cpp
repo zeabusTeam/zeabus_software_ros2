@@ -12,14 +12,14 @@ namespace serial
 
     SerialPort::SerialPort( std::string port_name ) : io_port( this->io_service )
     {
-        this->set_name_port( port_name );
+        this->set_name_port( port_name ); // For refactor
     }
 
     SerialPort::~SerialPort()
     {
-        if( this->port_is_open() )
+        if( this->port_is_open() ) //  Check current status of port
         {
-            (void)this->close_port();
+            (void)this->close_port(); // because this will return we must to void for MISRA C++
         }
     }
 
@@ -144,7 +144,7 @@ namespace serial
         return result;
     }
 
-}
+} // namespace serial
 
-}
+} // namespace zeabus
 
