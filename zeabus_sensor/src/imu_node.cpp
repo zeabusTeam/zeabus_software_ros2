@@ -28,7 +28,7 @@
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
 
-int main( int argc , char** argv )
+int main( int argv , char** argc )
 {
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
 
@@ -176,7 +176,7 @@ int main( int argc , char** argv )
 #endif // _DECLARE_PROCESS_
     sensor_msgs::msg::Imu message;
 
-    rclcpp::init( argc , argv ); // use one time only
+    rclcpp::init( argv , argc ); // use one time only
     rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
     zeabus::service::type_get_01::SensorImu sender( &imu_node );
     auto server_sender = sender.create_service( &message , "/sensor/imu");
