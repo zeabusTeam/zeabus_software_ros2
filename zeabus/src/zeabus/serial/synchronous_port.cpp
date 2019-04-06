@@ -61,7 +61,7 @@ namespace serial
     {
         *message = ""; // reset message to empty string
         unsigned int count = 0 ; // for count number of byte we can read
-        std::vector< char > temporary;
+        std::vector< unsigned char > temporary;
         temporary.reserve( 1 );
         bool continue_read = true;
         while( continue_read )
