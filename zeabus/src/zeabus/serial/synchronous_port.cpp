@@ -41,7 +41,7 @@ namespace serial
             }
         }while( true );
         return size_data;
-    } // function read_date
+    } // function read_data
 
     unsigned int SynchronousPort::write_data( std::vector<unsigned char>* buffer 
             , unsigned int size )
@@ -55,6 +55,53 @@ namespace serial
         }
         return size_data;
     } // function write_data
+
+    // next will part to read and wirte data by argument std::string 
+    unsigned int SynchronousPort::read_string( std::string* message )
+    {
+        *message = ""; // reset message to empty string
+        unsigned int count = 0 ; // for count number of byte we can read
+        std::vector< char > temporary;
+        temporary.reserve( 1 );
+        bool continue_read = true;
+        while( continue_read )
+        {
+            count += this->read_data( &temporary , 1 );
+            switch( temporary[0] )
+            {
+            case '\r' :
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> start cursor\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+                continue;
+            case '\n' :
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> new line\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+                continue_read = false;
+            case '\0' :
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> end of string\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+                continue;
+            default :
+                message += temporary[0];
+                count += 1;
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> data is \"" << temporary[0] << "\"\n"; 
+#endif // _SHOW_INDIVIDUAL_CHAR_
+            }
+        } // loop while read string
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+        std::cout << "<read_string> Message data is " << *message << "\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+        return count;
+    } // function read_string
+
+    unsigned int SynchronousPort::write_string( std::string* message )
+    {
+
+    } // function write_string
 
 } // namespace serial
 

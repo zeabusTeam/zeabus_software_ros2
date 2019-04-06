@@ -51,6 +51,12 @@ namespace serial
             virtual unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size ) = 0;
 
+            // becuase we want to have concept base class that make me will write \ read string
+            //      both async and synch port
+            virtual unsigned int read_string( std::string* message );
+            
+            virtual unsigned int write_string( std::string* message );
+
             // because we want to compile this to library and reduce time of compile main code
             // that reason make we can use template to build below function
             bool set_option_port( boost::asio::serial_port_base::baud_rate data );
