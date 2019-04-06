@@ -8,19 +8,18 @@ find_package( geometry_msgs REQUIRED )
 find_package( sensor_msgs REQUIRED )
 find_package( std_msgs REQUIRED )
 find_package( rclcpp REQUIRED )
-get_default_rmw_implementation( rmw_implementation )
-find_package( "${rmw_implementation}" REQUIRED )
 find_package( rosidl_default_generators REQUIRED ) # For build message? service and action
+
+get_default_rmw_implementation( rmw_implementation ) # use after find package rclcpp
+find_package( "${rmw_implementation}" REQUIRED ) # use after get default becuase wnat variable
 
 set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src")
 set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include")
-
 
 rosidl_generate_interfaces( ${PROJECT_NAME}
     "srv/GetSensorImu.srv"
     DEPENDENCIES std_msgs sensor_msgs geometry_msgs
 )
-
 
 ament_export_dependencies( rosidl_default_runtime ) # add went want to build service file
 
