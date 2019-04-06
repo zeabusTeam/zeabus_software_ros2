@@ -50,8 +50,9 @@ namespace type_get_01
             } // function create_service
 
         protected:
-            rclcpp::Node::SharedPtr* node;
-            data_type* data_pointer;
+            rclcpp::Node::SharedPtr* node; // for ensure you will have same node 
+                // we will collect by pointer
+            data_type* data_pointer; // for collect data pointer
             std::function< void ( 
                     const std::shared_ptr< rmw_request_id_t > 
                     , const std::shared_ptr< request_type > 

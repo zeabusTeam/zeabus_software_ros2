@@ -16,6 +16,12 @@
 
 #include    <memory> 
 
+#define _PRINT_SERVICE_CALL_ // will print when have to call service 
+
+#ifdef _PRINT_SERVICE_CALL_
+    #include    <zeabus/escape_code.hpp>
+#endif
+
 #ifndef _ZEABUS_SERVICE_TYPE_GET_01_BASE_HPP__
 #define _ZEABUS_SERVICE_TYPE_GET_01_BASE_HPP__
 

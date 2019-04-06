@@ -2,7 +2,7 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE ON    : 2019, APRIL 05
 
-#include    <zeabus/escape_sequence.hpp>
+#include    <zeabus/escape_code.hpp>
 
 namespace zeabus
 {

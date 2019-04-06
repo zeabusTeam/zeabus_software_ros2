@@ -1,5 +1,5 @@
 add_library( General SHARED 
-    escape_sequence.cpp
+    escape_code.cpp
 )
 
 add_subdirectory( serial )
