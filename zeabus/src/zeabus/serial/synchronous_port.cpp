@@ -57,7 +57,7 @@ namespace serial
     } // function write_data
 
     // next will part to read and wirte data by argument std::string 
-    unsigned int SynchronousPort::read_string( std::string* message )
+    unsigned int SynchronousPort::read_data( std::string* message )
     {
         *message = ""; // reset message to empty string
         unsigned int count = 0 ; // for count number of byte we can read
@@ -98,7 +98,7 @@ namespace serial
         return count;
     } // function read_string
 
-    unsigned int SynchronousPort::write_string( std::string* message )
+    unsigned int SynchronousPort::write_data( std::string* message )
     {
         return boost::asio::write( this->io_port , boost::asio::buffer( *message) 
                 , boost::asio::transfer_all() , this->error_code );

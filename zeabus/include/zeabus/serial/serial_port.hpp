@@ -55,9 +55,9 @@ namespace serial
 
             // becuase we want to have concept base class that make me will write \ read string
             //      both async and synch port
-            virtual unsigned int read_string( std::string* message ) = 0;
+            virtual unsigned int read_data( std::string* message ) = 0;
             
-            virtual unsigned int write_string( std::string* message ) = 0;
+            virtual unsigned int write_data( std::string* message ) = 0;
 
             // because we want to compile this to library and reduce time of compile main code
             // that reason make we can use template to build below function

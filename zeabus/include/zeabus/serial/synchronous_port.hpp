@@ -28,8 +28,8 @@ namespace serial
             unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size );
 
-            unsigned int read_string( std::string* message );
-            unsigned int write_string( std::string* message ); 
+            unsigned int read_data( std::string* message );
+            unsigned int write_data( std::string* message ); 
 
     }; // class SynchronousPort
 
