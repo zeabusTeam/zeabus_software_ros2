@@ -100,7 +100,8 @@ namespace serial
 
     unsigned int SynchronousPort::write_string( std::string* message )
     {
-
+        return boost::asio::write( this->io_port , boost::asio::buffer( *message) 
+                , boost::asio::transfer_all() , this->error_code );
     } // function write_string
 
 } // namespace serial
