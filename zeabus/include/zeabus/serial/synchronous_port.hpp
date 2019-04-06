@@ -22,10 +22,10 @@ namespace serial
         public:
             SynchronousPort( std::string name_port = "" );
 
-            virtual unsigned int read_data( std::vector<unsigned char>* buffer 
+            unsigned int read_data( std::vector<unsigned char>* buffer 
                     , unsigned int size );
 
-            virtual unsigned int write_data( std::vector<unsigned char>* buffer
+            unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size );
 
     }; // class SynchronousPort
