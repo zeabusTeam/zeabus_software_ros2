@@ -37,6 +37,8 @@ namespace serial
     class SerialPort : private boost::noncopyable{
       
         public:
+            SerialPort( std::string port_name = "" ); 
+            ~SerialPort();  
 
             bool open_port(); // return true if success to open port , other case is false
             bool close_port(); // return true if success to close port , other case is false
@@ -51,6 +53,12 @@ namespace serial
             virtual unsigned int write_data( std::vector<unsigned char>* buffer
                     , unsigned int size ) = 0;
 
+            // becuase we want to have concept base class that make me will write \ read string
+            //      both async and synch port
+            virtual unsigned int read_data( std::string* message ) = 0;
+            
+            virtual unsigned int write_data( std::string* message ) = 0;
+
             // because we want to compile this to library and reduce time of compile main code
             // that reason make we can use template to build below function
             bool set_option_port( boost::asio::serial_port_base::baud_rate data );
@@ -60,8 +68,6 @@ namespace serial
             bool set_option_port( boost::asio::serial_port_base::character_size data );
 
         protected: // this mode call only by inherit class
-            SerialPort( std::string port_name = "" ); 
-            ~SerialPort();  
             std::string port_name; // this variable collect name of port will be use
             boost::asio::io_service io_service; // each port have to port service
             boost::asio::serial_port io_port;
