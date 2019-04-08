@@ -16,6 +16,12 @@
 
 #include    <memory>
 
+#define _PRINT_SERVICE_CALL_
+
+#ifdef _PRINT_SERVICE_CALL_
+    #include    <zeabus/escape_code.hpp>
+#endif
+
 namespace zeabus
 {
 
