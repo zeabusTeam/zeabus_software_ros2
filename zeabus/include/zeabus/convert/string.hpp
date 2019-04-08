@@ -8,6 +8,9 @@
 // Type available 
 //      interger
 
+#ifndef _ZEABUS_CONVERT_STRING_HPP__
+#define _ZEABUS_CONVERT_STRING_HPP__
+
 namespace zeabus
 {
 
@@ -24,3 +27,5 @@ namespace string
 } // namespace convert
 
 } // namespace zeabus
+
+#endif // _ZEABUS_CONVERT_STRING_HPP__

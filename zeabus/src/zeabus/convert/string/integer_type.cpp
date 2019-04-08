@@ -43,23 +43,19 @@ namespace string
                         return_value = false;
                     }
                     break;
-                }
                 case '-' : // case we find '-'
-                {
                     if( (*result) == 0 ) // that mean we never find number befor in this data
                     {
-                        result_sign = -1
+                        result_sign = -1;
                     }
                     else
                     {
                         return_value = false;
                     }
                     break;
-                }
                 default :
-                {
                     return_value = false;
-                }
+                } // switch case
             }
             running++;
             character = (*data)[running];
