@@ -92,7 +92,7 @@ namespace DVL
     
             // Page 128 : CK keep parameters
             // Manual have suggestion about send command CR1 first and CK before CS<data stream>
-            bool save_paramter();
+            bool save_parameter();
             
             // Page 129 : CS Starting pinging 
             bool resume();

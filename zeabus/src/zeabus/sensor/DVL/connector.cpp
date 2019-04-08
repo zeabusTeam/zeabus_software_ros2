@@ -38,15 +38,15 @@ namespace DVL
 #ifdef _PRINT_DATA_CONNECTION_
             std::cout << message << std::endl;
 #endif // _PRINT_DATA_CONNECTION_
-            (void)this->read_data( &data );
+            (void)this->read_data( &message );
 #ifdef _PRINT_DATA_CONNECTION_
             std::cout << message << std::endl;
 #endif // _PRINT_DATA_CONNECTION_
-            (void)this->read_data( &data );
+            (void)this->read_data( &message );
 #ifdef _PRINT_DATA_CONNECTION_
             std::cout << message << std::endl;
 #endif // _PRINT_DATA_CONNECTION_ 
-            (void)this->read_data( &data );
+            (void)this->read_data( &message );
 #ifdef _PRINT_DATA_CONNECTION_
             std::cout << message << std::endl;
 #endif // _PRINT_DATA_CONNECTION_
@@ -55,7 +55,7 @@ namespace DVL
         return result;
     } // function set_idle
 
-    bool Connector::load_paramter( std::string data ) // formate data is CRn
+    bool Connector::load_parameter( std::string data ) // formate data is CRn
     {
         std::string message = "CR" + data + "\n";
         unsigned int size = this->write_data( &message );
@@ -75,14 +75,14 @@ namespace DVL
 
     bool Connector::send_message( std::string* data , unsigned int size_check )
     {
-        unsigned int size = this->write_data( message );
+        unsigned int size = this->write_data( data );
         bool result = false;
         if( size == size_check )
         {
             result = true;
         }
 #ifdef _PRINT_DATA_CONNECTION_
-        std::cout   << "COMMAND TO DVL " << message 
+        std::cout   << "COMMAND TO DVL " << data 
                     << " and size is " << size << std::endl;
 #endif // _PRINT_DATA_CONNECTION_
         return result;
@@ -140,7 +140,7 @@ namespace DVL
 
     bool Connector::save_parameter()
     {
-        std::string message = "CK\n"
+        std::string message = "CK\n";
         return this->send_message( &message , 3 );
     } // function save_parameter
 
