@@ -38,7 +38,8 @@ add_subdirectory( src )
     
 
 set( SHARED_LIBS 
-    SynchronousPort 
+    SynchronousPort
+    DVLConnector 
     IMUConnector
 )
 

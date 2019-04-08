@@ -1,13 +1,19 @@
-// File         : connecter.cpp
+// File         : connecter.hpp
 // Author       : Supasan Komonlit
 // Create on    : 2019, APRIL 07
 
 #include    <iostream> // Standard library for c++
 
-#include    <zeabus/serial/synchronous_port.cpp> // Use to connect DVL
+#include    <zeabus/serial/synchronous_port.hpp> // Use to connect DVL
 
 // DVL use string to set or connect with hardware 
 // we reference data for ExplorerDVL Operation Manual.pdf
+
+// Macro detail will print data for your purpose
+//      _PRINT_DATA_CONNECTION_ print all data you want to write and have to read
+
+#ifndef _ZEABUS_SENSOR_DVL_CONNECTOR_HPP__
+#define _ZEABUS_SENSOR_DVL_CONNECTOR_HPP__
 
 namespace zeabus
 {
@@ -18,13 +24,18 @@ namespace sensor
 namespace DVL
 {
 
-    class connector : public zeabus::serial::SynchronousPort
+    class Connector : public zeabus::serial::SynchronousPort
     {
 
         public:
-            connector( std::string port_name = "" );
+            Connector( std::string port_name = "" );
 
-            bool set_idle(); // use this for stop streaming
+            bool set_idle( unsigned int limit_round = 30 ); // use this for stop streaming
+
+            // Page 129 : load parameter 
+            // formate CRn
+            //      n = 0 <user setting> and 1 <factory setting>
+            bool load_parameter( std::string data = "1" );
 
             // set number of bottom-track pings to average together in each data ensemble
             // Page 119 format BPnnn 
@@ -34,6 +45,7 @@ namespace DVL
             
             // Page 120 : set maximum tracking depth in decimeters unit ( meters * 10 )
             // example is depth in area deployment is 20 meter  set 210 metes
+            // format BXnnnnn
             bool max_depth( std::string data = "01000");
 
             // Page 133 : set heading of sensor to forward robot 
@@ -51,7 +63,7 @@ namespace DVL
             bool set_salinty( std::string data = "35" );
 
             // Page 163 : set time per ensemble
-            // format TEhh:mm::ss.ff
+            // format TEhh:mm:ss.ff
             //      hh = 00 to 23 hours
             //      mm = 00 to 59 minutes
             //      ss = 00 to 59 seconds
@@ -85,6 +97,8 @@ namespace DVL
             // Page 129 : CS Starting pinging 
             bool resume();
 
+            bool send_message( std::string* data , unsigned int size_check );
+
     }; // class connector
  
 } // namespace
@@ -92,3 +106,5 @@ namespace DVL
 } // namespace sensor
 
 } // namespace zeabus
+
+#endif // _ZEABUS_SENSOR_DVL_CONNECTOR_HPP__
