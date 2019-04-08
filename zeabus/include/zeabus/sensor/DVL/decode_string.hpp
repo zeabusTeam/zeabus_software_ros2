@@ -25,7 +25,7 @@ namespace DVL
     // Page 213 BOTTOM-TRACK, SHIP REFERENCCED VELOCITY DATA
     void PD6_code_BS( std::string* message, int* vel_x, int* vel_y, int* vel_z, char* status);
 
-    void PD6_code_BI( std::string* message, int* vel_x, int* vel_y, int* vel_z, 
+    void PD6_code_BI( std::string* message, int* vel_x, int* vel_y, int* vel_z 
             , int* vel_error , char* status);
 
 } // namespace DVL
