@@ -32,8 +32,7 @@ namespace service
 namespace type_get_01
 {
 
-    template< class service_type , class request_type , class response_type , class data_type 
-            , class function_type >
+    template< class service_type , class request_type , class response_type , class data_type> 
     class Base
     {
         public:
@@ -57,11 +56,6 @@ namespace type_get_01
                     const std::shared_ptr< rmw_request_id_t > 
                     , const std::shared_ptr< request_type > 
                     , const std::shared_ptr< response_type > ) > function_pointer;
-            // function_pointer to point callback  Failure try to use std::function
-//            void (function_type::*function_pointer)( 
-//                    const std::shared_ptr< rmw_request_id_t > request_header
-//                    , const std::shared_ptr< request_type > request
-//                    , const std::shared_ptr< response_type > response ); 
 
     }; // class Base
 

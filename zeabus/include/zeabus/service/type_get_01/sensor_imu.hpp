@@ -34,8 +34,7 @@ namespace type_get_01
 
     class SensorImu : public 
             Base< zeabus::srv::GetSensorImu , zeabus::srv::GetSensorImu::Request
-                    , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu 
-                    , zeabus::service::type_get_01::SensorImu>
+                    , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu > 
     {
         public:
             SensorImu( rclcpp::Node::SharedPtr* node ) ;
