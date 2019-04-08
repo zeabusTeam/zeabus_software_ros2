@@ -19,21 +19,21 @@ namespace DVL
         std::string temp_message = "";    
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 4 + count ];
+            temp_message.push_back( (*message)[ 4 + count ]);
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_x );
 
         temp_message = "";
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 11 + count ];
+            temp_message.push_back( (*message)[ 11 + count ]);
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_y );
 
         temp_message = "";
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 18 + count ];
+            temp_message.push_back( (*message)[ 18 + count ] );
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_z );
 
@@ -47,28 +47,28 @@ namespace DVL
         std::string temp_message = "";    
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 4 + count ];
+            temp_message.push_back( (*message)[ 4 + count ] );
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_x );
 
         temp_message = "";
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 11 + count ];
+            temp_message.push_back( (*message)[ 11 + count ] );
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_y );
 
         temp_message = "";
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 18 + count ];
+            temp_message.push_back( (*message)[ 18 + count ] );
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_z );
 
         temp_message = "";
         for( int count = 0 ; count < 6 ; count++ )
         {
-            temp_message += (*message)[ 25 + count ];
+            temp_message.push_back( (*message)[ 25 + count ] );
         } // loop for... vel_x
         (void)zeabus::convert::string::to_integer( &temp_message , vel_error );
 
