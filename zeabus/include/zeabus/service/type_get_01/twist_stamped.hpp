@@ -6,7 +6,7 @@
  
 #include    "zeabus/srv/get_twist_stamped.hpp" // get service structure in ros system
 
-#include    "geometry_msgs/msg/imu.hpp"
+#include    "geometry_msgs/msg/twist_stamped.hpp"
 
 #include    "rclcpp/rclcpp.hpp"
 

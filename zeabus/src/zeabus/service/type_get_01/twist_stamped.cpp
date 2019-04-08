@@ -13,7 +13,7 @@ namespace service
 namespace type_get_01
 {
 
-    TwistStamped::TwistStamped( rclcpp:;Node::SharedPtr* node ) : Base( node )
+    TwistStamped::TwistStamped( rclcpp::Node::SharedPtr* node ) : Base( node )
     {
         this->function_pointer = std::bind( &zeabus::service::type_get_01::TwistStamped::callback
                 , this , std::placeholders::_1 , std::placeholders::_2
@@ -25,7 +25,7 @@ namespace type_get_01
         , const std::shared_ptr< zeabus::srv::GetTwistStamped::Response > response )
     {
 #ifdef _PRINT_SERVICE_CALL_
-        std::cout   << zeabus::escape_code::normal_read
+        std::cout   << zeabus::escape_code::normal_red
                     << "TwistStamped::callack called\n" << zeabus::escape_code::normal_white;
 #endif // _PRINT_SERVICE_CALL_
         response->data = *( this->data_pointer );
