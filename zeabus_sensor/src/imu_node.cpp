@@ -245,7 +245,7 @@ int main( int argv , char** argc )
         printf("Before spin\n" );
 #endif // _PRINT_DATA_STREAM_
         rclcpp::spin_some( imu_node );
-    } // loop while for doing in rossystem
+    } // loop while for doing in ros system
 
     rclcpp::shutdown();
 
