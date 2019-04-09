@@ -6,7 +6,9 @@
 
 #include    <zeabus/sensor/DVL/connector.hpp>
 
-#include    <zeabus/service/type_get_01/vector3_stamed.hpp>
+#include    <zeabus/sensor/DVL/decode_string.hpp>
+
+#include    <zeabus/service/type_get_01/vector3_stamped.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "geometry_msgs/msg/vector3_stamped.hpp"
@@ -43,7 +45,7 @@ int main( int argv , char** argc )
     }
 
     std::string raw_data; // collect data line from port
-    std::string type_line; // collect only type of raw_data
+    register std::string type_line; // collect only type of raw_data
     geometry_msgs::msg::Vector3Stamped message;
     int temp_velocity[4] = { 0 , 0 , 0 , 0 }; // for collect data from function
     char ok_data;
@@ -51,7 +53,7 @@ int main( int argv , char** argc )
     rclcpp::init( argv , argc );
     rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
 
-    zeabus::service::type_get_01::TwistStamped sender( &dvl_node );
+    zeabus::service::type_get_01::Vector3Stamped sender( &dvl_node );
     auto server_sender = sender.create_service( &message , "/sensor/dvl" );
 
     while( status_file )
@@ -61,9 +63,8 @@ int main( int argv , char** argc )
         type_line.push_back( raw_data[1] );
         type_line.push_back( raw_data[2] );
         // get type of data
-        switch( type_line )
+        if( type_line == "BS" )
         {
-        case "BS"   :
             zeabus::sensor::DVL::PD6_code_BS( &raw_data , &(temp_velocity[0]) 
                     , &(temp_velocity[1]) , &(temp_velocity[2]) , &ok_data );
             if( ok_data == 'A' ) // if data BS is ok
@@ -77,13 +78,8 @@ int main( int argv , char** argc )
             {
                 std::cout << "DVL BAD DATA\n" ;
             }
-            break;
-        case "BI"   :
-            break;
-        default     :
-            break;
-        } // switch condition
-        rclcpp::spin_some( imu_node ); 
+        } // condition BS data
+        rclcpp::spin_some( dvl_node ); 
     } // while loop of ros operating system
     rclcpp::shutdown();
 
