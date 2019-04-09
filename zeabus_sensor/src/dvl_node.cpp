@@ -4,7 +4,9 @@
 
 #include    <iostream>
 
-#include    <zeabus/serial/synchronous_port.hpp>
+#include    <zeabus/sensor/DVL/connector.hpp>
+
+#include    <zeabus/service/type_get_01/twist_stamed.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "geometry_msgs/msg/twist_stamped.hpp"
@@ -40,11 +42,33 @@ int main( int argv , char** argc )
         (void)dvl.resume();
     }
 
+    std::string raw_data; // collect data line from port
+    std::string type_line; // collect only type of raw_data
     geometry_msgs::msg::TwistStamped message;
+    int temp_velocity[3] = { 0 , 0 , 0 }; // for collect data from function
     
     rclcpp::init( argv , argc );
     rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
 
-    
-    
+    zeabus::service::type_get_01::TwistStamped sender( &dvl_node );
+    auto server_sender = sender.create_service( &message , "/sensor/dvl" );
+
+    while( status_file )
+    {
+        (void)dvl.read_data( &raw_data );
+        type_line.clear() ; // make string are empty
+        type_line.push_back( raw_data[1] );
+        type_line.push_back( raw_data[2] );
+        // get type of data
+        switch( type_line )
+        {
+        case "BS" :
+            zeabus::sensor::DVL::PD6_code_BS( &raw_data , &(temp_velocity[0]) 
+                    , &(temp_velocity[1]) , &(temp_velocity[2]) );
+        } // switch condition
+        
+        
+    } // while loop of ros operating system
+
+
 }
