@@ -45,7 +45,7 @@ int main( int argv , char** argc )
     std::string raw_data; // collect data line from port
     std::string type_line; // collect only type of raw_data
     geometry_msgs::msg::TwistStamped message;
-    int temp_velocity[3] = { 0 , 0 , 0 }; // for collect data from function
+    int temp_velocity[4] = { 0 , 0 , 0 , 0 }; // for collect data from function
     
     rclcpp::init( argv , argc );
     rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
@@ -65,6 +65,9 @@ int main( int argv , char** argc )
         case "BS" :
             zeabus::sensor::DVL::PD6_code_BS( &raw_data , &(temp_velocity[0]) 
                     , &(temp_velocity[1]) , &(temp_velocity[2]) );
+            message.twist.
+            break;
+        case "BI" :
         } // switch condition
         
         

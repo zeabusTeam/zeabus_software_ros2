@@ -6,7 +6,7 @@
 
 #include    "zeabus/srv/get_vector3_stamped.hpp"
 
-#include    "geoemtry_msgs/msg/vector3_stamped.hpp"
+#include    "geometry_msgs/msg/vector3_stamped.hpp"
 
 #include    "rclcpp/rclcpp.hpp"
 
@@ -31,7 +31,7 @@ namespace type_get_01
 {
 
     class Vector3Stamped : public
-            Base< zeabus::srv::GetTwistStamped , zeabus::srv::GetVector3Stamped::Request
+            Base< zeabus::srv::GetVector3Stamped , zeabus::srv::GetVector3Stamped::Request
                     , zeabus::srv::GetVector3Stamped::Response 
                     , geometry_msgs::msg::Vector3Stamped >
     {
