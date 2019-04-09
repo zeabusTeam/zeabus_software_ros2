@@ -17,9 +17,9 @@ set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src")
 set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include")
 
 rosidl_generate_interfaces( ${PROJECT_NAME}
-    "srv/type_get_01/GetSensorImu.srv"
-    "srv/type_get_01/GetTwistStamped.srv"
-    "srv/type_get_01/GetVector3Stamped.srv"
+    "srv/GetSensorImu.srv"
+    "srv/GetTwistStamped.srv"
+    "srv/GetVector3Stamped.srv"
     DEPENDENCIES std_msgs sensor_msgs geometry_msgs
 )
 
