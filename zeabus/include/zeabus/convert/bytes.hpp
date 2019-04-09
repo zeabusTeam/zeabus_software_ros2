@@ -24,9 +24,12 @@ namespace convert
 namespace bytes
 {
 
+    // float have design to have size is 4 bytes that make me use for imu packet
+    // because 1 variable have 4 bytes 
     bool vector_to_float( std::vector<unsigned char>* set_data 
             , float* answer , unsigned int offset = 0 );
 
+    // double have size is 8 bytes
     bool vector_to_double( std::vector<unsigned char>* set_data
             , double* answer , unsigned int offset = 0 );
 

@@ -9,7 +9,6 @@
 #include    <zeabus/serial/synchronous_port.hpp>
 
 #include    <iostream>
-#include    <stdio.h>
 
 #include    <vector>
 

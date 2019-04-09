@@ -1,20 +1,25 @@
 cmake_minimum_required( VERSION 3.5 )
 project( zeabus )
 
+
 find_package( ament_cmake REQUIRED ) # For use tool buil source code or package
 find_package( Boost REQUIRED COMPONENTS ) # For use Boost library
 find_package( geometry_msgs REQUIRED )
 find_package( sensor_msgs REQUIRED )
 find_package( std_msgs REQUIRED )
 find_package( rclcpp REQUIRED )
-
 find_package( rosidl_default_generators REQUIRED ) # For build message? service and action
+
+get_default_rmw_implementation( rmw_implementation ) # use after find package rclcpp
+find_package( "${rmw_implementation}" REQUIRED ) # use after get default becuase wnat variable
 
 set( zeabus_source_path "${PROJECT_SOURCE_DIR}/src")
 set( zeabus_include_path "${PROJECT_SOURCE_DIR}/include")
 
 rosidl_generate_interfaces( ${PROJECT_NAME}
     "srv/GetSensorImu.srv"
+    "srv/GetTwistStamped.srv"
+    "srv/GetVector3Stamped.srv"
     DEPENDENCIES std_msgs sensor_msgs geometry_msgs
 )
 
@@ -29,10 +34,14 @@ include_directories(
 
 ament_export_include_directories( "${zeabus_include_path}" )
 
+get_rmw_typesupport( typesupport_impls "${rmw_implementation}" LANGUAGE "cpp")
+
 add_subdirectory( src )
+    
 
 set( SHARED_LIBS 
-    SynchronousPort 
+    SynchronousPort
+    DVLConnector 
     IMUConnector
 )
 

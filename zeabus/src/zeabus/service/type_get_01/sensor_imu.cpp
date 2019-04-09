@@ -22,6 +22,10 @@ namespace type_get_01
             , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request 
             , const std::shared_ptr< zeabus::srv::GetSensorImu::Response > response )
     {
+#ifdef _PRINT_SERVICE_CALL_
+        std::cout   << zeabus::escape_code::normal_red 
+                    << "SensorIMU::callback called\n";
+#endif // _PRINT_SERVICE_CALL_
         response->data = *(this->data_pointer);
     } // function SensorImu::callback
 

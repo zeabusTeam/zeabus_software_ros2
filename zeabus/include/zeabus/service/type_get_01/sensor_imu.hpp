@@ -16,6 +16,12 @@
 
 #include    <memory> 
 
+#define _PRINT_SERVICE_CALL_ // will print when have to call service 
+
+#ifdef _PRINT_SERVICE_CALL_
+    #include    <zeabus/escape_code.hpp>
+#endif
+
 #ifndef _ZEABUS_SERVICE_TYPE_GET_01_BASE_HPP__
 #define _ZEABUS_SERVICE_TYPE_GET_01_BASE_HPP__
 
@@ -28,8 +34,7 @@ namespace type_get_01
 
     class SensorImu : public 
             Base< zeabus::srv::GetSensorImu , zeabus::srv::GetSensorImu::Request
-                    , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu 
-                    , zeabus::service::type_get_01::SensorImu>
+                    , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu > 
     {
         public:
             SensorImu( rclcpp::Node::SharedPtr* node ) ;

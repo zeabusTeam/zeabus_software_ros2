@@ -4,8 +4,6 @@
 
 #include    <zeabus/serial/synchronous_port.hpp>
 
-//#define _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-
 namespace zeabus
 {
 
@@ -24,18 +22,12 @@ namespace serial
         unsigned int size_data;
         do
         {   
-#ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-            printf("SynchrobousPort::read_data want read data number %d\n" , size );
-#endif
             size_data = boost::asio::read( this->io_port , boost::asio::buffer( *buffer , size )
                     , this->error_code );
-#ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-            printf("SynchrobousPort::read_data can read data number %d\n" , size );
-#endif
             if( this->error_code == _boost_errc::resource_unavailable_try_again 
                     || this->error_code == _boost_errc::interrupted )
             {
-                printf("try to read data again\n");
+                std::cout   << "Port unavailable for reading will try again\n";
             }
             else if( this->error_code == _boost_errc::success )
             {
@@ -43,32 +35,76 @@ namespace serial
             }
             else
             {
-                printf("error in read data code is %d\n" , (this->error_code).value() );
+                std::cout   << "Failure to reading error_code is " 
+                            << (this->error_code).value() << "\n";
                 size_data = 0;
             }
         }while( true );
         return size_data;
-    }
+    } // function read_data
 
     unsigned int SynchronousPort::write_data( std::vector<unsigned char>* buffer 
             , unsigned int size )
     {
-#ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-        printf("SynchrobousPort::wirte_data want write data number %d\n" , size );
-#endif
         unsigned int size_data = boost::asio::write( this->io_port 
                 , boost::asio::buffer( *buffer , size ) , this->error_code );
-#ifdef _CHECK_SEQUENCE_PROCESS_SYNCHRONOUS_PORT_CPP__
-        printf("SynchrobousPort::wirte_data can write data number %d\n" , size );
-#endif
         if( this->error_code != _boost_errc::success )
         {
-            printf( "error in write data code is %d\n" , (this->error_code).value() );
+            std::cout   << "Failure for writing data to Synchronous port error_code is "
+                        << (this->error_code).value() << "\n" ;
         }
         return size_data;
-    }
+    } // function write_data
 
-}
+    // next will part to read and wirte data by argument std::string 
+    unsigned int SynchronousPort::read_data( std::string* message )
+    {
+        *message = ""; // reset message to empty string
+        unsigned int count = 0 ; // for count number of byte we can read
+        std::vector< unsigned char > temporary;
+        temporary.reserve( 1 );
+        bool continue_read = true;
+        while( continue_read )
+        {
+            count += this->read_data( &temporary , 1 );
+            switch( temporary[0] )
+            {
+            case '\r' :
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> start cursor\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+                continue;
+            case '\n' :
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> new line\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+                continue_read = false;
+            case '\0' :
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> end of string\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+                continue;
+            default :
+                message += temporary[0];
+                count += 1;
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+                std::cout << "<read_string> data is \"" << temporary[0] << "\"\n"; 
+#endif // _SHOW_INDIVIDUAL_CHAR_
+            }
+        } // loop while read string
+#ifdef _SHOW_INDIVIDUAL_CHAR_
+        std::cout << "<read_string> Message data is " << *message << "\n";
+#endif // _SHOW_INDIVIDUAL_CHAR_
+        return count;
+    } // function read_string
 
-}
+    unsigned int SynchronousPort::write_data( std::string* message )
+    {
+        return boost::asio::write( this->io_port , boost::asio::buffer( *message) 
+                , boost::asio::transfer_all() , this->error_code );
+    } // function write_string
+
+} // namespace serial
+
+} // namespace zeabus
 
