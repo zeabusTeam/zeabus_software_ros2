@@ -6,10 +6,10 @@
 
 #include    <zeabus/sensor/DVL/connector.hpp>
 
-#include    <zeabus/service/type_get_01/twist_stamed.hpp>
+#include    <zeabus/service/type_get_01/vector3_stamed.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
-#include    "geometry_msgs/msg/twist_stamped.hpp"
+#include    "geometry_msgs/msg/vector3_stamped.hpp"
 
 int main( int argv , char** argc )
 {
@@ -44,8 +44,9 @@ int main( int argv , char** argc )
 
     std::string raw_data; // collect data line from port
     std::string type_line; // collect only type of raw_data
-    geometry_msgs::msg::TwistStamped message;
+    geometry_msgs::msg::Vector3Stamped message;
     int temp_velocity[4] = { 0 , 0 , 0 , 0 }; // for collect data from function
+    char ok_data;
     
     rclcpp::init( argv , argc );
     rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
@@ -62,16 +63,31 @@ int main( int argv , char** argc )
         // get type of data
         switch( type_line )
         {
-        case "BS" :
+        case "BS"   :
             zeabus::sensor::DVL::PD6_code_BS( &raw_data , &(temp_velocity[0]) 
-                    , &(temp_velocity[1]) , &(temp_velocity[2]) );
-            message.twist.
+                    , &(temp_velocity[1]) , &(temp_velocity[2]) , &ok_data );
+            if( ok_data == 'A' ) // if data BS is ok
+            {
+                std::cout << "DVL GOOD DATA\n";
+                message.vector.x = temp_velocity[0];
+                message.vector.y = temp_velocity[1];
+                message.vector.z = temp_velocity[2];
+            }
+            else
+            {
+                std::cout << "DVL BAD DATA\n" ;
+            }
             break;
-        case "BI" :
+        case "BI"   :
+            break;
+        default     :
+            break;
         } // switch condition
-        
-        
+        rclcpp::spin_some( imu_node ); 
     } // while loop of ros operating system
+    rclcpp::shutdown();
 
-
-}
+    dvl.close_port();
+    
+    return 0;
+} // function main
