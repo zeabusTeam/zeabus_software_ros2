@@ -35,14 +35,14 @@ namespace POLOLU
         this->init_byte = init_byte;
     } // function set_init_byte
 
-    void init_header( unsigned char command )
+    void Packet::init_header( unsigned char command )
     {
         this->clear_member();
         zeabus::variadic::push_data( &(this->data) , this->init_byte , this->device_number 
                 , command ); // push 3 byte set header device_number and command
     } // function init_header
 
-    void push_vector_2_bytes( std::vector< unsigned short int > data )
+    void Packet::push_vector_2_bytes( std::vector< unsigned short int > data )
     {
         unsigned char low_bits;
         unsigned char high_bits;

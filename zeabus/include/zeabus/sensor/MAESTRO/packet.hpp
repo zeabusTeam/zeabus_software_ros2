@@ -66,7 +66,8 @@ namespace POLOLU
     {
         public:
 
-            Packet( unsigned char init_byte = BASE_PROTOCOL 
+            Packet( unsigned char init_byte 
+                    = zeabus::sensor::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
                     , unsigned char device_number = 0x0C , unsigned int reserve_size = 100 );
 
             void set_init_byte( unsigned char init_byte );
