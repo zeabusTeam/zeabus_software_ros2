@@ -9,10 +9,13 @@
 // Data from this file follow old file and
 // reference from https://www.pololu.com/docs/0J40/5.e
 
+// Warning we use unsigned char because that is data 1 byte or 8 bit
+// Reference : http://www.cplusplus.com/doc/tutorial/variables/
+
 #include    <iostream>
 
-#ifndef _ZEABUS_SENSOR_POLOLU_PROTOCOL_HPP__
-#define _ZEABUS_SENSOR_POLOLU_PROTOCOL_HPP__
+#ifndef _ZEABUS_SENSOR_MAESTRO_PROTOCOL_HPP__
+#define _ZEABUS_SENSOR_MAESTRO_PROTOCOL_HPP__
 
 namespace zeabus
 {
@@ -23,12 +26,29 @@ namespace sensor
 namespace MAESTRO
 {
 
+namespace protocol
+{
+
+namespace POLOLU
+{
+
+
+    static const unsigned char BASE_PROTOCOL = 0xAA ; // use first of packet
+    static const unsigned char COMMAND_SET_TARGET = 0x04;
+    static const unsigned char COMMAND_SET_MULTIPLE_TARGET = 0x1F;
+    static const unsigned char COMMAND_SET_SPEED = 0x07;
+    static const unsigned char COMMAND_SET_ACCELERATION = 0x09;
+    static const unsigned char COMMAND_SET_PWM = 0x0A;
+    static const unsigned char COMMAND_GET_POSITION = 0x10;
+    static const unsigned char COMMAND_GET_MOVING_STATE = 0x13;
+    static const unsigned char COMMAND_GET_ERROR = 0x21;
+    static const unsigned char COMMAND_GO_HOME = 0x22;
+
+} // namespace POLOLU
+
 namespace COMPACT
 {
 
-namespace pr
-
-    static const unsigned char SYNC_UART = 0xAA;
     static const unsigned char COMMAND_SET_TARGET = 0x84;
     static const unsigned char COMMAND_SET_MULTIPLE_TARGET = 0x9F;
     static const unsigned char COMMAND_SET_SPEED = 0x87;
@@ -41,7 +61,9 @@ namespace pr
 
 } // namespace COMPACT
 
-} // namespace POLOLPU
+} // namespace protocol
+
+} // namespace MAESTRO
 
 } // namespace sensor
 
