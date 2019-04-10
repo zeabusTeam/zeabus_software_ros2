@@ -43,6 +43,7 @@ set( SHARED_LIBS
     SynchronousPort
     DVLConnector 
     IMUConnector
+    MAESTROConnector
 )
 
 set( STATIC_LIBS
