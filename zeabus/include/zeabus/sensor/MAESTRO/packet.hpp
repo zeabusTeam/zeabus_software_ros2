@@ -61,7 +61,7 @@ namespace MAESTRO
     }; // class BasePacket
 
 namespace POLOLU
-
+{
     class Packet
     {
         public:
