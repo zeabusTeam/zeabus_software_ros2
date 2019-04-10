@@ -12,6 +12,8 @@
 
 #include    <zeabus/variadic/utilize_vector.hpp>
 
+#include    <zeabus/sensor/MAESTRO/protocol.hpp>
+
 // This file will make packet protocol for connect to pololu
 // Reference packet :
 //      link 1 command protocol : https://www.pololu.com/docs/0J40/5.c 
@@ -38,20 +40,50 @@ namespace sensor
 namespace MAESTRO
 {
 
+    class BasePacket // for future base packet of two protocol connect MAESTRO
+    {
+        public:
+            void print_check_memory(); // this function for check detail size of vector
+
+            void fit_capacity(); // function std::vector::shrink_to_fit
+    
+            void clear_member(); // We will clear only size of member to 0
+
+            void resize( unsigned int size ); // function std::vector::resize
+        
+            void reserve( unsigned int size ); // function std::vector::reserve
+
+            void print_data( std::string message = "" ); // to print all member of vector
+        
+        protected:
+            BasePacket( unsigned int reserve_size = 100 );
+            std::vector< unsigned char > buffer;
+    }; // class BasePacket
+
+namespace POLOLU
+
     class Packet
     {
         public:
 
-            Packet( unsigned char sync );
+            Packet( unsigned char init_byte = 0xAA , unsigned char device_number = 0x0C );
 
-            void begin_packet( uint8_t device_id , uint8_t command );
+            void set_init_byte( unsigned char init_byte );
+            void set_device_number( unsigned char device_number );
+
+            void init_header( unsigned char command ); 
+
+        protected:
+            unsigned char init_byte;
+            unsigned char device_number;
 
             std::vector< unsigned char > buffer;
 
-    
     }; // class Packet
 
 } // namespace POLOLU
+
+} // namespace MAESTRO
 
 } // namespace sensor
 

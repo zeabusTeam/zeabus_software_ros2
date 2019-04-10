@@ -57,7 +57,7 @@ namespace IMU
 
             void reserve( unsigned int size );
 
-            // push_vector ue for push data vector type
+            // push_vector use for push data vector type
             void push_vector( std::vector<unsigned char>* data_vector ); 
 
             void print_data( std::string message = "" );
