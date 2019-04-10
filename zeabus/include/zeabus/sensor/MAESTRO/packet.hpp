@@ -62,22 +62,23 @@ namespace MAESTRO
 
 namespace POLOLU
 {
-    class Packet
+    class Packet : public zeabus::sensor::MAESTRO::BasePacket
     {
         public:
 
-            Packet( unsigned char init_byte = 0xAA , unsigned char device_number = 0x0C );
+            Packet( unsigned char init_byte = BASE_PROTOCOL 
+                    , unsigned char device_number = 0x0C , unsigned int reserve_size = 100 );
 
             void set_init_byte( unsigned char init_byte );
             void set_device_number( unsigned char device_number );
 
-            void init_header( unsigned char command ); 
+            void init_header( unsigned char command );
+
+            void push_vector_2_bytes( std::vector< unsigned short int > data ); 
 
         protected:
             unsigned char init_byte;
             unsigned char device_number;
-
-            std::vector< unsigned char > buffer;
 
     }; // class Packet
 
