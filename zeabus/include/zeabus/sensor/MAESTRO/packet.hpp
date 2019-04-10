@@ -57,7 +57,7 @@ namespace MAESTRO
         
         protected:
             BasePacket( unsigned int reserve_size = 100 );
-            std::vector< unsigned char > buffer;
+            std::vector< unsigned char > data;
     }; // class BasePacket
 
 namespace POLOLU
