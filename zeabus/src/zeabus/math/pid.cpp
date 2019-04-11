@@ -67,7 +67,7 @@ namespace math
         {
             ; // sum will same value don't bound
         }
-        result = this->sum + ( error * this->p_constant );
+        *result = this->sum + ( error * this->p_constant );
         this->previous_error = error; // now is delay unit?
     } 
 
