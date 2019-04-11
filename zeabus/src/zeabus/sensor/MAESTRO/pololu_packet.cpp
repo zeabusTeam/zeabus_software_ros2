@@ -42,12 +42,12 @@ namespace POLOLU
                 , command ); // push 3 byte set header device_number and command
     } // function init_header
 
-    void Packet::push_vector_2_bytes( std::vector< unsigned short int > data )
+    void Packet::push_vector_2_bytes( std::vector< unsigned short int >* data )
     {
         unsigned char low_bits;
         unsigned char high_bits;
-        for( std::vector< unsigned short int>::iterator point = data.begin() ; 
-                point != data.end() ; point++ )
+        for( std::vector< unsigned short int>::iterator point = data->begin() ; 
+                point != data->end() ; point++ )
         {
             low_bits = ( *point ) & 0x7F; // we want data 7 bits in 1 bytes
             high_bits = ( ( *point ) >> 7 ) & 0x7F; // shift right 7 bits get low_bits out

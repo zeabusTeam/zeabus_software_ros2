@@ -35,7 +35,7 @@ namespace POLOLU
 
     static const unsigned char BASE_PROTOCOL = 0xAA ; // use first of packet
     static const unsigned char COMMAND_SET_TARGET = 0x04;
-    static const unsigned char COMMAND_SET_MULTIPLE_TARGET = 0x1F;
+    static const unsigned char COMMAND_SET_MULTIPLE_TARGETS = 0x1F;
     static const unsigned char COMMAND_SET_SPEED = 0x07;
     static const unsigned char COMMAND_SET_ACCELERATION = 0x09;
     static const unsigned char COMMAND_SET_PWM = 0x0A;

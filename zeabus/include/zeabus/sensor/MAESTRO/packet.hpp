@@ -30,8 +30,8 @@
 // Format individual packet of command
 // Reference https://www.pololu.com/docs/0J40/5.e
 
-#ifndef _ZEABUS_SENSOR_POLOLU_PACKET_HPP__
-#define _ZEABUS_SENSOR_POLOLU_PACKET_HPP__
+#ifndef _ZEABUS_SENSOR_MAESTRO_PACKET_HPP__
+#define _ZEABUS_SENSOR_MAESTRO_PACKET_HPP__
 
 namespace zeabus
 {
@@ -75,7 +75,7 @@ namespace POLOLU
 
             void init_header( unsigned char command );
 
-            void push_vector_2_bytes( std::vector< unsigned short int > data ); 
+            void push_vector_2_bytes( std::vector< unsigned short int >* data ); 
 
         protected:
             unsigned char init_byte;
