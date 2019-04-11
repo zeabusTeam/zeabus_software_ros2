@@ -48,7 +48,8 @@ set( SHARED_LIBS
 
 set( STATIC_LIBS
     Convert   
-    GetType01 
+    GetType01
+    Math 
 )
 
 

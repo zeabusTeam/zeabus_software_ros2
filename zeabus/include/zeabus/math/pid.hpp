@@ -26,7 +26,7 @@ namespace math
             void set_constant( double p , double i , double d );
 
             // will set offset of first time that will make fast value in first time
-            void offset_i( double offset ); 
+            void set_offset( double offset ); 
 
             // this will set limit result of value but it bound only 'id' term
             void set_limit( double min , double max );
@@ -41,6 +41,8 @@ namespace math
             double p_constant;
             double i_constant;
             double d_constant; 
+
+            double offset;
 
             double max_limit; // bound on positive term
             double min_limit; // bound on negative term
