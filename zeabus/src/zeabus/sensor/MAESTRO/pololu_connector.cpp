@@ -22,7 +22,7 @@ namespace POLOLU
     } // init function case 1
 
     // Case have data for serial port only
-    Connector::Connector( std::stirng port_name ) : Packet() , SynchronousPort( port_name )
+    Connector::Connector( std::string port_name ) : Packet() , SynchronousPort( port_name )
     {
         ; // Make default value of packet to do something
     } // init function case 2
@@ -43,18 +43,18 @@ namespace POLOLU
     } // init function case 4
 
     bool Connector::set_multiple_targets( std::vector< unsigned short int >* target_bits
-            , unsigned char first_chanel )
+            , unsigned char first_channel )
     {
         bool result = false;
         this->init_header( 
-                zeabus::sensor::MAESTRO::protocol::POLOLU::COMMAND_SET_MULTIPLE_TARGETS 
-                , first_chanel );
+                zeabus::sensor::MAESTRO::protocol::POLOLU::COMMAND_SET_MULTIPLE_TARGETS );
+        zeabus::variadic::push_data( &(this->data) , target_bits->size() , first_channel );
         this->push_vector_2_bytes( target_bits );
         unsigned int num_check = this->write_data( &(this->data) , (this->data).size() );
         if( num_check == (this->data).size() )
         {
             result = true;
-        }
+        } // if condition result = true
         return result;
     } // function set_multiple_targets
 

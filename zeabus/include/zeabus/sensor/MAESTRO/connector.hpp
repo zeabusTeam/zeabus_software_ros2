@@ -47,7 +47,7 @@ namespace POLOLU
             Connector(); // Case not have data to init
 
             bool set_multiple_targets( std::vector<unsigned short int >* target_bits 
-                    , unsigned char first_chanel = 0 );
+                    , unsigned char first_channel = 0 );
 
     }; // class connector
 
