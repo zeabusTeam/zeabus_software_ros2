@@ -80,7 +80,7 @@ int main( int argv , char** argc )
             printf("round %d : Success command set idle\n\n" , round );
             break; // jump success this process
         }
-        if( round == (limit_round * 2) )
+        if( round == (limit_round * 20) )
         {
             skip_process = true;
         }
@@ -256,7 +256,7 @@ int main( int argv , char** argc )
     rclcpp::shutdown();
 
     round = 0; // set init value counter is 0 for start process
-    while( rclcpp::ok() && ! skip_process )
+    while( imu.port_is_open() && (! skip_process ) ) //
     {
         round++;
         status_file = imu.set_idle(); // try to set imu to idle state
