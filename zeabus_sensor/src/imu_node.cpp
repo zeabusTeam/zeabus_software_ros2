@@ -18,6 +18,7 @@
 #include    <zeabus/service/type_get_01/sensor_imu.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
+#include    "rclcpp/executors/single_threaded_executor.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
 
 #include    <iostream>
@@ -181,6 +182,10 @@ int main( int argv , char** argc )
     zeabus::service::type_get_01::SensorImu sender( &imu_node );
     auto server_sender = sender.create_service( &message , "/sensor/imu");
 
+    rclcpp::executors::SingleThreadedExecutor single_thread;
+    single_thread.add_node( imu_node );
+    single_thread.spin();
+
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
 #endif // _DECLARE_PROCESS_
@@ -245,7 +250,7 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         printf("Before spin\n" );
 #endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( imu_node );
+//        rclcpp::spin_some( imu_node );
     } // loop while for doing in ros system
 
     rclcpp::shutdown();
