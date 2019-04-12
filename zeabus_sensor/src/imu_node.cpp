@@ -9,6 +9,8 @@
 #define _DECLARE_PROCESS_
 #define _PRINT_DATA_STREAM_
 
+#include    "rclcpp/rclcpp.hpp"
+
 #include    <zeabus/sensor/IMU/connector.hpp>
 
 #include    <zeabus/sensor/IMU/LORD_IMU_COMMUNICATION.hpp>
@@ -17,12 +19,10 @@
 
 #include    <zeabus/service/type_get_01/sensor_imu.hpp>
 
-#include    "rclcpp/rclcpp.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
 
 #include    <iostream>
 #include    <chrono>
-#include    <stdio.h>
 #include    <vector>
 
 namespace Asio = boost::asio;

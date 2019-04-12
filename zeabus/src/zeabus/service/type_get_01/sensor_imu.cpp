@@ -24,7 +24,7 @@ namespace type_get_01
     {
 #ifdef _PRINT_SERVICE_CALL_
         std::cout   << zeabus::escape_code::normal_red 
-                    << "SensorIMU::callback called\n";
+                    << "SensorIMU::callback called\n" << zeabus::escape_code::normal_white;
 #endif // _PRINT_SERVICE_CALL
         (response->header).stamp = rclcpp::Time();
         response->data = *(this->data_pointer);
