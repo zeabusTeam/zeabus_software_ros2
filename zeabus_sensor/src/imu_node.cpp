@@ -18,7 +18,6 @@
 #include    <zeabus/service/type_get_01/sensor_imu.hpp>
 
 #include    "rclcpp/rclcpp.hpp"
-#include    "rclcpp/executors/single_threaded_executor.hpp"
 #include    "sensor_msgs/msg/imu.hpp"
 
 #include    <iostream>
