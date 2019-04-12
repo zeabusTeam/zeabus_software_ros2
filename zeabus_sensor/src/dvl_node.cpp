@@ -45,8 +45,9 @@ int main( int argv , char** argc )
     }
 
     std::string raw_data; // collect data line from port
-    register std::string type_line; // collect only type of raw_data
+    std::string type_line; // collect only type of raw_data
     geometry_msgs::msg::Vector3Stamped message;
+    message.header.frame_id = "dvl";
     int temp_velocity[4] = { 0 , 0 , 0 , 0 }; // for collect data from function
     char ok_data;
     
@@ -73,6 +74,7 @@ int main( int argv , char** argc )
                 message.vector.x = temp_velocity[0];
                 message.vector.y = temp_velocity[1];
                 message.vector.z = temp_velocity[2];
+                message.header.stamp = rclcpp::Time();
             }
             else
             {

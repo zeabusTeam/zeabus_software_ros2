@@ -175,7 +175,7 @@ int main( int argv , char** argc )
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
     sensor_msgs::msg::Imu message;
-
+    message.header.frame_id = "imu";
     rclcpp::init( argv , argc ); // use one time only
     rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
     zeabus::service::type_get_01::SensorImu sender( &imu_node );
@@ -235,6 +235,7 @@ int main( int argv , char** argc )
                     skip_process = true;
                     break;
                 }
+                message.header.stamp = rclcpp::Time(); 
             } // loop for of get data
         } // condition have packet of data stream
         else
