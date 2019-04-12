@@ -182,10 +182,6 @@ int main( int argv , char** argc )
     zeabus::service::type_get_01::SensorImu sender( &imu_node );
     auto server_sender = sender.create_service( &message , "/sensor/imu");
 
-    rclcpp::executors::SingleThreadedExecutor single_thread;
-    single_thread.add_node( imu_node );
-    single_thread.spin();
-
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
 #endif // _DECLARE_PROCESS_
@@ -202,6 +198,11 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
             imu.print_data( "IMU message " );
 #endif // _PRINT_DATA_STREAM_
+            if( imu.access_data(2) != 0x80 ) // Desciptor set byte of data stream is 0x80
+            {
+                std::cout << "This not packet for data stream skip out\n";
+                continue;
+            }
             printf( "<--- IMU ---> GOOD DATA\n\n");
             // start at position 5 indent 0 1 2 3  
             // because 0 - 4 is header and description of data packet
@@ -250,13 +251,13 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         printf("Before spin\n" );
 #endif // _PRINT_DATA_STREAM_
-//        rclcpp::spin_some( imu_node );
+        rclcpp::spin_some( imu_node );
     } // loop while for doing in ros system
 
     rclcpp::shutdown();
 
     round = 0; // set init value counter is 0 for start process
-    while( imu.port_is_open() && (! skip_process ) ) //
+    while( imu.port_is_open() ) //
     {
         round++;
         status_file = imu.set_idle(); // try to set imu to idle state
@@ -268,10 +269,6 @@ int main( int argv , char** argc )
         {
             printf("round %d : Success command set idle\n\n" , round );
             break; // jump success this process
-        }
-        if( round == ( limit_round * 2 ) )
-        {
-            skip_process = true;
         }
     }
 
