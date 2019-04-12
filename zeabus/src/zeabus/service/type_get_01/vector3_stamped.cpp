@@ -29,6 +29,7 @@ namespace type_get_01
         std::cout   << zeabus::escape_code::normal_red
                     << "Vector3Stamped::callack called\n" << zeabus::escape_code::normal_white;
 #endif // _PRINT_SERVICE_CALL_
+        (response->header).stamp = rclcpp::Time();
         response->data = *( this->data_pointer );
     } // function callback
 
