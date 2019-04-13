@@ -250,7 +250,7 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "Before spin\n" ;
 #endif // _PRINT_DATA_STREAM_
-//        rclcpp::spin_some( imu_node );
+        rclcpp::spin_some( imu_node );
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "After spin\n" ;
 #endif // _PRINT_DATA_STREAM_
