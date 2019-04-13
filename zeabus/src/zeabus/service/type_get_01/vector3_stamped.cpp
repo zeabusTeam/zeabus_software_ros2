@@ -13,7 +13,7 @@ namespace service
 namespace type_get_01
 {
 
-    Vector3Stamped::Vector3Stamped( rclcpp::Node::SharedPtr* node ) : Base( node )
+    Vector3Stamped::Vector3Stamped( rclcpp::Node::SharedPtr node ) : Base( node )
     {
         this->function_pointer = std::bind( 
                 &zeabus::service::type_get_01::Vector3Stamped::callback

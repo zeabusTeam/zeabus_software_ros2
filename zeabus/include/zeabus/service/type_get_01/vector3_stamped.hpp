@@ -36,7 +36,7 @@ namespace type_get_01
                     , geometry_msgs::msg::Vector3Stamped >
     {
         public:
-            Vector3Stamped( rclcpp::Node::SharedPtr* node );
+            Vector3Stamped( rclcpp::Node::SharedPtr node );
 
             void callback( const std::shared_ptr< rmw_request_id_t > request_header 
                     , const std::shared_ptr< zeabus::srv::GetVector3Stamped::Request > request

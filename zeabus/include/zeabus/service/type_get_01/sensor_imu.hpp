@@ -37,7 +37,7 @@ namespace type_get_01
                     , zeabus::srv::GetSensorImu::Response , sensor_msgs::msg::Imu > 
     {
         public:
-            SensorImu( rclcpp::Node::SharedPtr* node ) ;
+            SensorImu( rclcpp::Node::SharedPtr node ) ;
 
             void callback( const std::shared_ptr< rmw_request_id_t > request_header 
                     , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request 

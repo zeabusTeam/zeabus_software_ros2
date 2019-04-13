@@ -11,7 +11,7 @@ namespace service
 namespace type_get_01
 {
 
-    SensorImu::SensorImu( rclcpp::Node::SharedPtr* node ) : Base( node )
+    SensorImu::SensorImu( rclcpp::Node::SharedPtr node ) : Base( node )
     {
         this->function_pointer = std::bind( &zeabus::service::type_get_01::SensorImu::callback 
                 , this , std::placeholders::_1 , std::placeholders::_2 

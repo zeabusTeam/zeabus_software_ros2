@@ -13,7 +13,7 @@ namespace service
 namespace type_get_01
 {
 
-    TwistStamped::TwistStamped( rclcpp::Node::SharedPtr* node ) : Base( node )
+    TwistStamped::TwistStamped( rclcpp::Node::SharedPtr node ) : Base( node )
     {
         this->function_pointer = std::bind( &zeabus::service::type_get_01::TwistStamped::callback
                 , this , std::placeholders::_1 , std::placeholders::_2

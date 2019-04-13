@@ -54,7 +54,7 @@ int main( int argv , char** argc )
     rclcpp::init( argv , argc );
     rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
 
-    zeabus::service::type_get_01::Vector3Stamped sender( &dvl_node );
+    zeabus::service::type_get_01::Vector3Stamped sender( dvl_node );
     auto server_sender = sender.create_service( &message , "/sensor/dvl" );
 
     while( status_file )

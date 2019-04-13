@@ -33,7 +33,7 @@ int main( int argv , char** argc )
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
 
 #ifdef _DECLARE_PROCESS_
-    printf("Finish declare imu object\n");
+    std::cout << "Finish declare imu object\n";
 #endif // _DECLARE_PROCESS_
 
     bool status_file = true ; // use collect response of function
@@ -44,12 +44,12 @@ int main( int argv , char** argc )
     status_file = imu.open_port();
     if( ! status_file )
     {
-        printf("Failure to open port imu\n");
+        std::cout << "Failure to open port imu\n";
         skip_process = true;
     }
 #ifdef _DECLARE_PROCESS_
     else{
-        printf("Finish open_port process\n");
+        std::cout << "Finish open_port process\n";
     }
 #endif // _DECLARE_PROCESS_
 
@@ -62,7 +62,7 @@ int main( int argv , char** argc )
 	(void)imu.set_option_port( Asio::serial_port_base::character_size( (unsigned char) 8 ) );
 
 #ifdef _DECLARE_PROCESS_
-    printf("Finish setup port of imu\n");
+    std::cout << "Finish setup port of imu\n";
 #endif // _DECLARE_PROCESS_
 
     round = 0; // set init value counter is 0 for start process
@@ -178,7 +178,7 @@ int main( int argv , char** argc )
     message.header.frame_id = "imu";
     rclcpp::init( argv , argc ); // use one time only
     rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
-    zeabus::service::type_get_01::SensorImu sender( &imu_node );
+    zeabus::service::type_get_01::SensorImu sender( imu_node );
     auto server_sender = sender.create_service( &message , "/sensor/imu");
 
 #ifdef _DECLARE_PROCESS_
@@ -248,9 +248,12 @@ int main( int argv , char** argc )
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
 #ifdef _PRINT_DATA_STREAM_
-        printf("Before spin\n" );
+        std::cout << "Before spin\n" ;
 #endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( imu_node );
+//        rclcpp::spin_some( imu_node );
+#ifdef _PRINT_DATA_STREAM_
+        std::cout << "After spin\n" ;
+#endif // _PRINT_DATA_STREAM_
     } // loop while for doing in ros system
 
     rclcpp::shutdown();

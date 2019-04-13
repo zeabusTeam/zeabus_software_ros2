@@ -36,7 +36,7 @@ namespace type_get_01
     class Base
     {
         public:
-            Base( rclcpp::Node::SharedPtr* node )
+            Base( rclcpp::Node::SharedPtr node )
             {
                 this->node = node;
             } // function init class Base
@@ -44,12 +44,12 @@ namespace type_get_01
             auto create_service( data_type* data_pointer , std::string topic_name )
             {
                 this->data_pointer = data_pointer; // collect pointer to access data
-                return (*(this->node))->create_service< service_type >( topic_name 
+                return this->node->create_service< service_type >( topic_name 
                         , this->function_pointer );
             } // function create_service
 
         protected:
-            rclcpp::Node::SharedPtr* node; // for ensure you will have same node 
+            rclcpp::Node::SharedPtr node; // for ensure you will have same node 
                 // we will collect by pointer
             data_type* data_pointer; // for collect data pointer
             std::function< void ( 
