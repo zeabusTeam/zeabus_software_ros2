@@ -2,10 +2,6 @@
 // Author       : Supasan Komonlit
 // CREATE ON    : 27, MARCH 2019
 
-#define _ERROR_TYPE_
-#define _CHECK_MEMORY_
-#define _PRINT_DATA_CONNECTION_
-
 #define _DECLARE_PROCESS_
 #define _PRINT_DATA_STREAM_
 
@@ -17,13 +13,19 @@
 
 #include    <zeabus/convert/vector/one_byte.hpp>
 
-#include    <zeabus/service/type_get_01/sensor_imu.hpp>
+#include    <zeabus/service/base_get_sensor_data.hpp>
+
+#include    <zeabus/srv/get_sensor_imu.hpp>
 
 #include    "sensor_msgs/msg/imu.hpp"
 
 #include    <iostream>
 #include    <chrono>
 #include    <vector>
+
+typedef zeabus::service::BaseGetSensorData< zeabus::srv::GetSensorImu 
+            , zeabus::srv::GetSensorIMU::Request , zeabus::srv::GetSensorImu::Response 
+            , sensor_msgs::msg::Imu> type_imu_service;
 
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
@@ -177,10 +179,12 @@ int main( int argv , char** argc )
     sensor_msgs::msg::Imu message;
     message.header.frame_id = "imu";
     rclcpp::init( argv , argc ); // use one time only
-    rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
-    imu_node = rclcpp::Node::make_shared("imu_node");
-    zeabus::service::type_get_01::SensorImu sender( imu_node );
-    auto server_sender = sender.create_service( &message , "/sensor/imu");
+
+    type_imu_service imu_service( "imu_node" , "/sensor/imu");
+    imu_service.register_data( &message );
+    imu_service.create_service();
+
+    std::shared_ptr< type_imu_service > pointer_imu_service( &imu_service );
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
@@ -251,7 +255,7 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "Before spin\n" ;
 #endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( imu_node );
+        rclcpp::spin_some( imu_service );
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "After spin\n" ;
 #endif // _PRINT_DATA_STREAM_
