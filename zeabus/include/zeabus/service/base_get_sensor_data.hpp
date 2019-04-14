@@ -29,27 +29,34 @@ namespace service
     class BaseGetSensorData : public rclcpp::Node
     {
         public : 
-            BaseGetSensorData( std::string node_name , std::string topic_name ) 
+            BaseGetSensorData( std::string node_name , std::string topic_name = "" ) 
                     : Node( node_name )
             {
 #ifdef _PRINT_CALL_BACK_
                 this->node_name = node_name;
 #endif
+                this->topic_name = topic_name;
                 this->pointer_data = nullptr;
             } // function init class BaseGetSensorData
 
-            bool create_service()
+            bool create_service( std::string topic_name = "" )
             {
-                bool result = true
+                if( topic_name != "" )
+                {
+                    this->topic_name = topic_name;
+                }
+                bool result = true;
                 if( this->pointer_data == nullptr )
                 {   
-                    std::cout   << zeabus::normal_red << "please register before create service"
-                                << " We want data_pointer\n" << zeabus::normal_white;
+                    std::cout   << zeabus::escape_code::normal_red 
+                                << "please register before create service"
+                                << " We want data_pointer\n" 
+                                << zeabus::escape_code::normal_white;
                     result = false;
                 } // if condition when you didn't register data pointter
                 else
                 { 
-                    service = this->create_service< service_type >( topic_name , std::bind(
+                    service = this->create_service< service_type >( this->topic_name , std::bind(
                             &zeabus::service::BaseGetSensorData::callback , this ,
                             std::placeholders::_1 , std::placeholders::_2 , std::placeholders::_3
                         ) // std::bind function by include <functional> 
@@ -72,13 +79,14 @@ namespace service
                 std::cout   << zeabus::escape_code::normal_margenta << 
                             << " callback have been call\n" << zeabus::escape_code::normal_white;
 #endif
-                (response->header).stamp = rclcpp:Time();
+                (response->header).stamp = rclcpp::Time();
                 response->data = *(this->pointer_data);
             } // function callback
 
 #ifdef _PRINT_CALL_BACK_
             std::string node_name;
 #endif
+            std::string topic_name;
             rclcpp::Service< service_type >::SharedPtr service;
             data_type* pointer_data;
     }; // class BaseGetSensorData

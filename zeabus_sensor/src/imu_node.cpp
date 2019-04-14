@@ -24,7 +24,7 @@
 #include    <vector>
 
 typedef zeabus::service::BaseGetSensorData< zeabus::srv::GetSensorImu 
-            , zeabus::srv::GetSensorIMU::Request , zeabus::srv::GetSensorImu::Response 
+            , zeabus::srv::GetSensorImu::Request , zeabus::srv::GetSensorImu::Response 
             , sensor_msgs::msg::Imu> type_imu_service;
 
 namespace Asio = boost::asio;
