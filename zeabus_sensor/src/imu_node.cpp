@@ -1,4 +1,4 @@
-// File         : node.cpp
+// File         : imu_node.cpp
 // Author       : Supasan Komonlit
 // CREATE ON    : 27, MARCH 2019
 
@@ -178,6 +178,7 @@ int main( int argv , char** argc )
     message.header.frame_id = "imu";
     rclcpp::init( argv , argc ); // use one time only
     rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
+    imu_node = rclcpp::Node::make_shared("imu_node");
     zeabus::service::type_get_01::SensorImu sender( imu_node );
     auto server_sender = sender.create_service( &message , "/sensor/imu");
 
