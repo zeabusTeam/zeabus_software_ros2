@@ -182,7 +182,7 @@ int main( int argv , char** argc )
 
     type_imu_service imu_service( "imu_node" , "/sensor/imu");
     imu_service.register_data( &message );
-    imu_service.create_service();
+    (void)imu_service.prepare_spin();
 
     std::shared_ptr< type_imu_service > pointer_imu_service( &imu_service );
 
@@ -255,7 +255,7 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "Before spin\n" ;
 #endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( imu_service );
+        rclcpp::spin_some( pointer_imu_service );
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "After spin\n" ;
 #endif // _PRINT_DATA_STREAM_

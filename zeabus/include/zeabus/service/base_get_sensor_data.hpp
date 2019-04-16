@@ -39,7 +39,7 @@ namespace service
                 this->pointer_data = nullptr;
             } // function init class BaseGetSensorData
 
-            bool create_service( std::string topic_name = "" )
+            bool prepare_spin( std::string topic_name = "" )
             {
                 if( topic_name != "" )
                 {
@@ -56,14 +56,17 @@ namespace service
                 } // if condition when you didn't register data pointter
                 else
                 { 
-                    service = this->create_service< service_type >( this->topic_name , std::bind(
-                            &zeabus::service::BaseGetSensorData::callback , this ,
-                            std::placeholders::_1 , std::placeholders::_2 , std::placeholders::_3
+                    auto service = 
+                        this->create_service< service_type >( this->topic_name 
+                            , std::bind( &zeabus::service::BaseGetSensorData< service_type 
+                                , request_type , response_type , data_type >::callback 
+                                , this , std::placeholders::_1 
+                                , std::placeholders::_2 , std::placeholders::_3
                         ) // std::bind function by include <functional> 
                     ); // declare service
                 } // else condition when you already register data pointer
                 return result;
-            } // function create_service
+            } // function prepare_spin
 
             void register_data( data_type* pointer_data )
             {
@@ -87,7 +90,6 @@ namespace service
             std::string node_name;
 #endif
             std::string topic_name;
-            rclcpp::Service< service_type >::SharedPtr service;
             data_type* pointer_data;
     }; // class BaseGetSensorData
 
