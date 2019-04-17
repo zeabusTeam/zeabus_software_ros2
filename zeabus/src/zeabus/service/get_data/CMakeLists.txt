@@ -1,10 +1,7 @@
-add_library( GetData STATIC
+add_library( GetData SHARED
     sensor_imu.cpp
 ) 
-target_link_libraries( GetData
-    rclcpp
-    sensor_msgs
-) 
+ament_target_dependencies( GetData rclcpp sensor_msgs)
 
 # this make me can use libary have exported by own package in one time
 foreach( typesupport_impl ${typesupport_impls} )

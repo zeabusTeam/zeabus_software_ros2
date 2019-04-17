@@ -44,12 +44,12 @@ set( SHARED_LIBS
     DVLConnector 
     IMUConnector
     MAESTROConnector
+    GetData
 )
 
 set( STATIC_LIBS
     Convert   
     Math 
-    GetData
 )
 
 

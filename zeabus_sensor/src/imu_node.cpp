@@ -13,7 +13,7 @@
 
 #include    <zeabus/convert/vector/one_byte.hpp>
 
-#include    <zeabus/service/base_get_sensor_data.hpp>
+#include    <zeabus/service/get_data/sensor_imu.hpp>
 
 #include    <zeabus/srv/get_sensor_imu.hpp>
 
@@ -23,9 +23,7 @@
 #include    <chrono>
 #include    <vector>
 
-typedef zeabus::service::BaseGetSensorData< zeabus::srv::GetSensorImu 
-            , zeabus::srv::GetSensorImu::Request , zeabus::srv::GetSensorImu::Response 
-            , sensor_msgs::msg::Imu> type_imu_service;
+#include    <memory> // for use std::shared_ptr and std::make_shared
 
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
@@ -180,11 +178,11 @@ int main( int argv , char** argc )
     message.header.frame_id = "imu";
     rclcpp::init( argv , argc ); // use one time only
 
-    type_imu_service imu_service( "imu_node" , "/sensor/imu");
-    imu_service.register_data( &message );
-    (void)imu_service.prepare_spin();
+    std::shared_ptr< zeabus::service::get_data::SensorImu> ptr_imu_service =
+            std::make_shared< zeabus::service::get_data::SensorImu >( "imu_node" );
 
-    std::shared_ptr< type_imu_service > pointer_imu_service( &imu_service );
+    ptr_imu_service->regis_data( &message );
+    ptr_imu_service->start_service( "/sensor/imu" );
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
@@ -255,7 +253,7 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "Before spin\n" ;
 #endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( pointer_imu_service );
+        rclcpp::spin_some( ptr_imu_service );
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "After spin\n" ;
 #endif // _PRINT_DATA_STREAM_
