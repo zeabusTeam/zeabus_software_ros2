@@ -25,8 +25,13 @@
 
 #include    <memory> // for use std::shared_ptr and std::make_shared
 
+#include    <thread> // we will try to spawn thread to spin only
+#include    <zeabus/escape_code.hpp>
+
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
+
+void spin_thread( std::string node_name , rclcpp::Node::SharedPtr node_ptr );
 
 int main( int argv , char** argc )
 {
@@ -183,6 +188,7 @@ int main( int argv , char** argc )
 
     ptr_imu_service->regis_data( &message );
     ptr_imu_service->start_service( "/sensor/imu" );
+    std::thread spin_imu( spin_thread , "imu_node" , ptr_imu_service );
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
@@ -250,18 +256,10 @@ int main( int argv , char** argc )
         {
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
-#ifdef _PRINT_DATA_STREAM_
-        std::cout << "Before spin\n" ;
-#endif // _PRINT_DATA_STREAM_
-        if( rclcpp::ok() ){
-            rclcpp::spin_some( ptr_imu_service );
-        }
-#ifdef _PRINT_DATA_STREAM_
-        std::cout << "After spin\n" ;
-#endif // _PRINT_DATA_STREAM_
     } // loop while for doing in ros system
 
     rclcpp::shutdown();
+    spin_imu.detach()
 
     round = 0; // set init value counter is 0 for start process
     while( imu.port_is_open() ) //
@@ -283,4 +281,13 @@ int main( int argv , char** argc )
     imu.close_port();
 
     return 0;
+}
+
+void spin_thread( std::string node_name , rclcpp::Node::SharedPtr node_ptr )
+{
+    std::cout   << zeabus::escape_code::bold_margenta << node_name
+                << " now send to spin\n" << zeabus::escape_code::normal_white; 
+    rclcpp::spin( node_ptr );
+    std::cout   << zeabus::escape_code::bold_red << node_name
+                << " now stop spin\n" << zeabus::escape_code::normal_white; 
 }
