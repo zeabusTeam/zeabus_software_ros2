@@ -11,7 +11,7 @@
 
 #include    <iostream>
 
-#include    "sensor_msg/msg/imu.hpp"
+#include    "sensor_msgs/msg/imu.hpp"
 
 #include    "zeabus/srv/get_sensor_imu.hpp"
 

@@ -8,5 +8,5 @@ target_link_libraries( GetData
 
 # this make me can use libary have exported by own package in one time
 foreach( typesupport_impl ${typesupport_impls} )
-    rosidl_target_interface( GetData ${PROJECT_NAME} ${typesupport_impl})
-endforeach
+    rosidl_target_interfaces( GetData ${PROJECT_NAME} ${typesupport_impl})
+endforeach()

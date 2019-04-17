@@ -34,7 +34,7 @@ namespace get_data
                 , std::bind( &SensorImu::callback , this , std::placeholders::_1
                         , std::placeholders::_2 , std::placeholders::_3 
                 ) // std::bind function 
-        ) // declarre service_variable
+        ); // declarre service_variable
     } // function start_service
 
     void SensorImu::regis_data( sensor_msgs::msg::Imu* pointer_data )
