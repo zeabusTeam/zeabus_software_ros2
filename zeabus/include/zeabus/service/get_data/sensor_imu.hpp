@@ -17,6 +17,10 @@
 
 #include    <memory>
 
+#include    <zeabus/escape_code.hpp>
+
+#define _DECLARE_CALL_FUNCTION_ // use this macro when you want to know when function called
+
 #ifndef _ZEABUS_SERVICE_GET_DATA_SENSOR_IMU_HPP__
 #define _ZEABUS_SERVICE_GET_DATA_SENSOR_IMU_HPP__
 
@@ -32,6 +36,8 @@ namespace get_data
             SensorImu( std::string node_name ); // this function will init node together
 
             void regis_data( sensor_msgs::msg::Imu* pointer_data );
+
+            void start_service( std::string topic_name );
 
             rclcpp::Service< zeabus::srv::GetSensorImu >::SharedPtr service_variable;
 
