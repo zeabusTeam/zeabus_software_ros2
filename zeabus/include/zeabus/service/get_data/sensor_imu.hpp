@@ -17,6 +17,8 @@
 
 #include    <memory>
 
+#include    <functional> // include for std::bind
+
 #include    <zeabus/escape_code.hpp>
 
 #define _DECLARE_CALL_FUNCTION_ // use this macro when you want to know when function called
