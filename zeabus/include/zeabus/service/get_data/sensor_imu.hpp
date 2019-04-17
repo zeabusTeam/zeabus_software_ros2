@@ -43,12 +43,11 @@ namespace get_data
 
             rclcpp::Service< zeabus::srv::GetSensorImu >::SharedPtr service_variable;
 
-        private:
             void callback( 
                     const std::shared_ptr< rmw_request_id_t > request_header 
                     , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request
                     , const std::shared_ptr< zeabus::srv::GetSensorImu::Response > response );
-
+        private:
             sensor_msgs::msg::Imu* pointer_data;
 
     }; // class sensor_imu 

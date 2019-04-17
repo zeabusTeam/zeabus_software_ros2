@@ -30,7 +30,7 @@ namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
 
 int main( int argv , char** argc )
 {
-    zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65901" , 100 );
+    zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
 
 #ifdef _DECLARE_PROCESS_
     std::cout << "Finish declare imu object\n";
@@ -253,7 +253,9 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "Before spin\n" ;
 #endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( ptr_imu_service );
+        if( rclcpp::ok() ){
+            rclcpp::spin_some( ptr_imu_service );
+        }
 #ifdef _PRINT_DATA_STREAM_
         std::cout << "After spin\n" ;
 #endif // _PRINT_DATA_STREAM_
