@@ -28,3 +28,7 @@
 # RC #
 ######
 .pylintrc
+
+build/
+install/
+log/
