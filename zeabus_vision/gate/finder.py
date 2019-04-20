@@ -62,7 +62,7 @@ def main(args=None):
     global g_node
     rclpy.init(args=args)
 
-    g_node = rclpy.create_node('vision/gate')
+    g_node = rclpy.create_node('vision_gate')
 
     sub = g_node.create_subscription(
         CompressedImage, image.topic('front'), image.callback)
