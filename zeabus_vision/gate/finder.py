@@ -8,10 +8,9 @@
 
 import rclpy
 from sensor_msgs.msg import CompressedImage
-# from zeabus_vision.msg import vision_gate
 from zeabus.srv import VisionGate
 from gate import Gate
-from libs.image import Image
+from image import Image
 
 g_node = None
 PUBLIC_TOPIC = '/vision/mission/gate'
