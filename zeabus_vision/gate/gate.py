@@ -6,7 +6,8 @@ import cv2
 
 
 class Gate:
-    ''' GATE Processing class. You can use this class to process ROBOSUB gate mission.
+    ''' GATE Processing class.
+    You can use this class to process ROBOSUB gate mission.
     Parameters:
         fileOrDevice (str,int): you can send this to OpenCV to open
     '''
@@ -92,7 +93,8 @@ class Gate:
             else:
                 # withct = cv2.drawContours(withct, [c], 0, (0, 255, 255), 3)
                 found = ((2*x+w)/img.shape[1]-1, (2*y+h)/img.shape[0] - 1,
-                         2*x/img.shape[1]-1, 2*(x+w)/img.shape[1]-1, c_area/w/h)
+                         2*x/img.shape[1]-1, 2*(x+w)/img.shape[1]-1,
+                         c_area/w/h)
                 diff = self.calcDiffPercent(found, self.last_detect)
                 cond = self.last_detect is None or diff[0] < 0.3
                 if cond:
