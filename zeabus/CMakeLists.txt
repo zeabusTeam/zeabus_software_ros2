@@ -49,7 +49,8 @@ set( SHARED_LIBS
 
 set( STATIC_LIBS
     Convert   
-    Math 
+    Math
+    ROSInterfaces 
 )
 
 
