@@ -28,7 +28,7 @@ setup(
     test_suite='test',
     entry_points={
         'console_scripts': [
-            'visiongate = gate.finder:main'
+            'gate = gate.finder:main'
         ],
     },
 
