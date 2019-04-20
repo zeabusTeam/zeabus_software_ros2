@@ -259,7 +259,7 @@ int main( int argv , char** argc )
     } // loop while for doing in ros system
 
     rclcpp::shutdown();
-    spin_imu.detach()
+    spin_imu.detach();
 
     round = 0; // set init value counter is 0 for start process
     while( imu.port_is_open() ) //
