@@ -20,6 +20,7 @@ rosidl_generate_interfaces( ${PROJECT_NAME}
     "srv/GetSensorImu.srv"
     "srv/GetTwistStamped.srv"
     "srv/GetVector3Stamped.srv"
+    "srv/VisionGate.srv"
     DEPENDENCIES std_msgs sensor_msgs geometry_msgs
 )
 

@@ -1,0 +1,12 @@
+# Call
+std_msgs/String task
+std_msgs/String req
+---
+# Return
+int8 state
+int8 pos
+float64 cx1
+float64 cy1
+float64 cx2
+float64 cy2
+float64 area
