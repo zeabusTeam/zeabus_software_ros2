@@ -183,12 +183,17 @@ int main( int argv , char** argc )
     message.header.frame_id = "imu";
     rclcpp::init( argv , argc ); // use one time only
 
-    std::shared_ptr< zeabus::service::get_data::SensorImu> ptr_imu_service =
-            std::make_shared< zeabus::service::get_data::SensorImu >( "imu_node" );
+    zeabus::service::get_data::SensorImuDerived imu_node( "imu_node" );
+    imu_node.regis_message( &message );
+    (void)imu_node.setup_service( "/sensor/imu");
+    imu_node.spin();
 
-    ptr_imu_service->regis_data( &message );
-    ptr_imu_service->start_service( "/sensor/imu" );
-    std::thread spin_imu( spin_thread , "imu_node" , ptr_imu_service );
+//    std::shared_ptr< zeabus::service::get_data::SensorImu> ptr_imu_service =
+//            std::make_shared< zeabus::service::get_data::SensorImu >( "imu_node" );
+
+//    ptr_imu_service->regis_data( &message );
+//    ptr_imu_service->start_service( "/sensor/imu" );
+//    std::thread spin_imu( spin_thread , "imu_node" , ptr_imu_service );
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
