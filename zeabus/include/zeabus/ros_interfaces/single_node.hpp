@@ -23,6 +23,10 @@
 #include    <memory> // use std::shared_ptr and std::make_shardedptr?
                     // use enable_shared_from_this< class > object
 
+#include    <zeabus/escape_code.hpp>
+
+#define _PRINT_THREAD_PROCESS_
+
 #ifndef _ZEABUS_ROS_INTERFACES_SINGLE_NODE_HPP__
 #define _ZEABUS_ROS_INTERFACES_SINGLE_NODE_HPP__
 

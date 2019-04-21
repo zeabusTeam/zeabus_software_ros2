@@ -4,6 +4,9 @@
 
 #include    <zeabus/ros_interfaces/single_node.hpp>
 
+// MACRO DETAIL
+// _PRINT_THREAD_PROCESS_ will print about before and after thread spin
+
 namespace zeabus
 {
 
@@ -23,7 +26,15 @@ namespace ros_interfaces
         {   
             // In class of rclcpp::Node have derived from enable_shared_from_this
             //  ref of rclcpp::node = docs.ros2.org/crystal/api/rclcpp/node_8hpp_source.html
+#ifdef _PRINT_THREAD_PROCESS_
+            std::cout   << zeabus::escape_code::normal_margenta << "start spin of " 
+                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+#endif
             rclcpp::spin( this->shared_from_this() );
+#ifdef _PRINT_THREAD_PROCESS_
+            std::cout   << zeabus::escape_code::normal_margenta << "end spin of " 
+                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+#endif
         } // condition rclcpp ok
         this->status_my_thread = false;
     } // function spin_node
@@ -33,7 +44,15 @@ namespace ros_interfaces
         this->status_my_thread = true;
         if( rclcpp::ok() )
         {
+#ifdef _PRINT_THREAD_PROCESS_
+            std::cout   << zeabus::escape_code::normal_margenta << "start spin some of " 
+                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+#endif
             rclcpp::spin_some( this->shared_from_this() ); // derived by rclcpp::Node
+#ifdef _PRINT_THREAD_PROCESS_
+            std::cout   << zeabus::escape_code::normal_margenta << "end spin some of " 
+                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+#endif
         } // condtion rclcpp ok
         this->status_my_thread = false;
     } // function spin_some_node
