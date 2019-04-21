@@ -66,9 +66,11 @@ namespace ros_interfaces
         {
             if( rclcpp::ok() )
             {
-                this->my_thread = std::thread( 
+                this->my_thread = std::thread( std::bind( 
                         &zeabus::ros_interfaces::SingleNode::spin_node 
-                        , this );
+                        , this 
+                        ) // std::bind
+                ); // assign my_thread
                 result = true;
             } // check ros handle
         } // condition already have thread?
@@ -82,9 +84,11 @@ namespace ros_interfaces
         {
             if( rclcpp::ok() )
             {
-                this->my_thread = std::thread( 
+                this->my_thread = std::thread( std::bind(
                         &zeabus::ros_interfaces::SingleNode::spin_some_node
-                        , this );
+                        , this 
+                        ) //std::bind
+                ); // assing my_thread
                 result = true;
             } // check ros handle
         } // condition already have thread?

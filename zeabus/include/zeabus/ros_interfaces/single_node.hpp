@@ -25,6 +25,8 @@
 
 #include    <zeabus/escape_code.hpp>
 
+#include    <functional> // std::bind
+
 #define _PRINT_THREAD_PROCESS_
 
 #ifndef _ZEABUS_ROS_INTERFACES_SINGLE_NODE_HPP__
