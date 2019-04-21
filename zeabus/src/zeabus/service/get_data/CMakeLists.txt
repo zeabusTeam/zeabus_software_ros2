@@ -1,5 +1,6 @@
 add_library( GetData SHARED
     sensor_imu.cpp
+    sensor_imu_derived.cpp
 ) 
 ament_target_dependencies( GetData rclcpp sensor_msgs)
 
