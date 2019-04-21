@@ -57,7 +57,7 @@ namespace get_data
     class SensorImuDerived : public zeabus::service::get_data::BaseClass< sensor_msgs::msg::Imu >
     {
         public:
-            SensorImuDerived::SensorImuDerived( std::string node_name );
+            SensorImuDerived( std::string node_name );
             
             bool setup_service( std::string topic_name ) = 0 ;
 
@@ -67,7 +67,7 @@ namespace get_data
                     , const std::shared_ptr< zeabus::srv::GetSensorImu::Response > response );
 
         private:
-            rclcpp::Service zeabus::srv::GetSensorImu >::SharedPtr pointer_service;
+            rclcpp::Service< zeabus::srv::GetSensorImu >::SharedPtr pointer_service;
     }; // class SensorImuDerived
 
 } // namespace get_data

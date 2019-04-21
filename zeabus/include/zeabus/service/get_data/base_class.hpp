@@ -32,7 +32,7 @@ namespace get_data
             bool already_regis;
 
         protected:
-            messae_type* pointer_data; // for collect data
+            message_type* pointer_data; // for collect data
 
         // end part of  protected
         public:
@@ -54,9 +54,7 @@ namespace get_data
 
             // Follow MISRA C++ 
             virtual bool setup_service( std::string topic_name ) = 0 ;
-
-
-    } // class BaseClass
+    }; // class BaseClass
 
 } // namespace get_data
 

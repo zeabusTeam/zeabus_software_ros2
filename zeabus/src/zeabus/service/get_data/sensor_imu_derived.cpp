@@ -24,7 +24,7 @@ namespace get_data
     bool SensorImuDerived::setup_service( std::string topic_name )
     {
         this->pointer_service = this->create_service< zeabus::srv::GetSensorImu >( topic_name 
-                , std::bind( &SensorImu::callback , this , std::placeholders::_1
+                , std::bind( &SensorImuDerived::callback , this , std::placeholders::_1
                         , std::placeholders::_2 , std::placeholders::_3 
                 ) // std::bind function 
         ); // declare pointer_service
@@ -35,7 +35,7 @@ namespace get_data
     void SensorImuDerived::callback(
             const std::shared_ptr< rmw_request_id_t > request_header
             , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request
-            , const std:;shared_ptr< zeabus::srv::GetSensorImu::Response > response )
+            , const std::shared_ptr< zeabus::srv::GetSensorImu::Response > response )
     {
 #ifdef _DECLARE_CALLBACK_FUNCTION_
         std::cout   << "Callback of " << zeabus::escape_code::normal_red << this->get_name() 
