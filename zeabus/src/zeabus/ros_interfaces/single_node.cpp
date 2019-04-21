@@ -28,12 +28,12 @@ namespace ros_interfaces
             //  ref of rclcpp::node = docs.ros2.org/crystal/api/rclcpp/node_8hpp_source.html
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "start spin of " 
-                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
 #endif
             rclcpp::spin( this->shared_from_this() );
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "end spin of " 
-                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
 #endif
         } // condition rclcpp ok
         this->status_my_thread = false;
@@ -46,12 +46,12 @@ namespace ros_interfaces
         {
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "start spin some of " 
-                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
 #endif
             rclcpp::spin_some( this->shared_from_this() ); // derived by rclcpp::Node
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "end spin some of " 
-                        << this->get_node << zeabus::escape_code::normal_white << std::endl;
+                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
 #endif
         } // condtion rclcpp ok
         this->status_my_thread = false;

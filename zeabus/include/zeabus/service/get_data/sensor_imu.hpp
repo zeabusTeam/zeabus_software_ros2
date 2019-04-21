@@ -59,7 +59,7 @@ namespace get_data
         public:
             SensorImuDerived( std::string node_name );
             
-            bool setup_service( std::string topic_name ) = 0 ;
+            bool setup_service( std::string topic_name );
 
             void callback( 
                     const std::shared_ptr< rmw_request_id_t > request_header 
