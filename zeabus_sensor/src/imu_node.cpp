@@ -31,11 +31,10 @@
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
 
-void spin_thread( std::string node_name , rclcpp::Node::SharedPtr node_ptr );
-
 int main( int argv , char** argc )
 {
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
+    rclcpp::init( argv , argc ); // use one time only
 
 #ifdef _DECLARE_PROCESS_
     std::cout << "Finish declare imu object\n";
@@ -47,7 +46,7 @@ int main( int argv , char** argc )
     unsigned int limit_round = 6; // if you want to try n round set limit_round = n + 1
 
     status_file = imu.open_port();
-    if( ! status_file )
+    if(  ! status_file )
     {
         std::cout << "Failure to open port imu\n";
         skip_process = true;
@@ -71,7 +70,7 @@ int main( int argv , char** argc )
 #endif // _DECLARE_PROCESS_
 
     round = 0; // set init value counter is 0 for start process
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.set_idle(); // try to set imu to idle state
@@ -91,7 +90,7 @@ int main( int argv , char** argc )
     }
 
     round = 0; // set init value counter is 0 for start process
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.ping();
@@ -113,7 +112,7 @@ int main( int argv , char** argc )
     imu.set_IMU_rate( 100 ); // send in mode Rate Decimation = IMU Base Rate / Desired Data Rate
 
     round = 0;
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.set_IMU_message_format( 
@@ -137,7 +136,7 @@ int main( int argv , char** argc )
     // we not save because we have new set up always want to use
 
     round = 0;
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.enable_IMU_data_stream();
@@ -157,7 +156,7 @@ int main( int argv , char** argc )
     }
 
     round = 0;
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.resume();
@@ -181,7 +180,6 @@ int main( int argv , char** argc )
 #endif // _DECLARE_PROCESS_
     sensor_msgs::msg::Imu message;
     message.header.frame_id = "imu";
-    rclcpp::init( argv , argc ); // use one time only
 
     zeabus::service::get_data::SensorImuDerived imu_node( "imu_node" );
     imu_node.regis_message( &message );
@@ -286,13 +284,4 @@ int main( int argv , char** argc )
     imu.close_port();
 
     return 0;
-}
-
-void spin_thread( std::string node_name , rclcpp::Node::SharedPtr node_ptr )
-{
-    std::cout   << zeabus::escape_code::bold_margenta << node_name
-                << " now send to spin\n" << zeabus::escape_code::normal_white; 
-    rclcpp::spin( node_ptr );
-    std::cout   << zeabus::escape_code::bold_red << node_name
-                << " now stop spin\n" << zeabus::escape_code::normal_white; 
 }

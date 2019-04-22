@@ -30,7 +30,7 @@ namespace ros_interfaces
             std::cout   << zeabus::escape_code::normal_margenta << "start spin of " 
                         << this->get_name() << zeabus::escape_code::normal_white << std::endl;
 #endif
-            rclcpp::spin( this->shared_from_this() );
+            rclcpp::spin( shared_from_this() );
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "end spin of " 
                         << this->get_name() << zeabus::escape_code::normal_white << std::endl;
