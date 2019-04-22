@@ -52,12 +52,12 @@ set( SHARED_LIBS
     IMUConnector
     MAESTROConnector
     GetData
+    ROSInterfaces 
 )
 
 set( STATIC_LIBS
     Convert   
     Math
-    ROSInterfaces 
 )
 
 
