@@ -28,7 +28,8 @@ setup(
     test_suite='test',
     entry_points={
         'console_scripts': [
-            'gate = gate.finder:main'
+            'gate = gate.finder:main',
+            'videoPublisher = videoPublisher.main:main'
         ],
     },
 
