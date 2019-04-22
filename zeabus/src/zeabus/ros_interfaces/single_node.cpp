@@ -30,7 +30,7 @@ namespace ros_interfaces
             std::cout   << zeabus::escape_code::normal_margenta << "start spin of " 
                         << this->get_name() << zeabus::escape_code::bold_white << std::endl;
 #endif
-            rclcpp::spin();
+            rclcpp::spin( this->my_ptr );
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "end spin of " 
                         << this->get_name() << zeabus::escape_code::bold_white << std::endl;
@@ -63,6 +63,11 @@ namespace ros_interfaces
     {
         return this->status_my_thread;
     } // function current_status
+
+    void SingleNode::self_point( std::shared_ptr<zeabus::ros_interfaces::SingleNode > my_ptr)
+    {
+        this->my_ptr = my_ptr;
+    }
 
 } // namespace ros_interface
 

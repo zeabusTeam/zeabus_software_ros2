@@ -181,10 +181,17 @@ int main( int argv , char** argc )
     sensor_msgs::msg::Imu message;
     message.header.frame_id = "imu";
 
-    zeabus::service::get_data::SensorImuDerived imu_node( "imu_node" );
-    imu_node.regis_message( &message );
-    (void)imu_node.setup_service( "/sensor/imu");
-    imu_node.spin();
+    std::shared_ptr< zeabus::service::get_data::SensorImuDerived > ptr_imu_node 
+        = std::make_shared< zeabus::service::get_data::SensorImuDerived >( "imu_node" );
+    ptr_imu_node->regis_message( &message );
+    ptr_imu_node->setup_service( "/sensor/imu");
+    ptr_imu_node->self_point( ptr_imu_node );
+    ptr_imu_node->spin();
+
+//    zeabus::service::get_data::SensorImuDerived imu_node( "imu_node" );
+//    imu_node.regis_message( &message );
+//    (void)imu_node.setup_service( "/sensor/imu");
+//    imu_node.spin();
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );

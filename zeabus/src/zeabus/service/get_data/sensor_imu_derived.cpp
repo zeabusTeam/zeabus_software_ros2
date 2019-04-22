@@ -39,7 +39,7 @@ namespace get_data
     {
 #ifdef _DECLARE_CALLBACK_FUNCTION_
         std::cout   << "Callback of " << zeabus::escape_code::normal_red << this->get_name() 
-                    << " have been call\n" << zeabus::escape_code::normal_while; 
+                    << " have been call\n" << zeabus::escape_code::bold_white; 
 #endif // definition _DECLARE_CALLBACK_FUNCTION_
         (void)request_header;
         (response->header).stamp = rclcpp::Time();

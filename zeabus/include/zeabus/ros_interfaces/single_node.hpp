@@ -42,15 +42,16 @@ namespace ros_interfaces
             public rclcpp::Node 
     {
         private:
-            std::shared_ptr< rclcpp::Node > my_ptr;
             std::thread my_thread; // empty thread will use swap to fill thread
             void spin_node(); // this function will call when wants to spin thread
         // end part of private privacy. Default is private. 
         protected:
             bool status_my_thread; // true when now spinning
+            std::shared_ptr< zeabus::ros_interfaces::SingleNode > my_ptr;
 
         public:
             SingleNode( std::string node_name );
+            void self_point( std::shared_ptr< zeabus::ros_interfaces::SingleNode > my_ptr);
             bool spin(); // use to spin this node
             bool current_status(); //  return status_my_thread
             
