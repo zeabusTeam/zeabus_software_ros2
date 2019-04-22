@@ -184,7 +184,7 @@ int main( int argv , char** argc )
     zeabus::service::get_data::SensorImuDerived imu_node( "imu_node" );
     imu_node.regis_message( &message );
     (void)imu_node.setup_service( "/sensor/imu");
-//    imu_node.spin();
+    imu_node.spin();
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );

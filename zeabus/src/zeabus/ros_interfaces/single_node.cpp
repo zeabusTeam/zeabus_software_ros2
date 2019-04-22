@@ -28,34 +28,16 @@ namespace ros_interfaces
             //  ref of rclcpp::node = docs.ros2.org/crystal/api/rclcpp/node_8hpp_source.html
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "start spin of " 
-                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
+                        << this->get_name() << zeabus::escape_code::bold_white << std::endl;
 #endif
-            rclcpp::spin( shared_from_this() );
+            rclcpp::spin();
 #ifdef _PRINT_THREAD_PROCESS_
             std::cout   << zeabus::escape_code::normal_margenta << "end spin of " 
-                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
+                        << this->get_name() << zeabus::escape_code::bold_white << std::endl;
 #endif
         } // condition rclcpp ok
         this->status_my_thread = false;
     } // function spin_node
-
-    void SingleNode::spin_some_node()
-    {
-        this->status_my_thread = true;
-        if( rclcpp::ok() )
-        {
-#ifdef _PRINT_THREAD_PROCESS_
-            std::cout   << zeabus::escape_code::normal_margenta << "start spin some of " 
-                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
-#endif
-            rclcpp::spin_some( this->shared_from_this() ); // derived by rclcpp::Node
-#ifdef _PRINT_THREAD_PROCESS_
-            std::cout   << zeabus::escape_code::normal_margenta << "end spin some of " 
-                        << this->get_name() << zeabus::escape_code::normal_white << std::endl;
-#endif
-        } // condtion rclcpp ok
-        this->status_my_thread = false;
-    } // function spin_some_node
 
     // in return of this don't mean we already spin but mean we have spin 
     // but mean we have split thread to run or not
@@ -76,24 +58,6 @@ namespace ros_interfaces
         } // condition already have thread?
         return result;
     } // function spin
-
-    bool SingleNode::spin_some()
-    {
-        bool result = false;
-        if( ! ( this->status_my_thread ) )
-        {
-            if( rclcpp::ok() )
-            {
-                this->my_thread = std::thread( std::bind(
-                        &zeabus::ros_interfaces::SingleNode::spin_some_node
-                        , this 
-                        ) //std::bind
-                ); // assing my_thread
-                result = true;
-            } // check ros handle
-        } // condition already have thread?
-        return result;
-    } // function spin_some
 
     bool SingleNode::current_status()
     {
