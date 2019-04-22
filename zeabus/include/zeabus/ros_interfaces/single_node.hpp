@@ -47,10 +47,10 @@ namespace ros_interfaces
             void spin_some_node();
         // end part of private privacy. Default is private. 
         protected:
-            SingleNode( std::string node_name );
             bool status_my_thread; // true when now spinning
 
         public:
+            SingleNode( std::string node_name );
             bool spin(); // use to spin this node
             bool spin_some(); // use to spin_some this node
             bool current_status(); //  return status_my_thread
