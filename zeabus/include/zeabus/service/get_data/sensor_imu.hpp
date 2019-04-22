@@ -39,30 +39,11 @@ namespace service
 {
 namespace get_data
 {
-    class SensorImu : public rclcpp::Node
+
+    class SensorImu : public zeabus::service::get_data::BaseClass< sensor_msgs::msg::Imu >
     {
         public:
-            SensorImu( std::string node_name ); // this function will init node together
-
-            void regis_data( sensor_msgs::msg::Imu* pointer_data );
-
-            void start_service( std::string topic_name );
-
-            rclcpp::Service< zeabus::srv::GetSensorImu >::SharedPtr service_variable;
-
-            void callback( 
-                    const std::shared_ptr< rmw_request_id_t > request_header 
-                    , const std::shared_ptr< zeabus::srv::GetSensorImu::Request > request
-                    , const std::shared_ptr< zeabus::srv::GetSensorImu::Response > response );
-        private:
-            sensor_msgs::msg::Imu* pointer_data;
-
-    }; // class SensorImu 
-
-    class SensorImuDerived : public zeabus::service::get_data::BaseClass< sensor_msgs::msg::Imu >
-    {
-        public:
-            SensorImuDerived( std::string node_name );
+            SensorImu( std::string node_name );
             
             bool setup_service( std::string topic_name );
 
@@ -73,7 +54,7 @@ namespace get_data
 
         private:
             rclcpp::Service< zeabus::srv::GetSensorImu >::SharedPtr pointer_service;
-    }; // class SensorImuDerived
+    }; // class SensorImu
 
 } // namespace get_data
 
