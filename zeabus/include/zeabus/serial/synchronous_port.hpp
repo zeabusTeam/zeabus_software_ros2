@@ -9,6 +9,9 @@
 // Type about time to read\write port have two is synchronous and asynchronous.
 // This file use synchronous type to connect serial port.
 
+// MACRO DETAIL
+// _SHOW_INDIVIDUAL_CHAR_   : this for read_data( std::string* ) this show data you haved read
+
 #ifndef _ZEABUS_SERIAL_SYNCHRONOUS_PORT_HPP
 #define _ZEABUS_SERIAL_SYNCHRONOUS_PORT_HPP
 
