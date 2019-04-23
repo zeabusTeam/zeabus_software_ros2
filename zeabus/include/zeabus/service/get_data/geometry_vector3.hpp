@@ -9,9 +9,9 @@
 
 #include    <iostream>
 
-#include    "geometry_msgs/mgs/vector3_stamped.hpp"
+#include    "geometry_msgs/msg/vector3_stamped.hpp"
 
-#include    "zeabus/srv/get_vecter3_stamped.hpp"
+#include    "zeabus/srv/get_vector3_stamped.hpp"
 
 #include    <memory> // std::shared_ptr
 
