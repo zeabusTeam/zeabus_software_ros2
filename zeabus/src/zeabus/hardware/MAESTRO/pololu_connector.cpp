@@ -2,12 +2,12 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE ON    : 2019, APRIL 11
 
-#include    <zeabus/sensor/MAESTRO/connector.hpp>
+#include    <zeabus/hardware/MAESTRO/connector.hpp>
 
 namespace zeabus
 {
 
-namespace sensor
+namespace hardware
 {
 
 namespace MAESTRO
@@ -47,7 +47,7 @@ namespace POLOLU
     {
         bool result = false;
         this->init_header( 
-                zeabus::sensor::MAESTRO::protocol::POLOLU::COMMAND_SET_MULTIPLE_TARGETS );
+                zeabus::hardware::MAESTRO::protocol::POLOLU::COMMAND_SET_MULTIPLE_TARGETS );
         zeabus::variadic::push_data( &(this->data) , target_bits->size() , first_channel );
         this->push_vector_2_bytes( target_bits );
         unsigned int num_check = this->write_data( &(this->data) , (this->data).size() );
@@ -62,6 +62,6 @@ namespace POLOLU
 
 } // namespace MAESTRO
 
-} // namespace sensor
+} // namespace hardware
 
 } // namespace zeabus

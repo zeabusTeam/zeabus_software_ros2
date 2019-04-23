@@ -2,14 +2,14 @@
 // AUTHOR       : Supasan Komonlit
 // CREATE ON    : 2019, APRIL 11
 
-#include    <zeabus/sensor/MAESTRO/packet.hpp>
+#include    <zeabus/hardware/MAESTRO/packet.hpp>
 
 // This file will source code only packet for Pololu Protocol
 
 namespace zeabus
 {
 
-namespace sensor
+namespace hardware
 {
 
 namespace MAESTRO
@@ -60,6 +60,6 @@ namespace POLOLU
 
 } // namespace MAESTRO
 
-} // namespace sensor
+} // namespace hardware
 
 } // namespace zeabus

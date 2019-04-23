@@ -10,20 +10,20 @@
 
 #include    <zeabus/serial/synchronous_port.hpp>
 
-#include    <zeabus/sensor/MAESTRO/packet.hpp>
+#include    <zeabus/hardware/MAESTRO/packet.hpp>
 
-#include    <zeabus/sensor/MAESTRO/protocol.hpp>
+#include    <zeabus/hardware/MAESTRO/protocol.hpp>
 
 // This file will prepare packet and write packet
 // reference https://www.pololu.com/docs/0J40/5.e
 
-#ifndef _ZEABUS_SENSOR_MAESTRO_CONNECTOR_HPP__
-#define _ZEABUS_SENSOR_MAESTRO_CONNECTOR_HPP__
+#ifndef _ZEABUS_HARDWARE_MAESTRO_CONNECTOR_HPP__
+#define _ZEABUS_HARDWARE_MAESTRO_CONNECTOR_HPP__
 
 namespace zeabus
 {
 
-namespace sensor
+namespace hardware
 {
 
 namespace MAESTRO
@@ -38,11 +38,11 @@ namespace POLOLU
             Connector( std::string port_name ); // case only data for serial port
             // In case data for packet
             Connector( unsigned char init_byte 
-                    = zeabus::sensor::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
+                    = zeabus::hardware::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
                     , unsigned char device_number = 0x0C , unsigned int reserve_size = 100 );
             // In case data for all
             Connector( std::string port_name , unsigned char init_byte 
-                    = zeabus::sensor::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
+                    = zeabus::hardware::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
                     , unsigned char device_number = 0x0C , unsigned int reserve_size = 100 );
             Connector(); // Case not have data to init
 
@@ -55,7 +55,7 @@ namespace POLOLU
 
 } // namespace MAESTRO
 
-} // namespace sensor
+} // namespace hardware
 
 } // namespace zeabus
 

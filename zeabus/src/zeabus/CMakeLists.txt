@@ -12,4 +12,6 @@ add_subdirectory( convert )
 
 add_subdirectory( sensor )
 
+add_subdirectory( hardware )
+
 add_subdirectory( service )

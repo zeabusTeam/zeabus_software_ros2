@@ -14,13 +14,13 @@
 
 #include    <iostream>
 
-#ifndef _ZEABUS_SENSOR_MAESTRO_PROTOCOL_HPP__
-#define _ZEABUS_SENSOR_MAESTRO_PROTOCOL_HPP__
+#ifndef _ZEABUS_HARDWARE_MAESTRO_PROTOCOL_HPP__
+#define _ZEABUS_HARDWARE_MAESTRO_PROTOCOL_HPP__
 
 namespace zeabus
 {
 
-namespace sensor
+namespace hardware
 {
 
 namespace MAESTRO
@@ -65,7 +65,7 @@ namespace COMPACT
 
 } // namespace MAESTRO
 
-} // namespace sensor
+} // namespace hardware
 
 } // namespace zeabus
 

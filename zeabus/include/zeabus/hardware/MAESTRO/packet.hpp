@@ -12,7 +12,7 @@
 
 #include    <zeabus/variadic/utilize_vector.hpp>
 
-#include    <zeabus/sensor/MAESTRO/protocol.hpp>
+#include    <zeabus/hardware/MAESTRO/protocol.hpp>
 
 // This file will make packet protocol for connect to pololu
 // Reference packet :
@@ -30,12 +30,12 @@
 // Format individual packet of command
 // Reference https://www.pololu.com/docs/0J40/5.e
 
-#ifndef _ZEABUS_SENSOR_MAESTRO_PACKET_HPP__
-#define _ZEABUS_SENSOR_MAESTRO_PACKET_HPP__
+#ifndef _ZEABUS_HARDWARE_MAESTRO_PACKET_HPP__
+#define _ZEABUS_HARDWARE_MAESTRO_PACKET_HPP__
 
 namespace zeabus
 {
-namespace sensor
+namespace hardware
 {
 namespace MAESTRO
 {
@@ -62,12 +62,12 @@ namespace MAESTRO
 
 namespace POLOLU
 {
-    class Packet : public zeabus::sensor::MAESTRO::BasePacket
+    class Packet : public zeabus::hardware::MAESTRO::BasePacket
     {
         public:
 
             Packet( unsigned char init_byte 
-                    = zeabus::sensor::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
+                    = zeabus::hardware::MAESTRO::protocol::POLOLU::BASE_PROTOCOL 
                     , unsigned char device_number = 0x0C , unsigned int reserve_size = 100 );
 
             void set_init_byte( unsigned char init_byte );
@@ -87,7 +87,7 @@ namespace POLOLU
 
 } // namespace MAESTRO
 
-} // namespace sensor
+} // namespace hardware
 
 } // namespace zeabus
 
