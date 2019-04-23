@@ -8,7 +8,9 @@
 
 #include    <zeabus/sensor/DVL/decode_string.hpp>
 
-#include    <zeabus/service/type_get_01/vector3_stamped.hpp>
+#include    <zeabus/service/get_data/vector3_stamped.hpp>
+
+#include   <memory>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "geometry_msgs/msg/vector3_stamped.hpp"
@@ -52,10 +54,13 @@ int main( int argv , char** argc )
     char ok_data;
     
     rclcpp::init( argv , argc );
-    rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
-
-    zeabus::service::type_get_01::Vector3Stamped sender( dvl_node );
-    auto server_sender = sender.create_service( &message , "/sensor/dvl" );
+    
+    std::shared_ptr< zeabus::service::get_data::GeometryVector3Stamped > ptr_dvl_node
+        = std::make_shared< zeabus::service::get_data::GeometryVector3Stamped >( "dvl_node");
+    ptr_dvl_node->regis_message( &message );
+    ptr_dvl_node->setup_service( "/sensor/dvl" );
+    ptr_dvl_node->self_point( ptr_dvl_node );
+    ptr_dvl_node->spin();
 
     while( status_file )
     {
@@ -81,7 +86,6 @@ int main( int argv , char** argc )
                 std::cout << "DVL BAD DATA\n" ;
             }
         } // condition BS data
-        rclcpp::spin_some( dvl_node ); 
     } // while loop of ros operating system
     rclcpp::shutdown();
 
