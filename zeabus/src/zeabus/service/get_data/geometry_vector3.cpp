@@ -29,6 +29,7 @@ namespace get_data
                 , std::placeholders::_1 , std::placeholders::_2 , std::placeholders::_3 
             ) // std::bind function 
         ); // declare pointer_service
+        return this->check_register(); 
     } // function setup_service
 
     void GeometryVector3Stamped::callback(
