@@ -38,15 +38,16 @@ namespace get_data
     class GeometryVector3Stamped : 
             public zeabus::service::get_data::BaseClass< geometry_msgs::msg::Vector3Stamped >
     {
-        GeometryVector3Stamped( std::string node_name );
-        
-        bool setup_service( std::string topic_name );
+        public:
+            GeometryVector3Stamped( std::string node_name );
+            
+            bool setup_service( std::string topic_name );
 
-        void callback(
-                const std::shared_ptr< rmw_request_id_t > request_header
-                , const std::shared_ptr< zeabus::srv::GetVector3Stamped::Request > request
-                , const std::shared_ptr< zeabus::srv::GetVector3Stamped::Response > response
-                );
+            void callback(
+                    const std::shared_ptr< rmw_request_id_t > request_header
+                    , const std::shared_ptr< zeabus::srv::GetVector3Stamped::Request > request
+                    , const std::shared_ptr< zeabus::srv::GetVector3Stamped::Response > response
+            );
 
         private:
             rclcpp::Service< zeabus::srv::GetVector3Stamped >::SharedPtr pointer_service;

@@ -8,7 +8,7 @@
 
 #include    <zeabus/sensor/DVL/decode_string.hpp>
 
-#include    <zeabus/service/get_data/vector3_stamped.hpp>
+#include    <zeabus/service/get_data/geometry_vector3.hpp>
 
 #include   <memory>
 

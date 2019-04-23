@@ -34,12 +34,12 @@ target_link_libraries( imu_node
     ${Boost_LIBRARIES} 
 )
 
-#add_executable( dvl_node src/dvl_node.cpp)
-#ament_target_dependencies( dvl_node ${zeabus_LIBRARIES} rclcpp geometry_msgs)
-#target_link_libraries( dvl_node  
-#    ${zeabus_LIBRARIES} 
-#    ${Boost_LIBRARIES} 
-#)
+add_executable( dvl_node src/dvl_node.cpp)
+ament_target_dependencies( dvl_node ${zeabus_LIBRARIES} rclcpp geometry_msgs)
+target_link_libraries( dvl_node  
+    ${zeabus_LIBRARIES} 
+    ${Boost_LIBRARIES} 
+)
 
 install( TARGETS 
     imu_node 
