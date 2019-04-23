@@ -1,1 +1,1 @@
-add_subdirectory( type_get_01 )
+add_subdirectory( get_data )

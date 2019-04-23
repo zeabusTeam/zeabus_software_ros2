@@ -97,6 +97,8 @@ namespace DVL
             // Page 129 : CS Starting pinging 
             bool resume();
 
+            // above function have prepare meessage to send DVL
+            // but below function is who send data to DVL
             bool send_message( std::string* data , unsigned int size_check );
 
     }; // class connector

@@ -13,7 +13,7 @@ namespace serial
     SerialPort::SerialPort( std::string port_name ) : io_port( this->io_service )
     {
         this->set_name_port( port_name ); // For refactor
-    }
+    } // function constructor
 
     SerialPort::~SerialPort()
     {
@@ -21,7 +21,7 @@ namespace serial
         {
             (void)this->close_port(); // because this will return we must to void for MISRA C++
         }
-    }
+    } // function deconstructor
 
     bool SerialPort::open_port()
     {
@@ -36,7 +36,7 @@ namespace serial
             result = false;
         }
         return result;
-    }
+    } // function open_port
 
     bool SerialPort::close_port()
     {
@@ -52,17 +52,17 @@ namespace serial
             printf( "Failure close port %s\n" , this->port_name.c_str() );
         }
         return result;
-    }
+    } // function close_port
 
     bool SerialPort::port_is_open()
     {
         return this->io_port.is_open();
-    }
+    } // function port_is_open
 
     void SerialPort::set_name_port( std::string port_name )
     {
         this->port_name = port_name;
-    }
+    } // function set_name_port
 
     bool SerialPort::set_option_port( boost::asio::serial_port_base::baud_rate data )
     {
@@ -78,7 +78,7 @@ namespace serial
             result = true;
         }
         return result;
-    }
+    } // funnction set_option_port
 
     bool SerialPort::set_option_port( boost::asio::serial_port_base::flow_control data )
     {
@@ -94,7 +94,7 @@ namespace serial
             result = true;
         }
         return result;
-    }
+    } // function set_option_port
 
     bool SerialPort::set_option_port( boost::asio::serial_port_base::parity data )
     {
@@ -110,7 +110,7 @@ namespace serial
             result = true;
         }
         return result;
-    }
+    } // function set_option_port
 
     bool SerialPort::set_option_port( boost::asio::serial_port_base::stop_bits data )
     {
@@ -126,7 +126,7 @@ namespace serial
             result = true;
         }
         return result;
-    }
+    } // function set_option_port
 
     bool SerialPort::set_option_port( boost::asio::serial_port_base::character_size data )
     {
@@ -142,7 +142,7 @@ namespace serial
             result = true;
         }
         return result;
-    }
+    } // function set_option_port
 
 } // namespace serial
 

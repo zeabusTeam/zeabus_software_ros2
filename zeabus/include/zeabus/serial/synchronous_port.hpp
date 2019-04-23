@@ -9,6 +9,9 @@
 // Type about time to read\write port have two is synchronous and asynchronous.
 // This file use synchronous type to connect serial port.
 
+// MACRO DETAIL
+// _SHOW_INDIVIDUAL_CHAR_   : this for read_data( std::string* ) this show data you haved read
+
 #ifndef _ZEABUS_SERIAL_SYNCHRONOUS_PORT_HPP
 #define _ZEABUS_SERIAL_SYNCHRONOUS_PORT_HPP
 
@@ -22,6 +25,9 @@ namespace serial
         public:
             SynchronousPort( std::string name_port = "" );
 
+            // read_data & write_data we have decision to use overload function
+            // but in function parameter is std::string 
+            // when connect to serial will use read_data by vector< unsigned char >
             unsigned int read_data( std::vector<unsigned char>* buffer 
                     , unsigned int size );
 

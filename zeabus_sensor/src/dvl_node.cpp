@@ -8,7 +8,9 @@
 
 #include    <zeabus/sensor/DVL/decode_string.hpp>
 
-#include    <zeabus/service/type_get_01/vector3_stamped.hpp>
+#include    <zeabus/service/get_data/geometry_vector3.hpp>
+
+#include   <memory>
 
 #include    "rclcpp/rclcpp.hpp"
 #include    "geometry_msgs/msg/vector3_stamped.hpp"
@@ -29,6 +31,17 @@ int main( int argv , char** argc )
         std::cout   << "Failure to open port dvl\n";
     }
 
+    // idle in importance process because if can help guaruntee success setup
+    status_file = dvl.set_idle()
+    if( status_file )
+    {
+        std::cout   << "Succress to set idle\n";
+    }
+    else
+    {
+        std::cout   << "Failure to set idel\n";
+    }
+
     if( status_file ) // open port is success
     {
         (void)dvl.load_parameter();
@@ -45,16 +58,20 @@ int main( int argv , char** argc )
     }
 
     std::string raw_data; // collect data line from port
-    register std::string type_line; // collect only type of raw_data
-    geometry_msgs::msg::Vector3Stamped message;
+    std::string type_line; // collect only type of raw_data
+    ()geometry_msgs::msg::Vector3Stamped message;
+    message.header.frame_id = "dvl";
     int temp_velocity[4] = { 0 , 0 , 0 , 0 }; // for collect data from function
     char ok_data;
     
     rclcpp::init( argv , argc );
-    rclcpp::Node::SharedPtr dvl_node = rclcpp::Node::make_shared("dvl_node");
-
-    zeabus::service::type_get_01::Vector3Stamped sender( &dvl_node );
-    auto server_sender = sender.create_service( &message , "/sensor/dvl" );
+    
+    std::shared_ptr< zeabus::service::get_data::GeometryVector3Stamped > ptr_dvl_node
+        = std::make_shared< zeabus::service::get_data::GeometryVector3Stamped >( "dvl_node");
+    ptr_dvl_node->regis_message( &message );
+    ptr_dvl_node->setup_service( "/sensor/dvl" );
+    ptr_dvl_node->self_point( ptr_dvl_node );
+    ptr_dvl_node->spin();
 
     while( status_file )
     {
@@ -73,13 +90,13 @@ int main( int argv , char** argc )
                 message.vector.x = temp_velocity[0];
                 message.vector.y = temp_velocity[1];
                 message.vector.z = temp_velocity[2];
+                message.header.stamp = rclcpp::Time();
             }
             else
             {
                 std::cout << "DVL BAD DATA\n" ;
             }
         } // condition BS data
-        rclcpp::spin_some( dvl_node ); 
     } // while loop of ros operating system
     rclcpp::shutdown();
 

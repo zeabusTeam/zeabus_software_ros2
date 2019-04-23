@@ -1,6 +1,13 @@
 cmake_minimum_required( VERSION 3.5 )
 project( zeabus )
 
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic )
+endif()
 
 find_package( ament_cmake REQUIRED ) # For use tool buil source code or package
 find_package( Boost REQUIRED COMPONENTS ) # For use Boost library
@@ -20,6 +27,7 @@ rosidl_generate_interfaces( ${PROJECT_NAME}
     "srv/GetSensorImu.srv"
     "srv/GetTwistStamped.srv"
     "srv/GetVector3Stamped.srv"
+    "srv/SendUInt16Array.srv"
     DEPENDENCIES std_msgs sensor_msgs geometry_msgs
 )
 
@@ -43,11 +51,14 @@ set( SHARED_LIBS
     SynchronousPort
     DVLConnector 
     IMUConnector
+    MAESTROConnector
+    GetData
+    ROSInterfaces 
 )
 
 set( STATIC_LIBS
     Convert   
-    GetType01 
+    Math
 )
 
 

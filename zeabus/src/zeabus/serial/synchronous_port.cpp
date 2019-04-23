@@ -4,6 +4,9 @@
 
 #include    <zeabus/serial/synchronous_port.hpp>
 
+// MACRO DETAIL
+// _SHOW_INDIVIDUAL_CHAR_ : this for read_data( std::string* ) this show data haved read
+
 namespace zeabus
 {
 

@@ -1,13 +1,11 @@
-// File         : node.cpp
+// File         : imu_node.cpp
 // Author       : Supasan Komonlit
 // CREATE ON    : 27, MARCH 2019
 
-#define _ERROR_TYPE_
-#define _CHECK_MEMORY_
-#define _PRINT_DATA_CONNECTION_
-
 #define _DECLARE_PROCESS_
 #define _PRINT_DATA_STREAM_
+
+#include    "rclcpp/rclcpp.hpp"
 
 #include    <zeabus/sensor/IMU/connector.hpp>
 
@@ -15,15 +13,20 @@
 
 #include    <zeabus/convert/vector/one_byte.hpp>
 
-#include    <zeabus/service/type_get_01/sensor_imu.hpp>
+#include    <zeabus/service/get_data/sensor_imu.hpp>
 
-#include    "rclcpp/rclcpp.hpp"
+#include    <zeabus/srv/get_sensor_imu.hpp>
+
 #include    "sensor_msgs/msg/imu.hpp"
 
 #include    <iostream>
 #include    <chrono>
-#include    <stdio.h>
 #include    <vector>
+
+#include    <memory> // for use std::shared_ptr and std::make_shared
+
+#include    <thread> // we will try to spawn thread to spin only
+#include    <zeabus/escape_code.hpp>
 
 namespace Asio = boost::asio;
 namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
@@ -31,9 +34,10 @@ namespace IMUProtocal = zeabus::sensor::IMU::LORD_MICROSTRAIN;
 int main( int argv , char** argc )
 {
     zeabus::sensor::IMU::Connector imu("/dev/microstrain/3dm_gx5_45_0000__6251.65903" , 100 );
+    rclcpp::init( argv , argc ); // use one time only
 
 #ifdef _DECLARE_PROCESS_
-    printf("Finish declare imu object\n");
+    std::cout << "Finish declare imu object\n";
 #endif // _DECLARE_PROCESS_
 
     bool status_file = true ; // use collect response of function
@@ -42,14 +46,14 @@ int main( int argv , char** argc )
     unsigned int limit_round = 6; // if you want to try n round set limit_round = n + 1
 
     status_file = imu.open_port();
-    if( ! status_file )
+    if(  ! status_file )
     {
-        printf("Failure to open port imu\n");
+        std::cout << "Failure to open port imu\n";
         skip_process = true;
     }
 #ifdef _DECLARE_PROCESS_
     else{
-        printf("Finish open_port process\n");
+        std::cout << "Finish open_port process\n";
     }
 #endif // _DECLARE_PROCESS_
 
@@ -62,11 +66,11 @@ int main( int argv , char** argc )
 	(void)imu.set_option_port( Asio::serial_port_base::character_size( (unsigned char) 8 ) );
 
 #ifdef _DECLARE_PROCESS_
-    printf("Finish setup port of imu\n");
+    std::cout << "Finish setup port of imu\n";
 #endif // _DECLARE_PROCESS_
 
     round = 0; // set init value counter is 0 for start process
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.set_idle(); // try to set imu to idle state
@@ -79,14 +83,14 @@ int main( int argv , char** argc )
             printf("round %d : Success command set idle\n\n" , round );
             break; // jump success this process
         }
-        if( round == (limit_round * 2) )
+        if( round == (limit_round * 20) )
         {
             skip_process = true;
         }
     }
 
     round = 0; // set init value counter is 0 for start process
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.ping();
@@ -108,7 +112,7 @@ int main( int argv , char** argc )
     imu.set_IMU_rate( 100 ); // send in mode Rate Decimation = IMU Base Rate / Desired Data Rate
 
     round = 0;
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.set_IMU_message_format( 
@@ -132,7 +136,7 @@ int main( int argv , char** argc )
     // we not save because we have new set up always want to use
 
     round = 0;
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.enable_IMU_data_stream();
@@ -152,7 +156,7 @@ int main( int argv , char** argc )
     }
 
     round = 0;
-    while( ! skip_process )
+    while( ( ! skip_process ) && rclcpp::ok() )
     {
         round++;
         status_file = imu.resume();
@@ -175,11 +179,19 @@ int main( int argv , char** argc )
     printf( "Now setup object for ROS Mode\n");
 #endif // _DECLARE_PROCESS_
     sensor_msgs::msg::Imu message;
+    message.header.frame_id = "imu";
 
-    rclcpp::init( argv , argc ); // use one time only
-    rclcpp::Node::SharedPtr imu_node = rclcpp::Node::make_shared("imu_node");
-    zeabus::service::type_get_01::SensorImu sender( &imu_node );
-    auto server_sender = sender.create_service( &message , "/sensor/imu");
+    std::shared_ptr< zeabus::service::get_data::SensorImu > ptr_imu_node 
+        = std::make_shared< zeabus::service::get_data::SensorImu >( "imu_node" );
+    ptr_imu_node->regis_message( &message );
+    ptr_imu_node->setup_service( "/sensor/imu");
+    ptr_imu_node->self_point( ptr_imu_node );
+    ptr_imu_node->spin();
+
+//    zeabus::service::get_data::SensorImuDerived imu_node( "imu_node" );
+//    imu_node.regis_message( &message );
+//    (void)imu_node.setup_service( "/sensor/imu");
+//    imu_node.spin();
 
 #ifdef _DECLARE_PROCESS_
     printf( "Now start streaming data\n" );
@@ -197,6 +209,11 @@ int main( int argv , char** argc )
 #ifdef _PRINT_DATA_STREAM_
             imu.print_data( "IMU message " );
 #endif // _PRINT_DATA_STREAM_
+            if( imu.access_data(2) != 0x80 ) // Desciptor set byte of data stream is 0x80
+            {
+                std::cout << "This not packet for data stream skip out\n";
+                continue;
+            }
             printf( "<--- IMU ---> GOOD DATA\n\n");
             // start at position 5 indent 0 1 2 3  
             // because 0 - 4 is header and description of data packet
@@ -235,22 +252,19 @@ int main( int argv , char** argc )
                     skip_process = true;
                     break;
                 }
+                message.header.stamp = rclcpp::Time(); 
             } // loop for of get data
         } // condition have packet of data stream
         else
         {
             printf( "<--- IMU ---> BAD DATA\n\n");
         }
-#ifdef _PRINT_DATA_STREAM_
-        printf("Before spin\n" );
-#endif // _PRINT_DATA_STREAM_
-        rclcpp::spin_some( imu_node );
     } // loop while for doing in ros system
 
     rclcpp::shutdown();
 
     round = 0; // set init value counter is 0 for start process
-    while( rclcpp::ok() && ! skip_process )
+    while( imu.port_is_open() ) //
     {
         round++;
         status_file = imu.set_idle(); // try to set imu to idle state
@@ -262,10 +276,6 @@ int main( int argv , char** argc )
         {
             printf("round %d : Success command set idle\n\n" , round );
             break; // jump success this process
-        }
-        if( round == ( limit_round * 2 ) )
-        {
-            skip_process = true;
         }
     }
 
