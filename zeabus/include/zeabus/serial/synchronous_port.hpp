@@ -22,6 +22,9 @@ namespace serial
         public:
             SynchronousPort( std::string name_port = "" );
 
+            // read_data & write_data we have decision to use overload function
+            // but in function parameter is std::string 
+            // when connect to serial will use read_data by vector< unsigned char >
             unsigned int read_data( std::vector<unsigned char>* buffer 
                     , unsigned int size );
 

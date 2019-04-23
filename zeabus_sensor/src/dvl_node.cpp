@@ -31,6 +31,17 @@ int main( int argv , char** argc )
         std::cout   << "Failure to open port dvl\n";
     }
 
+    // idle in importance process because if can help guaruntee success setup
+    status_file = dvl.set_idle()
+    if( status_file )
+    {
+        std::cout   << "Succress to set idle\n";
+    }
+    else
+    {
+        std::cout   << "Failure to set idel\n";
+    }
+
     if( status_file ) // open port is success
     {
         (void)dvl.load_parameter();
@@ -48,7 +59,7 @@ int main( int argv , char** argc )
 
     std::string raw_data; // collect data line from port
     std::string type_line; // collect only type of raw_data
-    geometry_msgs::msg::Vector3Stamped message;
+    ()geometry_msgs::msg::Vector3Stamped message;
     message.header.frame_id = "dvl";
     int temp_velocity[4] = { 0 , 0 , 0 , 0 }; // for collect data from function
     char ok_data;
